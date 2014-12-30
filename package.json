@@ -1,0 +1,29 @@
+{
+  "name": "budnamu",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "webpack": "^1.4.13",
+    "style-loader": "^0.8.2",
+    "css-loader": "^0.9.0",
+    "less-loader": "^0.7.8",
+    "6to5": "1.15.0 - 2.x.x",
+    "6to5-loader": ">=0.2.4",
+    "acorn": "^0.11.0",
+    "react": "^0.12.1",
+    "rx": "^2.3.22",
+    "immutable": "^3.4.0",
+    "mirrorkey": "~1.2.0",
+    "flux": "^2.0.1"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.1.3",
+    "karma": "^0.12.28",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-jasmine": "^0.3.3",
+    "karma-webpack": "^1.3.1",
+    "webpack-dev-server": "^1.7.0"
+  },
+  "scripts": {}
+}

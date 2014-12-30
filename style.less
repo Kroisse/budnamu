@@ -1,0 +1,117 @@
+@base03:    #002b36;
+@base02:    #073642;
+@base01:    #586e75;
+@base00:    #657b83;
+@base0:     #839496;
+@base1:     #93a1a1;
+@base2:     #eee8d5;
+@base3:     #fdf6e3;
+@yellow:    #b58900;
+@orange:    #cb4b16;
+@red:       #dc322f;
+@magenta:   #d33682;
+@violet:    #6c71c4;
+@blue:      #268bd2;
+@cyan:      #2aa198;
+@green:     #859900;
+
+
+// Clearfix
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+//
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+
+.clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+
+.syntax-tree {
+  padding: 1ex;
+  font-family: monospace;
+  background-color: @base03;
+  color: @base3;
+
+  .keyword { color: @blue; }
+
+  .paren-open, .paren-close { color: @cyan; }
+
+  .statement {
+    position: relative;
+    .clearfix;
+
+    &.variable-declaration {
+      display: table;
+      .keyword, .declarations { display: table-cell; }
+    }
+
+    &.switch-statement .case-body {
+      padding-left: 4ex;
+    }
+  }
+
+  .expression {
+    &.literal {
+      &.literal-string { color: @orange; }
+      &.literal-number { color: @green; }
+      &.literal-boolean { color: @blue; }
+    }
+    // &.identifier { font-weight: bold; }
+
+    &.object-expression {
+      .properties {
+        display: block;
+        margin-left: 4ex;
+      }
+      .property { display: inline-block; }
+    }
+  }
+
+  .statement.unknown-statement .inner,
+  .expression.unknown-expression { background-color: @base00; };
+
+  .block .block {
+    padding-left: 4ex;
+  }
+}
+
+.compound.block {
+  > .header, > .footer {
+    display: inline-block;
+    background-color: aqua;
+  }
+
+  &:hover {
+    > .header, > .footer {
+      outline: 4px solid black;
+    }
+  }
+
+  > .body > .block {
+    margin-left: 4ex;
+  }
+  > .footer {
+    position: absolute;
+    z-index: -1;
+    left: 0; top: 0;
+    width: 1ex;
+    height: 100%;
+  }
+}
+
+.block.assignment > .wrap { background-color: lightyellow; }
+.block.yield > .wrap { background-color: lightgreen; }
