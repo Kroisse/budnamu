@@ -5,6 +5,7 @@ var dispatcher = require("dispatcher");
 
 class StoreBase extends EventEmitter {
     constructor() {
+        super();
         if (this.performAction) {
             this.dispatchToken = dispatcher.register(this.performAction.bind(this));
         }
