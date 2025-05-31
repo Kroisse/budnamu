@@ -10,7 +10,9 @@
     "flux": "^2.0.1",
     "immutable": "^3.4.0",
     "mirrorkey": "~1.2.0",
-    "react": "^0.13.3",
+    "prop-types": "^15.8.1",
+    "react": "19.1",
+    "react-dom": "19.1",
     "rx": "^2.3.22"
   },
   "devDependencies": {

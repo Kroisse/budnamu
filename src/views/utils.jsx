@@ -49,5 +49,5 @@ export default utils;
 export const { comma, commaSeparated, enclose, renderFunction, openBrace, closeBrace, openParen, closeParen, openBracket, closeBracket } = utils;
 
 // Import these after utils is defined to avoid circular dependency issues
-import { dispatchStatement } from './statements.react';
-import { dispatchExpression, dispatchPattern } from './expressions.react';
+import { dispatchStatement } from './statements.jsx';
+import { dispatchExpression, dispatchPattern } from './expressions.jsx';

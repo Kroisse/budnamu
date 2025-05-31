@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import Immutable from "immutable";
 
 
@@ -34,33 +34,29 @@ class Context extends Immutable.Record({node: null, path: Immutable.List()}) {
 }
 
 
-const ComplexStatement = React.createClass({
-    propTypes: {
-        path: React.PropTypes.instanceOf(Immutable.List)
-    },
-    render() {
-        return (
-            <div />
-        );
-    }
-});
+const ComplexStatement = () => {
+    return (
+        <div />
+    );
+};
+
+ComplexStatement.propTypes = {
+    path: PropTypes.instanceOf(Immutable.List)
+};
 
 
-const Block = React.createClass({
-    propTypes: {
-        path: React.PropTypes.instanceOf(Immutable.List),
-        statements: React.PropTypes.instanceOf(Immutable.List)
-    },
-    render() {
-        // Dynamic import is converted to a lazy import at the top
-        const path = this.props.path;
-        return (
-            <div className="block">
-                {this.props.statements.map((e, i) => dispatchStatement(e, i, path.push(i))).toArray()}
-            </div>
-        );
-    }
-});
+const Block = ({ path, statements }) => {
+    return (
+        <div className="block">
+            {statements.map((e, i) => dispatchStatement(e, i, path.push(i))).toArray()}
+        </div>
+    );
+};
+
+Block.propTypes = {
+    path: PropTypes.instanceOf(Immutable.List),
+    statements: PropTypes.instanceOf(Immutable.List)
+};
 
 
 export { Context, Block };
