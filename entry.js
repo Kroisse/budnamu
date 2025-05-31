@@ -1,6 +1,5 @@
 "use strict";
-require("babel-polyfill");
-require("style.less");
+import "./style.less";
 var React = require("react");
 var FileActionCreators = require("./actions/FileActionCreators");
 var SyntaxTree = React.createFactory(require("./views/SyntaxTree"));
