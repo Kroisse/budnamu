@@ -1,5 +1,5 @@
 import React from 'react';
-import Immutable from 'immutable';
+import { Map } from 'immutable';
 import { Context } from './constructs.jsx';
 import * as utils from './utils.jsx';
 const {
@@ -228,7 +228,7 @@ function renderUnaryExpression(className, context) {
   }
 }
 
-const patterns = Immutable.Map(expressions)
+const patterns = Map(expressions)
   .merge({
     ObjectPattern: (props) => {
       var context = new Context(props);
@@ -312,7 +312,7 @@ function dispatchPattern(e, key, path) {
   }
 }
 
-export default Immutable.Map(expressions)
+export default Map(expressions)
   .merge(patterns, {
     dispatchExpression: dispatchExpression,
     dispatchPattern: dispatchPattern,

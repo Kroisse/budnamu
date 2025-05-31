@@ -7,7 +7,7 @@
   "private": true,
   "dependencies": {
     "@swc/wasm-web": "^1.11.29",
-    "immutable": "^3.4.0",
+    "immutable": "^5.1.2",
     "jotai": "^2.12.5",
     "prop-types": "^15.8.1",
     "react": "19.1",

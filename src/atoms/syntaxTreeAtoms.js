@@ -1,14 +1,14 @@
 import { atom } from 'jotai';
 import { parse } from '@swc/wasm-web';
-import Immutable from 'immutable';
+import { Seq } from 'immutable';
 
 // Helper function to convert JS objects to Immutable structures
 function toImmutable(json) {
   if (Array.isArray(json)) {
-    return Immutable.Seq(json).map(toImmutable).toList();
+    return Seq(json).map(toImmutable).toList();
   }
   if (json && typeof json === 'object' && json !== null) {
-    return Immutable.Seq(json).map(toImmutable).toMap();
+    return Seq(json).map(toImmutable).toMap();
   }
   return json;
 }

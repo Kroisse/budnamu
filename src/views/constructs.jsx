@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import Immutable from 'immutable';
+import { Record, List, Seq } from 'immutable';
 
-class Context extends Immutable.Record({ node: null, path: Immutable.List() }) {
+class Context extends Record({ node: null, path: List() }) {
   get key() {
     return this.path.last();
   }
@@ -19,7 +19,7 @@ class Context extends Immutable.Record({ node: null, path: Immutable.List() }) {
   }
   elements() {
     if (this.isEmpty()) {
-      return Immutable.Seq();
+      return Seq();
     }
     var path = this.path;
     return this.node.map(
@@ -46,7 +46,7 @@ const ComplexStatement = () => {
 };
 
 ComplexStatement.propTypes = {
-  path: PropTypes.instanceOf(Immutable.List),
+  path: PropTypes.instanceOf(List),
 };
 
 const Block = ({ path, statements, dispatchStatement }) => {
@@ -60,8 +60,8 @@ const Block = ({ path, statements, dispatchStatement }) => {
 };
 
 Block.propTypes = {
-  path: PropTypes.instanceOf(Immutable.List),
-  statements: PropTypes.instanceOf(Immutable.List),
+  path: PropTypes.instanceOf(List),
+  statements: PropTypes.instanceOf(List),
   dispatchStatement: PropTypes.func.isRequired,
 };
 

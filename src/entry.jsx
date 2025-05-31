@@ -5,7 +5,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'jotai';
 import SyntaxTree from './views/SyntaxTree.jsx';
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 await initSwc();
 

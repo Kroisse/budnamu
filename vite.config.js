@@ -7,6 +7,9 @@ export default defineConfig({
       jsxRuntime: 'automatic',
     }),
   ],
+  build: {
+    target: 'es2022',
+  },
   css: {
     preprocessorOptions: {
       less: {

@@ -7,7 +7,7 @@ import {
   loadRemoteFileAtom,
   parsingStateAtom,
 } from '../atoms/syntaxTreeAtoms';
-import Immutable from 'immutable';
+import { List } from 'immutable';
 
 const SyntaxTree = () => {
   const [syntaxTree] = useAtom(parsedSyntaxTreeAtom);
@@ -21,7 +21,7 @@ const SyntaxTree = () => {
 
   const context = new Context({
     node: syntaxTree,
-    path: Immutable.List(),
+    path: List(),
   });
 
   // Show loading state

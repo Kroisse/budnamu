@@ -1,5 +1,5 @@
 import React from 'react';
-import Immutable from 'immutable';
+import { Map } from 'immutable';
 import { Context } from './constructs.jsx';
 import { dispatchExpression, dispatchPattern } from './expressions.jsx';
 import * as utils from './utils.jsx';
@@ -423,7 +423,7 @@ function dispatchStatement(e, key, path) {
   }
 }
 
-export default Immutable.Map(statements)
+export default Map(statements)
   .merge({ dispatchStatement: dispatchStatement })
   .toObject();
 
