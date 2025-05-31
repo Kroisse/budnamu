@@ -1,32 +1,26 @@
-import { useState, useEffect } from "react";
-import SyntaxTreeStore from "../stores/SyntaxTreeStore";
-import {Context} from "./constructs.jsx";
+import { useEffect } from "react";
+import { useAtom } from "jotai";
+import { Context } from "./constructs.jsx";
+import { parsedSyntaxTreeAtom, loadRemoteFileAtom } from "../atoms/syntaxTreeAtoms";
 import Immutable from "immutable";
 
-function getStateFromStores() {
-    return {
-        context: new Context({node: SyntaxTreeStore.getSyntaxTree(), path: Immutable.List()})
-    };
-}
-
 const SyntaxTree = () => {
-    const [state, setState] = useState(getStateFromStores());
+    const [syntaxTree] = useAtom(parsedSyntaxTreeAtom);
+    const [, loadRemoteFile] = useAtom(loadRemoteFileAtom);
 
     useEffect(() => {
-        const handleChange = () => {
-            setState(getStateFromStores());
-        };
+        // Load the dispatcher.js file when component mounts
+        loadRemoteFile("/src/dispatcher.js");
+    }, [loadRemoteFile]);
 
-        SyntaxTreeStore.addChangeListener(handleChange);
-
-        return () => {
-            SyntaxTreeStore.removeChangeListener(handleChange);
-        };
-    }, []);
+    const context = new Context({
+        node: syntaxTree,
+        path: Immutable.List()
+    });
 
     return (
         <div className="syntax-tree">
-            {state.context.child("body").blockConstruct()}
+            {context.child("body").blockConstruct()}
         </div>
     );
 };
