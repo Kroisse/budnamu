@@ -1,0 +1,1 @@
+- In TypeScript, it's recommended to use undefined instead of null when possible, but when you want to check for both null or undefined simultaneously, use `== null` and `!= null`.

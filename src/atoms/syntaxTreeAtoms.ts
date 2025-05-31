@@ -1,22 +1,37 @@
 import { atom } from 'jotai';
-import { parse } from '@swc/wasm-web';
-import { Seq, Map, List } from 'immutable';
+import { parse, ParseOptions } from '@swc/wasm-web';
+import { Map, List } from 'immutable';
 
-type ImmutableValue = Map<string, any> | List<any> | any;
+type Primitive = string | number | boolean | null | undefined;
+type ImmutableValue =
+  | Map<string, ImmutableValue>
+  | List<ImmutableValue>
+  | Primitive;
 
 // Helper function to convert JS objects to Immutable structures
-function toImmutable(json: any): ImmutableValue {
+function toImmutable(json: unknown): ImmutableValue {
+  if (
+    json == null ||
+    typeof json === 'string' ||
+    typeof json === 'number' ||
+    typeof json === 'boolean'
+  ) {
+    return json;
+  }
   if (Array.isArray(json)) {
-    return Seq(json).map(toImmutable).toList();
+    return List(json.map(toImmutable));
   }
-  if (json && typeof json === 'object' && json !== null) {
-    return Seq(json).map(toImmutable).toMap();
+  if (typeof json === 'object') {
+    const obj = json as Record<string, unknown>;
+    return Map(Object.entries(obj).map(([k, v]) => [k, toImmutable(v)]));
   }
-  return json;
+  throw new Error(`Unsupported type for immutability: ${typeof json}`);
 }
 
 // Base atom for storing the syntax tree
-export const syntaxTreeAtom = atom<ImmutableValue>(toImmutable({ type: 'Program', body: [] }));
+export const syntaxTreeAtom = atom<ImmutableValue>(
+  toImmutable({ type: 'Program', body: [] }),
+);
 
 // Atom for storing the current file content
 export const fileContentAtom = atom<string>('');
@@ -33,8 +48,8 @@ export const parsingStateAtom = atom<ParsingState>({
 });
 
 // Parse options for SWC
-const SWC_PARSE_OPTIONS = {
-  syntax: 'ecmascript' as const,
+const SWC_PARSE_OPTIONS: ParseOptions = {
+  syntax: 'ecmascript',
   jsx: true,
   target: 'es2022',
   dynamicImport: true,
@@ -46,24 +61,15 @@ const SWC_PARSE_OPTIONS = {
   decoratorsBeforeExport: true,
   topLevelAwait: true,
   importMeta: true,
-  preserveAllComments: false,
 };
 
 // TypeScript parse options for SWC
-const SWC_TS_PARSE_OPTIONS = {
-  syntax: 'typescript' as const,
+const SWC_TS_PARSE_OPTIONS: ParseOptions = {
+  syntax: 'typescript',
   tsx: true,
   target: 'es2022',
   dynamicImport: true,
-  privateMethod: true,
-  functionBind: true,
-  exportDefaultFrom: true,
-  exportNamespaceFrom: true,
   decorators: true,
-  decoratorsBeforeExport: true,
-  topLevelAwait: true,
-  importMeta: true,
-  preserveAllComments: false,
 };
 
 // Function to detect if content is TypeScript
@@ -103,24 +109,30 @@ export const parsedSyntaxTreeAtom = atom(
       console.log('SWC async parsing successful:', ast);
     } catch (error) {
       console.error('Failed to parse with SWC:', error);
-      set(parsingStateAtom, { isLoading: false, error: error instanceof Error ? error.message : String(error) });
+      set(parsingStateAtom, {
+        isLoading: false,
+        error: error instanceof Error ? error.message : String(error),
+      });
       // Keep the previous valid syntax tree on parse error
     }
   },
 );
 
 // Atom for loading remote files
-export const loadRemoteFileAtom = atom(null, async (_get, set, path: string) => {
-  try {
-    console.log('Loading remote file:', path);
-    const response = await fetch(path);
-    if (!response.ok) {
-      throw new Error(`Failed to load file: ${response.statusText}`);
+export const loadRemoteFileAtom = atom(
+  null,
+  async (_get, set, path: string) => {
+    try {
+      console.log('Loading remote file:', path);
+      const response = await fetch(path);
+      if (!response.ok) {
+        throw new Error(`Failed to load file: ${response.statusText}`);
+      }
+      const content = await response.text();
+      console.log('File loaded successfully, parsing...');
+      await set(parsedSyntaxTreeAtom, content);
+    } catch (error) {
+      console.error('Failed to load remote file:', error);
     }
-    const content = await response.text();
-    console.log('File loaded successfully, parsing...');
-    await set(parsedSyntaxTreeAtom, content);
-  } catch (error) {
-    console.error('Failed to load remote file:', error);
-  }
-});
+  },
+);
