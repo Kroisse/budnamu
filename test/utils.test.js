@@ -1,7 +1,8 @@
-describe("utils.underscored", function () {
-    var {underscored} = require("/utils");
+import { describe, it, expect } from 'vitest';
+import { underscored } from '../utils.js';
 
-    var inputs = [
+describe("utils.underscored", function () {
+    const inputs = [
         "something", "anything", "c3po"
     ];
 
@@ -18,7 +19,7 @@ describe("utils.underscored", function () {
 
     it("should not be include any underscore character if the input was a capitalized word", function () {
         inputs.forEach(text => {
-            var capitalized = text.charAt(0).toUpperCase() + text.slice(1);
+            const capitalized = text.charAt(0).toUpperCase() + text.slice(1);
             expect(underscored(capitalized)).toBe(text);
         });
     });

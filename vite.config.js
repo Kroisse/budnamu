@@ -9,7 +9,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'babel-polyfill': '@babel/polyfill'
+      'babel-polyfill': '@babel/polyfill',
+      '/utils': './utils.js'
     }
   },
   css: {
@@ -22,5 +23,9 @@ export default defineConfig({
   server: {
     port: 5173,
     open: false
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom'
   }
 })
