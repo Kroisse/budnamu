@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Map } from 'immutable';
-import { Context } from './constructs.jsx';
-import { dispatchExpression, dispatchPattern } from './expressions.jsx';
-import * as utils from './utils.jsx';
+import { Context, ImmutableNode, ImmutablePath, Dispatcher } from './constructs';
+import { dispatchExpression, dispatchPattern } from './expressions';
+import * as utils from './utils';
 const { openBrace, closeBrace, openParen, closeParen } = utils;
 
-const statements = {
+interface StatementProps {
+  node: ImmutableNode;
+  path: ImmutablePath;
+  key?: string | number;
+  expression?: boolean;
+}
+
+type StatementComponent = React.FC<StatementProps>;
+
+const statements: Record<string, StatementComponent> = {
   VariableDeclaration: ({ expression = false, ...props }) => {
     const context = new Context(props);
 
@@ -32,7 +41,7 @@ const statements = {
       .elements()
       .map(renderDeclaration);
     const declarationsList = utils.commaSeparated(declarations);
-    const tag = expression ? 'span' : 'div';
+    const tag: 'span' | 'div' = expression ? 'span' : 'div';
     return React.createElement(
       tag,
       {

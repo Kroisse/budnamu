@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Map } from 'immutable';
-import { Context } from './constructs.jsx';
-import * as utils from './utils.jsx';
+import { Context, ImmutableNode, ImmutablePath, Dispatcher } from './constructs';
+import * as utils from './utils';
 const {
   openBrace,
   closeBrace,
@@ -11,9 +11,17 @@ const {
   closeBracket,
 } = utils;
 
-const expressions = {
+interface ExpressionProps {
+  node: ImmutableNode;
+  path: ImmutablePath;
+  key?: string | number;
+}
+
+type ExpressionComponent = React.FC<ExpressionProps>;
+
+const expressions: Record<string, ExpressionComponent> = {
   Literal: ({ node }) => {
-    var type = typeof node.get('value');
+    const type = typeof node.get('value');
     return (
       <span className={'expression literal literal-' + type}>
         {node.get('raw')}
@@ -31,14 +39,14 @@ const expressions = {
     );
   },
   ObjectExpression: (props) => {
-    var context = new Context(props);
-    var properties = utils.commaSeparated(
+    const context = new Context(props);
+    const properties = utils.commaSeparated(
       context
         .child('properties')
         .elements()
         .map((e, i) => {
-          var key = e.child('key').render(dispatchExpression);
-          var value = e.child('value').render(dispatchExpression);
+          const key = e.child('key').render(dispatchExpression);
+          const value = e.child('value').render(dispatchExpression);
           return (
             <span key={i} className="property">
               {key}: {value}
@@ -55,8 +63,8 @@ const expressions = {
     );
   },
   ArrayExpression: (props) => {
-    var context = new Context(props);
-    var elements = utils.commaSeparated(
+    const context = new Context(props);
+    const elements = utils.commaSeparated(
       context
         .child('elements')
         .elements()
@@ -71,10 +79,10 @@ const expressions = {
     );
   },
   MemberExpression: (props) => {
-    var className = 'expression member-expression';
-    var context = new Context(props);
-    var object = context.child('object').render(dispatchExpression);
-    var property = context.child('property').render(dispatchExpression);
+    const className = 'expression member-expression';
+    const context = new Context(props);
+    const object = context.child('object').render(dispatchExpression);
+    const property = context.child('property').render(dispatchExpression);
     if (props.node.get('computed')) {
       return (
         <span className={className}>
@@ -95,9 +103,9 @@ const expressions = {
     }
   },
   CallExpression: (props) => {
-    var context = new Context(props);
-    var callee = context.child('callee').render(dispatchExpression);
-    var args = utils.commaSeparated(
+    const context = new Context(props);
+    const callee = context.child('callee').render(dispatchExpression);
+    const args = utils.commaSeparated(
       context
         .child('arguments')
         .elements()
@@ -113,9 +121,9 @@ const expressions = {
     );
   },
   NewExpression: (props) => {
-    var context = new Context(props);
-    var callee = context.child('callee').render(dispatchExpression);
-    var args = utils.commaSeparated(
+    const context = new Context(props);
+    const callee = context.child('callee').render(dispatchExpression);
+    const args = utils.commaSeparated(
       context
         .child('arguments')
         .elements()
@@ -133,10 +141,10 @@ const expressions = {
     return renderUnaryExpression('unary-expression', new Context(props));
   },
   BinaryExpression: (props) => {
-    var context = new Context(props);
-    var op = props.node.get('operator');
-    var left = context.child('left').render(dispatchExpression);
-    var right = context.child('right').render(dispatchExpression);
+    const context = new Context(props);
+    const op = props.node.get('operator');
+    const left = context.child('left').render(dispatchExpression);
+    const right = context.child('right').render(dispatchExpression);
     return (
       <span className="expression binary-expression">
         {left} <span className="operator">{op}</span> {right}
@@ -144,10 +152,10 @@ const expressions = {
     );
   },
   LogicalExpression: (props) => {
-    var context = new Context(props);
-    var op = props.node.get('operator');
-    var left = context.child('left').render(dispatchExpression);
-    var right = context.child('right').render(dispatchExpression);
+    const context = new Context(props);
+    const op = props.node.get('operator');
+    const left = context.child('left').render(dispatchExpression);
+    const right = context.child('right').render(dispatchExpression);
     return (
       <span className="expression logical-expression">
         {left} <span className="operator">{op}</span> {right}
@@ -155,10 +163,10 @@ const expressions = {
     );
   },
   ConditionalExpression: (props) => {
-    var context = new Context(props);
-    var test = context.child('test').render(dispatchExpression);
-    var consequent = context.child('consequent').render(dispatchExpression);
-    var alternate = context.child('alternate').render(dispatchExpression);
+    const context = new Context(props);
+    const test = context.child('test').render(dispatchExpression);
+    const consequent = context.child('consequent').render(dispatchExpression);
+    const alternate = context.child('alternate').render(dispatchExpression);
     return (
       <span className="expression conditional-expression">
         {test} <span className="operator">?</span> {consequent}{' '}
@@ -167,10 +175,10 @@ const expressions = {
     );
   },
   AssignmentExpression: (props) => {
-    var context = new Context(props);
-    var op = props.node.get('operator');
-    var left = context.child('left').render(dispatchExpression);
-    var right = context.child('right').render(dispatchExpression);
+    const context = new Context(props);
+    const op = props.node.get('operator');
+    const left = context.child('left').render(dispatchExpression);
+    const right = context.child('right').render(dispatchExpression);
     return (
       <span className="expression assignment-expression">
         {left} <span className="operator">{op}</span> {right}
@@ -184,8 +192,8 @@ const expressions = {
     return utils.renderFunction(new Context(props));
   },
   SequenceExpression: (props) => {
-    var context = new Context(props);
-    var elements = utils.commaSeparated(
+    const context = new Context(props);
+    const elements = utils.commaSeparated(
       context
         .child('expressions')
         .elements()
@@ -201,9 +209,9 @@ const expressions = {
   },
 };
 
-function renderUnaryExpression(className, context) {
-  var op = context.node.get('operator');
-  var argument = context.child('argument').render(dispatchExpression);
+function renderUnaryExpression(className: string, context: Context): ReactNode {
+  const op = context.node.get('operator');
+  const argument = context.child('argument').render(dispatchExpression);
   className = 'expression ' + className;
   if (op === 'typeof') {
     return (
@@ -228,16 +236,16 @@ function renderUnaryExpression(className, context) {
   }
 }
 
-const patterns = Map(expressions)
+const patterns: Record<string, ExpressionComponent> = (Map(expressions)
   .merge({
     ObjectPattern: (props) => {
-      var context = new Context(props);
-      var properties = utils.commaSeparated(
+      const context = new Context(props);
+      const properties = utils.commaSeparated(
         context
           .child('properties')
           .elements()
           .map((e, i) => {
-            var key = e.child('key').render(dispatchExpression);
+            const key = e.child('key').render(dispatchExpression);
             if (e.node.get('shorthand')) {
               return (
                 <span key={i} className="property">
@@ -245,7 +253,7 @@ const patterns = Map(expressions)
                 </span>
               );
             } else {
-              var value = e.child('value').render(dispatchPattern);
+              const value = e.child('value').render(dispatchPattern);
               return (
                 <span key={i} className="property">
                   {key}: {value}
@@ -263,8 +271,8 @@ const patterns = Map(expressions)
       );
     },
     ArrayPattern: (props) => {
-      var context = new Context(props);
-      var elements = utils.commaSeparated(
+      const context = new Context(props);
+      const elements = utils.commaSeparated(
         context
           .child('elements')
           .elements()
@@ -279,14 +287,14 @@ const patterns = Map(expressions)
       );
     },
   })
-  .toObject();
+  .toObject()) as Record<string, ExpressionComponent>;
 
-const UnknownExpression = ({ node }) => {
+const UnknownExpression: React.FC<{ node: ImmutableNode }> = ({ node }) => {
   const inspect = () => {
     console.log(node);
   };
 
-  var e = JSON.stringify(node);
+  const e = JSON.stringify(node);
   return (
     <span key="0" className="expression unknown-expression" onClick={inspect}>
       {'<<'} unknown: {e} {'>>'}
@@ -294,8 +302,8 @@ const UnknownExpression = ({ node }) => {
   );
 };
 
-function dispatchExpression(e, key, path) {
-  var elem = expressions[e.get('type')];
+const dispatchExpression: Dispatcher = (e, key, path) => {
+  const elem = expressions[e.get('type')];
   if (typeof elem !== 'undefined') {
     return React.createElement(elem, { key: key, node: e, path: path });
   } else {
@@ -303,8 +311,8 @@ function dispatchExpression(e, key, path) {
   }
 }
 
-function dispatchPattern(e, key, path) {
-  var elem = patterns[e.get('type')];
+const dispatchPattern: Dispatcher = (e, key, path) => {
+  const elem = patterns[e.get('type')];
   if (typeof elem !== 'undefined') {
     return React.createElement(elem, { key: key, node: e, path: path });
   } else {
@@ -312,11 +320,11 @@ function dispatchPattern(e, key, path) {
   }
 }
 
-export default Map(expressions)
-  .merge(patterns, {
-    dispatchExpression: dispatchExpression,
-    dispatchPattern: dispatchPattern,
-  })
-  .toObject();
+export default {
+  ...expressions,
+  ...patterns,
+  dispatchExpression,
+  dispatchPattern,
+};
 
 export { dispatchExpression, dispatchPattern };
