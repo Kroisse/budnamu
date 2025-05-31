@@ -7,12 +7,6 @@ export default defineConfig({
       jsxRuntime: 'classic'
     })
   ],
-  resolve: {
-    alias: {
-      'babel-polyfill': '@babel/polyfill',
-      '/utils': './src/utils.js'
-    }
-  },
   css: {
     preprocessorOptions: {
       less: {
