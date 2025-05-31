@@ -1,14 +1,12 @@
-var mirrorkey = require("mirrorkey");
+import mirrorkey from "mirrorkey";
 
-module.exports = {
-    Events: mirrorkey(["CHANGE"], "lower-case"),
+export const Events = mirrorkey(["CHANGE"], "lower-case");
 
-    ActionTypes: mirrorkey([
-        "LOAD_STRING"
-    ]),
+export const ActionTypes = mirrorkey([
+    "LOAD_STRING"
+]);
 
-    PayloadSources: mirrorkey([
-        "SERVER_ACTION",
-        "VIEW_ACTION"
-    ])
-};
+export const PayloadSources = mirrorkey([
+    "SERVER_ACTION",
+    "VIEW_ACTION"
+]);

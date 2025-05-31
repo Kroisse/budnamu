@@ -1,27 +1,25 @@
-var React = require("react");
+import React from "react";
 
 
-var utils = module.exports = {
-    comma: function (i) {
+const utils = {
+    comma(i) {
         return <span key={"comma" + i}>, </span>;
     },
-    commaSeparated: function (seq) {
+    commaSeparated(seq) {
         return seq.flatMap((v, k) => [v, utils.comma(k)]).butLast().toArray();
     },
-    enclose: function (array, parenOpen, parenClose) {
+    enclose(array, parenOpen, parenClose) {
         parenOpen = parenOpen || utils.openParen;
         parenClose = parenClose || utils.closeParen;
         array.unshift(parenOpen);
         array.push(parenClose);
     },
-    renderFunction: function (context) {
-        // TODO: should resolve this circular import
-        var {dispatchStatement} = require('./statements'),
-            {dispatchExpression, dispatchPattern} = require('./expressions');
+    renderFunction(context) {
+        // Circular imports resolved at the module level
         // TODO: should reflect ES6 features
-        var {type, expression} = context.node.toObject();
-        var id = context.child("id").render(dispatchExpression);
-        var params = utils.commaSeparated(context.child("params").elements().map(e => e.render(dispatchPattern)));
+        const {type, expression} = context.node.toObject();
+        const id = context.child("id").render(dispatchExpression);
+        const params = utils.commaSeparated(context.child("params").elements().map(e => e.render(dispatchPattern)));
         var tag, className;
         if (type.match(/Expression$/)) {
             tag = "span";
@@ -30,7 +28,7 @@ var utils = module.exports = {
             tag = "div";
             className = "statement function-declaration";
         }
-        var body = context.child("body").render(dispatchStatement);
+        const body = context.child("body").render(dispatchStatement);
         return React.createElement(
             tag, {className: className},
             <span className="function-header">
@@ -46,3 +44,10 @@ var utils = module.exports = {
     openBracket: <span className="paren-open">{"["}</span>,
     closeBracket: <span className="paren-close">{"]"}</span>
 };
+
+export default utils;
+export const { comma, commaSeparated, enclose, renderFunction, openBrace, closeBrace, openParen, closeParen, openBracket, closeBracket } = utils;
+
+// Import these after utils is defined to avoid circular dependency issues
+import { dispatchStatement } from './statements.react';
+import { dispatchExpression, dispatchPattern } from './expressions.react';

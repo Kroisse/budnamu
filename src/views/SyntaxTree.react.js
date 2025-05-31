@@ -1,6 +1,7 @@
-var React = require("react");
-var SyntaxTreeStore = require("../stores/SyntaxTreeStore");
-var {Context} = require("./constructs");
+import React from "react";
+import SyntaxTreeStore from "../stores/SyntaxTreeStore";
+import {Context} from "./constructs.react";
+import Immutable from "immutable";
 
 function getStateFromStores() {
     return {
@@ -8,7 +9,7 @@ function getStateFromStores() {
     };
 }
 
-var SyntaxTree = React.createClass({
+const SyntaxTree = React.createClass({
     getInitialState() {
         return getStateFromStores();
     },
@@ -30,4 +31,4 @@ var SyntaxTree = React.createClass({
     }
 });
 
-module.exports = SyntaxTree;
+export default SyntaxTree;

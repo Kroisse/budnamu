@@ -1,12 +1,12 @@
-var React = require("react");
-var Immutable = require("immutable");
-var {Context} = require("./constructs");
-var {dispatchExpression, dispatchPattern} = require("./expressions");
-var utils = require("./utils");
-var {openBrace, closeBrace, openParen, closeParen} = utils;
+import React from "react";
+import Immutable from "immutable";
+import {Context, setDispatchStatement} from "./constructs.react";
+import {dispatchExpression, dispatchPattern} from "./expressions.react";
+import * as utils from "./utils.react";
+const {openBrace, closeBrace, openParen, closeParen} = utils;
 
 
-var statements = {
+const statements = {
     VariableDeclaration: React.createClass({
         getDefaultProps() {
             return {expression: false};
@@ -312,7 +312,7 @@ function renderReturnStatement(keyword, argument) {
     }
 }
 
-var UnknownStatement = React.createClass({
+const UnknownStatement = React.createClass({
     render() {
         var e = JSON.stringify(this.props.node);
         return (
@@ -335,4 +335,9 @@ function dispatchStatement(e, key, path) {
     }
 }
 
-module.exports = Immutable.Map(statements).merge({dispatchStatement: dispatchStatement}).toObject();
+export default Immutable.Map(statements).merge({dispatchStatement: dispatchStatement}).toObject();
+
+export { dispatchStatement };
+
+// Set the circular dependency
+setDispatchStatement(dispatchStatement);

@@ -4,9 +4,16 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [
     react({
-      jsxRuntime: 'classic'
+      jsxRuntime: 'classic',
+      include: '**/*.{jsx,tsx,js,ts}'
     })
   ],
+  esbuild: {
+    jsx: 'transform',
+    loader: 'jsx',
+    include: /\.(js|jsx|ts|tsx)$/,
+    exclude: []
+  },
   css: {
     preprocessorOptions: {
       less: {

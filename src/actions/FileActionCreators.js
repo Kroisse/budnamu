@@ -1,7 +1,7 @@
-var dispatcher = require("../dispatcher");
-var {ActionTypes} = require("../constants");
+import dispatcher from "../dispatcher";
+import {ActionTypes} from "../constants";
 
-var FileActionCreators = {
+const FileActionCreators = {
     loadRemoteFile(path) {
         var request =  new XMLHttpRequest();
         request.onload = function () {
@@ -20,4 +20,4 @@ var FileActionCreators = {
 };
 
 
-module.exports = FileActionCreators;
+export default FileActionCreators;

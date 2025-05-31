@@ -1,5 +1,5 @@
-var {PayloadSources} = require("./constants");
-var {Dispatcher} = require("flux");
+import { PayloadSources } from "./constants";
+import { Dispatcher } from "flux";
 
 class AppDispatcher extends Dispatcher {
     /**
@@ -27,4 +27,4 @@ class AppDispatcher extends Dispatcher {
     }
 }
 
-module.exports = new AppDispatcher();
+export default new AppDispatcher();

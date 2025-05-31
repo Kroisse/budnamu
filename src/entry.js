@@ -1,10 +1,13 @@
 "use strict";
 import "./style.less";
-var React = require("react");
-var FileActionCreators = require("./actions/FileActionCreators");
-var SyntaxTree = React.createFactory(require("./views/SyntaxTree"));
+import React from "react";
+import FileActionCreators from "./actions/FileActionCreators";
+import SyntaxTreeComponent from "./views/SyntaxTree.react";
+import Immutable from "immutable";
 
-window.Immutable = require("immutable"); // DEBUG
+const SyntaxTree = React.createFactory(SyntaxTreeComponent);
+
+window.Immutable = Immutable; // DEBUG
 
 document.addEventListener("DOMContentLoaded", function (event) {
     FileActionCreators.loadRemoteFile("./dispatcher.js");

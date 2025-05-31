@@ -1,11 +1,11 @@
-var React = require("react");
-var Immutable = require("immutable");
-var {Context} = require("./constructs");
-var utils = require("./utils");
-var {openBrace, closeBrace, openParen, closeParen, openBracket, closeBracket} = utils;
+import React from "react";
+import Immutable from "immutable";
+import {Context} from "./constructs.react";
+import * as utils from "./utils.react";
+const {openBrace, closeBrace, openParen, closeParen, openBracket, closeBracket} = utils;
 
 
-var expressions = {
+const expressions = {
     Literal: React.createClass({
         render() {
             var type = typeof(this.props.node.get("value"));
@@ -199,7 +199,7 @@ function renderUnaryExpression(className, context) {
     }
 }
 
-var patterns = Immutable.Map(expressions).merge({
+const patterns = Immutable.Map(expressions).merge({
     ObjectPattern: React.createClass({
         render() {
             var context = new Context(this.props);
@@ -230,7 +230,7 @@ var patterns = Immutable.Map(expressions).merge({
     }),
 }).toObject();
     
-var UnknownExpression = React.createClass({
+const UnknownExpression = React.createClass({
     render() {
         var e = JSON.stringify(this.props.node);
         return (
@@ -262,8 +262,10 @@ function dispatchPattern(e, key, path) {
     }
 }
 
-module.exports = Immutable.Map(expressions)
+export default Immutable.Map(expressions)
     .merge(patterns, {
         dispatchExpression: dispatchExpression,
         dispatchPattern: dispatchPattern
     }).toObject();
+
+export { dispatchExpression, dispatchPattern };

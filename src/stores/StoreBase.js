@@ -1,6 +1,6 @@
-var {EventEmitter} = require("events");
-var {Events} = require("../constants");
-var dispatcher = require("dispatcher");
+import {EventEmitter} from "events";
+import {Events} from "../constants";
+import dispatcher from "../dispatcher";
 
 
 class StoreBase extends EventEmitter {
@@ -30,4 +30,4 @@ class StoreBase extends EventEmitter {
     }
 }
 
-module.exports = StoreBase;
+export default StoreBase;

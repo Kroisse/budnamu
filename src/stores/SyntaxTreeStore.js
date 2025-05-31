@@ -1,7 +1,7 @@
-var {ActionTypes} = require("../constants");
-var StoreBase = require("./StoreBase");
-var acorn = require("acorn");
-var Immutable = require("immutable");
+import {ActionTypes} from "../constants";
+import StoreBase from "./StoreBase";
+import * as acorn from "acorn";
+import Immutable from "immutable";
 
 
 function _toImmutable(json) {
@@ -49,4 +49,4 @@ class SyntaxTreeStore extends StoreBase {
     }
 }
 
-module.exports = new SyntaxTreeStore();
+export default new SyntaxTreeStore();

@@ -1,5 +1,5 @@
-var React = require("react");
-var Immutable = require("immutable");
+import React from "react";
+import Immutable from "immutable";
 
 
 class Context extends Immutable.Record({node: null, path: Immutable.List()}) {
@@ -34,7 +34,7 @@ class Context extends Immutable.Record({node: null, path: Immutable.List()}) {
 }
 
 
-var ComplexStatement = React.createClass({
+const ComplexStatement = React.createClass({
     propTypes: {
         path: React.PropTypes.instanceOf(Immutable.List)
     },
@@ -46,14 +46,14 @@ var ComplexStatement = React.createClass({
 });
 
 
-var Block = React.createClass({
+const Block = React.createClass({
     propTypes: {
         path: React.PropTypes.instanceOf(Immutable.List),
         statements: React.PropTypes.instanceOf(Immutable.List)
     },
     render() {
-        var {dispatchStatement} = require("./statements");
-        var path = this.props.path;
+        // Dynamic import is converted to a lazy import at the top
+        const path = this.props.path;
         return (
             <div className="block">
                 {this.props.statements.map((e, i) => dispatchStatement(e, i, path.push(i))).toArray()}
@@ -63,7 +63,10 @@ var Block = React.createClass({
 });
 
 
-module.exports = {
-    Context: Context,
-    Block: Block
-};
+export { Context, Block };
+
+// Circular dependency workaround - will be set by statements.js
+let dispatchStatement = null;
+export function setDispatchStatement(fn) {
+    dispatchStatement = fn;
+}
