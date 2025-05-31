@@ -1,28 +1,28 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [
     react({
-      jsxRuntime: 'automatic'
-    })
+      jsxRuntime: 'automatic',
+    }),
   ],
   css: {
     preprocessorOptions: {
       less: {
-        javascriptEnabled: true
-      }
-    }
+        javascriptEnabled: true,
+      },
+    },
   },
   server: {
     port: 5173,
-    open: false
+    open: false,
   },
   test: {
     globals: true,
-    environment: 'jsdom'
+    environment: 'jsdom',
   },
   optimizeDeps: {
-    exclude: ['@swc/wasm-web']
-  }
-})
+    exclude: ['@swc/wasm-web'],
+  },
+});
