@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Map } from 'immutable';
-import { Context, ImmutableNode, ImmutablePath, Dispatcher } from './constructs';
+import { Context, ImmutableNode, ImmutablePath } from './constructs';
 import { dispatchExpression, dispatchPattern } from './expressions';
 import * as utils from './utils';
 const { openBrace, closeBrace, openParen, closeParen } = utils;
@@ -18,7 +18,7 @@ const statements: Record<string, StatementComponent> = {
   VariableDeclaration: ({ expression = false, ...props }) => {
     const context = new Context(props);
 
-    const renderDeclaration = (context, i) => {
+    const renderDeclaration = (context: Context, i: number) => {
       const id = context.child('id').render(dispatchPattern);
       const init = context.child('init').render(dispatchExpression);
       if (init !== null) {
@@ -118,13 +118,13 @@ const statements: Record<string, StatementComponent> = {
   },
 
   IfStatement: (props) => {
-    const _renderDepth = (context, dispatcher, depth) => {
-      return context.render((e, _, p) =>
+    const _renderDepth = (context: Context, dispatcher: any, depth: number) => {
+      return context.render((e: ImmutableNode, _: any, p: ImmutablePath) =>
         dispatcher(e, p.takeLast(depth).join('.'), p),
       );
     };
 
-    const renderElseClause = (context, depth = 1) => {
+    const renderElseClause = (context: Context, depth: number = 1): React.ReactNode => {
       if (context.isEmpty()) {
         return null;
       }
@@ -148,7 +148,7 @@ const statements: Record<string, StatementComponent> = {
       }
     };
 
-    const renderIfClause = (context, depth = 1) => {
+    const renderIfClause = (context: Context, depth: number = 1): React.ReactNode => {
       const test = _renderDepth(
         context.child('test'),
         dispatchExpression,
@@ -339,7 +339,7 @@ const statements: Record<string, StatementComponent> = {
     };
 
     const block = context.child('block').render(dispatchStatement);
-    const catchClause = renderCatchClause(context.child('handler'));
+    const catchClause = renderCatchClause(context.child('handler'), 0);
     const guardedCatchClauses = context
       .child('guardedHandlers')
       .elements()
@@ -426,7 +426,7 @@ const UnknownStatement = (props) => {
   );
 };
 
-function dispatchStatement(e, key, path) {
+function dispatchStatement(e: ImmutableNode, key: string | number, path: ImmutablePath): React.ReactNode {
   const elem = statements[e.get('type')];
   if (typeof elem !== 'undefined') {
     return React.createElement(elem, { key: key, node: e, path: path });

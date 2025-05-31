@@ -1,4 +1,4 @@
-import { atom, WritableAtom } from 'jotai';
+import { atom } from 'jotai';
 import { parse } from '@swc/wasm-web';
 import { Seq, Map, List } from 'immutable';
 
@@ -34,7 +34,7 @@ export const parsingStateAtom = atom<ParsingState>({
 
 // Parse options for SWC
 const SWC_PARSE_OPTIONS = {
-  syntax: 'ecmascript',
+  syntax: 'ecmascript' as const,
   jsx: true,
   target: 'es2022',
   dynamicImport: true,
@@ -51,7 +51,7 @@ const SWC_PARSE_OPTIONS = {
 
 // TypeScript parse options for SWC
 const SWC_TS_PARSE_OPTIONS = {
-  syntax: 'typescript',
+  syntax: 'typescript' as const,
   tsx: true,
   target: 'es2022',
   dynamicImport: true,
@@ -81,7 +81,7 @@ function isTypeScript(content: string): boolean {
 // Derived atom that parses the file content into a syntax tree
 export const parsedSyntaxTreeAtom = atom(
   (get) => get(syntaxTreeAtom),
-  async (get, set, content) => {
+  async (_get, set, content: string) => {
     // Set loading state
     set(parsingStateAtom, { isLoading: true, error: null });
 
@@ -103,14 +103,14 @@ export const parsedSyntaxTreeAtom = atom(
       console.log('SWC async parsing successful:', ast);
     } catch (error) {
       console.error('Failed to parse with SWC:', error);
-      set(parsingStateAtom, { isLoading: false, error: error.message });
+      set(parsingStateAtom, { isLoading: false, error: error instanceof Error ? error.message : String(error) });
       // Keep the previous valid syntax tree on parse error
     }
   },
 );
 
 // Atom for loading remote files
-export const loadRemoteFileAtom = atom(null, async (get, set, path) => {
+export const loadRemoteFileAtom = atom(null, async (_get, set, path: string) => {
   try {
     console.log('Loading remote file:', path);
     const response = await fetch(path);

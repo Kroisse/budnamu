@@ -289,7 +289,7 @@ const patterns: Record<string, ExpressionComponent> = (Map(expressions)
   })
   .toObject()) as Record<string, ExpressionComponent>;
 
-const UnknownExpression: React.FC<{ node: ImmutableNode }> = ({ node }) => {
+const UnknownExpression: React.FC<{ node: ImmutableNode; key?: string | number; path?: ImmutablePath }> = ({ node }) => {
   const inspect = () => {
     console.log(node);
   };

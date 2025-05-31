@@ -1,7 +1,6 @@
 'use strict';
 import './style.less';
 import initSwc from '@swc/wasm-web';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'jotai';
 import SyntaxTree from './views/SyntaxTree';

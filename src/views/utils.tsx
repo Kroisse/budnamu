@@ -34,7 +34,7 @@ const utils: Utils = {
   renderFunction(context: Context) {
     // Circular imports resolved at the module level
     // TODO: should reflect ES6 features
-    const { type } = context.node.toObject();
+    const { type } = context.node?.toObject() || {};
     const id = context.child('id').render(dispatchExpression);
     const params = utils.commaSeparated(
       context
