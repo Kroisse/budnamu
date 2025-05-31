@@ -11,14 +11,13 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.js$/, exclude: /node_modules(\/|\\)/, loader: "babel" },
-            { test: /\.less$/, loader: "style!css!less" }
+            { test: /\.js$/, exclude: /node_modules(\/|\\)/, loader: "babel-loader" },
+            { test: /\.less$/, loader: "style-loader!css-loader!less-loader" }
         ]
     },
     resolve: {
-        root: __dirname,
-        modulesDirectories: ["web_modules", "node_modules"],
-        extensions: ["", ".webpack.js", ".web.js", ".js", ".react.js"]
+        modules: [__dirname, "node_modules"],
+        extensions: [".js", ".webpack.js", ".web.js", ".react.js"]
     },
     plugins: [
         // new webpack.optimize.UglifyJsPlugin({minimize: true})

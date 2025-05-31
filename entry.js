@@ -1,5 +1,5 @@
 "use strict";
-require("babel/polyfill");
+require("babel-polyfill");
 require("style.less");
 var React = require("react");
 var FileActionCreators = require("./actions/FileActionCreators");

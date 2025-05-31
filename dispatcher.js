@@ -1,6 +1,5 @@
 var {PayloadSources} = require("./constants");
 var {Dispatcher} = require("flux");
-var Rx = require("rx");
 
 class AppDispatcher extends Dispatcher {
     /**
