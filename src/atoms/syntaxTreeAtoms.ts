@@ -1,9 +1,11 @@
-import { atom } from 'jotai';
+import { atom, WritableAtom } from 'jotai';
 import { parse } from '@swc/wasm-web';
-import { Seq } from 'immutable';
+import { Seq, Map, List } from 'immutable';
+
+type ImmutableValue = Map<string, any> | List<any> | any;
 
 // Helper function to convert JS objects to Immutable structures
-function toImmutable(json) {
+function toImmutable(json: any): ImmutableValue {
   if (Array.isArray(json)) {
     return Seq(json).map(toImmutable).toList();
   }
@@ -14,13 +16,18 @@ function toImmutable(json) {
 }
 
 // Base atom for storing the syntax tree
-export const syntaxTreeAtom = atom(toImmutable({ type: 'Program', body: [] }));
+export const syntaxTreeAtom = atom<ImmutableValue>(toImmutable({ type: 'Program', body: [] }));
 
 // Atom for storing the current file content
-export const fileContentAtom = atom('');
+export const fileContentAtom = atom<string>('');
+
+interface ParsingState {
+  isLoading: boolean;
+  error: string | null;
+}
 
 // Atom for tracking parsing state
-export const parsingStateAtom = atom({
+export const parsingStateAtom = atom<ParsingState>({
   isLoading: false,
   error: null,
 });
@@ -60,7 +67,7 @@ const SWC_TS_PARSE_OPTIONS = {
 };
 
 // Function to detect if content is TypeScript
-function isTypeScript(content) {
+function isTypeScript(content: string): boolean {
   // Simple heuristics to detect TypeScript
   return (
     /\.(ts|tsx)$/.test(content) ||

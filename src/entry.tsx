@@ -4,7 +4,7 @@ import initSwc from '@swc/wasm-web';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'jotai';
-import SyntaxTree from './views/SyntaxTree.jsx';
+import SyntaxTree from './views/SyntaxTree';
 import * as Immutable from 'immutable';
 
 await initSwc();
@@ -14,7 +14,7 @@ window.Immutable = Immutable; // DEBUG
 console.log('entry.jsx loaded');
 
 // React 18+ doesn't need to wait for DOMContentLoaded
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById('root')!;
 console.log('Root element:', rootElement);
 
 try {

@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { Context } from './constructs.jsx';
-import { dispatchStatement } from './statements.jsx';
+import { Context } from './constructs';
+import { dispatchStatement } from './statements';
 import {
   parsedSyntaxTreeAtom,
   loadRemoteFileAtom,
@@ -9,14 +9,14 @@ import {
 } from '../atoms/syntaxTreeAtoms';
 import { List } from 'immutable';
 
-const SyntaxTree = () => {
+const SyntaxTree: React.FC = () => {
   const [syntaxTree] = useAtom(parsedSyntaxTreeAtom);
   const [, loadRemoteFile] = useAtom(loadRemoteFileAtom);
   const [parsingState] = useAtom(parsingStateAtom);
 
   useEffect(() => {
     // Load the entry.jsx file when component mounts
-    loadRemoteFile('/src/entry.jsx');
+    loadRemoteFile('/src/entry.tsx');
   }, [loadRemoteFile]);
 
   const context = new Context({
