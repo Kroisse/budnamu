@@ -117,19 +117,25 @@ const statements = {
 
     const renderElseClause = (context, depth = 1) => {
       if (context.isEmpty()) {
-        return [];
+        return null;
+      }
+
+      if (context.node.get('type') === 'IfStatement') {
+        return (
+          <>
+            {' '}
+            <span className="keyword">else</span>{' '}
+            {renderIfClause(context, depth + 1)}
+          </>
+        );
       } else {
-        const result = [' ', <span key="else" className="keyword">else</span>, ' '];
-        if (context.node.get('type') === 'IfStatement') {
-          Array.prototype.push.apply(
-            result,
-            renderIfClause(context, depth + 1),
-          );
-        } else {
-          const body = _renderDepth(context, dispatchStatement, depth);
-          result.push(body);
-        }
-        return result;
+        const body = _renderDepth(context, dispatchStatement, depth);
+        return (
+          <>
+            {' '}
+            <span className="keyword">else</span> {body}
+          </>
+        );
       }
     };
 
@@ -144,25 +150,22 @@ const statements = {
         dispatchStatement,
         depth,
       );
-      const result = [
-        <span key="if" className="keyword">if</span>,
-        ' ',
-        openParen,
-        test,
-        closeParen,
-        ' ',
-        consequent,
-      ];
-      Array.prototype.push.apply(
-        result,
-        renderElseClause(context.child('alternate'), depth),
+
+      return (
+        <>
+          <span className="keyword">if</span> {openParen}
+          {test}
+          {closeParen} {consequent}
+          {renderElseClause(context.child('alternate'), depth)}
+        </>
       );
-      return result;
     };
 
-    return React.createElement
-      .bind(React, 'div', { className: 'statement if-statement' })
-      .apply(null, renderIfClause(new Context(props)));
+    return (
+      <div className="statement if-statement">
+        {renderIfClause(new Context(props))}
+      </div>
+    );
   },
 
   SwitchStatement: (props) => {

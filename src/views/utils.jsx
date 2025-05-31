@@ -46,7 +46,7 @@ const utils = {
         {utils.closeParen}
       </span>,
       ' ',
-      { body },
+      body,
     );
   },
   openBrace: <span className="paren-open">{'{'}</span>,
