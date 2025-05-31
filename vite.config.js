@@ -10,7 +10,7 @@ export default defineConfig({
   resolve: {
     alias: {
       'babel-polyfill': '@babel/polyfill',
-      '/utils': './utils.js'
+      '/utils': './src/utils.js'
     }
   },
   css: {

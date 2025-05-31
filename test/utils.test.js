@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { underscored } from '../utils.js';
+import { underscored } from '../src/utils.js';
 
 describe("utils.underscored", function () {
     const inputs = [
