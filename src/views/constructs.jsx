@@ -25,11 +25,11 @@ class Context extends Immutable.Record({node: null, path: Immutable.List()}) {
         var path = this.path;
         return this.node.map((e, i) => new Context({node: e, path: path.push(i)}));
     }
-    blockConstruct() {
+    blockConstruct(dispatchStatement) {
         if (this.isEmpty()) {
             return null;
         }
-        return <Block key={this.key} path={this.path} statements={this.node} />
+        return <Block key={this.key} path={this.path} statements={this.node} dispatchStatement={dispatchStatement} />
     }
 }
 
@@ -45,7 +45,7 @@ ComplexStatement.propTypes = {
 };
 
 
-const Block = ({ path, statements }) => {
+const Block = ({ path, statements, dispatchStatement }) => {
     return (
         <div className="block">
             {statements.map((e, i) => dispatchStatement(e, i, path.push(i))).toArray()}
@@ -55,14 +55,9 @@ const Block = ({ path, statements }) => {
 
 Block.propTypes = {
     path: PropTypes.instanceOf(Immutable.List),
-    statements: PropTypes.instanceOf(Immutable.List)
+    statements: PropTypes.instanceOf(Immutable.List),
+    dispatchStatement: PropTypes.func.isRequired
 };
 
 
 export { Context, Block };
-
-// Circular dependency workaround - will be set by statements.js
-let dispatchStatement = null;
-export function setDispatchStatement(fn) {
-    dispatchStatement = fn;
-}

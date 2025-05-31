@@ -1,6 +1,6 @@
 import React from "react";
 import Immutable from "immutable";
-import {Context, setDispatchStatement} from "./constructs.jsx";
+import {Context} from "./constructs.jsx";
 import {dispatchExpression, dispatchPattern} from "./expressions.jsx";
 import * as utils from "./utils.jsx";
 const {openBrace, closeBrace, openParen, closeParen} = utils;
@@ -47,7 +47,7 @@ const statements = {
         return (
             <div className="statement class-declaration">
                 <span className="keyword">class</span> {id}{superClass} {utils.openBrace}
-                    {body.blockConstruct()}
+                    {body.blockConstruct(dispatchStatement)}
                 {utils.closeBrace}
             </div>
         );
@@ -75,7 +75,7 @@ const statements = {
     BlockStatement: (props) => {
         return (
             <span className="statement block-statement">{openBrace}
-                {new Context(props).child("body").blockConstruct()}
+                {new Context(props).child("body").blockConstruct(dispatchStatement)}
             {closeBrace}</span>
         );
     },
@@ -116,7 +116,7 @@ const statements = {
         const context = new Context(props);
         
         const renderCase = (caseClause, i) => {
-            const consequent = caseClause.child("consequent").blockConstruct();
+            const consequent = caseClause.child("consequent").blockConstruct(dispatchStatement);
             let header;
             const test = caseClause.child("test");
             if (!test.isEmpty()) {
@@ -316,7 +316,7 @@ const UnknownStatement = (props) => {
 function dispatchStatement(e, key, path) {
     const elem = statements[e.get("type")];
     if (typeof elem !== 'undefined') {
-        return React.createFactory(elem)({key: key, node: e, path: path});
+        return React.createElement(elem, {key: key, node: e, path: path});
     } else {
         return <UnknownStatement key={key} node={e} path={path} />;
     }
@@ -325,6 +325,3 @@ function dispatchStatement(e, key, path) {
 export default Immutable.Map(statements).merge({dispatchStatement: dispatchStatement}).toObject();
 
 export { dispatchStatement };
-
-// Set the circular dependency
-setDispatchStatement(dispatchStatement);

@@ -210,7 +210,7 @@ const UnknownExpression = ({ node }) => {
 function dispatchExpression(e, key, path) {
     var elem = expressions[e.get("type")];
     if (typeof elem !== 'undefined') {
-        return React.createFactory(elem)({key: key, node: e, path: path});
+        return React.createElement(elem, {key: key, node: e, path: path});
     } else {
         return <UnknownExpression key={key} node={e} path={path} />;
     }
@@ -219,7 +219,7 @@ function dispatchExpression(e, key, path) {
 function dispatchPattern(e, key, path) {
     var elem = patterns[e.get("type")];
     if (typeof elem !== "undefined") {
-        return React.createFactory(elem)({key: key, node: e, path: path});
+        return React.createElement(elem, {key: key, node: e, path: path});
     } else {
         return <UnknownExpression key={key} node={e} path={path} />;
     }
