@@ -1,9 +1,13 @@
 import React, { ReactNode } from 'react';
 import { Record, List, Seq, Map } from 'immutable';
 
-type ImmutableNode = Map<string, any>;
+type ImmutableNode = Map<string, unknown>;
 type ImmutablePath = List<string | number>;
-type Dispatcher = (node: ImmutableNode, key: string | number, path: ImmutablePath) => ReactNode;
+type Dispatcher = (
+  node: ImmutableNode,
+  key: string | number,
+  path: ImmutablePath,
+) => ReactNode;
 
 interface ContextData {
   node: ImmutableNode | null;
@@ -15,25 +19,32 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
     return this.path.last();
   }
   isEmpty(): boolean {
-    return !this.node;
+    return this.node == null;
   }
   child(key: string): Context {
-    return new Context({ node: this.node.get(key), path: this.path.push(key) });
+    const childNode = this.node?.get(key);
+    return new Context({
+      node: childNode instanceof Map ? (childNode as ImmutableNode) : null,
+      path: this.path.push(key),
+    });
   }
   render(dispatcher: Dispatcher): ReactNode {
-    if (this.isEmpty()) {
+    if (this.isEmpty() || !this.node) {
       return null;
     }
-    return dispatcher(this.node, this.key, this.path);
+    return dispatcher(this.node, this.key ?? '', this.path);
   }
-  elements(): Seq.Indexed<Context> {
+  elements(): Seq<number, Context> {
     if (this.isEmpty()) {
       return Seq();
     }
     const path = this.path;
-    return this.node.map(
-      (e, i) => new Context({ node: e, path: path.push(i) }),
-    );
+    // Type assertion needed due to Immutable.js typing limitations
+    const seq = this.node?.toSeq() ?? Seq();
+    return seq.map(
+      (e, i) =>
+        new Context({ node: e as ImmutableNode, path: path.push(i as number) }),
+    ) as unknown as Seq<number, Context>;
   }
   blockConstruct(dispatchStatement: Dispatcher): ReactNode {
     if (this.isEmpty()) {
@@ -43,16 +54,12 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
       <Block
         key={this.key}
         path={this.path}
-        statements={this.node}
+        statements={this.node as unknown as List<ImmutableNode>}
         dispatchStatement={dispatchStatement}
       />
     );
   }
 }
-
-const ComplexStatement: React.FC = () => {
-  return <div />;
-};
 
 interface BlockProps {
   path: ImmutablePath;
@@ -60,7 +67,11 @@ interface BlockProps {
   dispatchStatement: Dispatcher;
 }
 
-const Block: React.FC<BlockProps> = ({ path, statements, dispatchStatement }) => {
+const Block: React.FC<BlockProps> = ({
+  path,
+  statements,
+  dispatchStatement,
+}) => {
   return (
     <div className="block">
       {statements

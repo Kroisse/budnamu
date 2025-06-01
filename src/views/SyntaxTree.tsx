@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { Context } from './constructs';
+import { Context, ImmutableNode } from './constructs';
 import { dispatchStatement } from './statements';
 import {
   parsedSyntaxTreeAtom,
@@ -16,11 +16,11 @@ const SyntaxTree: React.FC = () => {
 
   useEffect(() => {
     // Load the entry.jsx file when component mounts
-    loadRemoteFile('/src/entry.tsx');
+    void loadRemoteFile('/src/entry.tsx');
   }, [loadRemoteFile]);
 
   const context = new Context({
-    node: syntaxTree,
+    node: syntaxTree as ImmutableNode,
     path: List(),
   });
 

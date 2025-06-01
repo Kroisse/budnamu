@@ -106,7 +106,7 @@ export const parsedSyntaxTreeAtom = atom(
       set(fileContentAtom, content);
       set(parsingStateAtom, { isLoading: false, error: null });
 
-      console.log('SWC async parsing successful:', ast);
+      console.info('SWC async parsing successful:', ast);
     } catch (error) {
       console.error('Failed to parse with SWC:', error);
       set(parsingStateAtom, {
@@ -123,13 +123,13 @@ export const loadRemoteFileAtom = atom(
   null,
   async (_get, set, path: string) => {
     try {
-      console.log('Loading remote file:', path);
+      console.info('Loading remote file:', path);
       const response = await fetch(path);
       if (!response.ok) {
         throw new Error(`Failed to load file: ${response.statusText}`);
       }
       const content = await response.text();
-      console.log('File loaded successfully, parsing...');
+      console.info('File loaded successfully, parsing...');
       await set(parsedSyntaxTreeAtom, content);
     } catch (error) {
       console.error('Failed to load remote file:', error);

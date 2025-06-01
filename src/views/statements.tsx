@@ -1,6 +1,10 @@
-import React from 'react';
-import { Map } from 'immutable';
-import { Context, ImmutableNode, ImmutablePath } from './constructs';
+import React, { ReactNode } from 'react';
+import {
+  Context,
+  ImmutableNode,
+  ImmutablePath,
+  Dispatcher,
+} from './constructs';
 import { dispatchExpression, dispatchPattern } from './expressions';
 import * as utils from './utils';
 const { openBrace, closeBrace, openParen, closeParen } = utils;
@@ -65,19 +69,15 @@ const statements: Record<string, StatementComponent> = {
   ClassDeclaration: (props) => {
     const context = new Context(props);
     const id = context.child('id').render(dispatchExpression);
-    let superClass = context.child('superClass');
+    const superClassContext = context.child('superClass');
     const body = context.child('body').child('body');
-    if (!superClass.isEmpty()) {
-      superClass = (
-        <span>
-          {' '}
-          <span className="keyword">extends</span>{' '}
-          {superClass.render(dispatchExpression)}
-        </span>
-      );
-    } else {
-      superClass = null;
-    }
+    const superClass = !superClassContext.isEmpty() ? (
+      <span>
+        {' '}
+        <span className="keyword">extends</span>{' '}
+        {superClassContext.render(dispatchExpression)}
+      </span>
+    ) : null;
     return (
       <div className="statement class-declaration">
         <span className="keyword">class</span> {id}
@@ -118,18 +118,25 @@ const statements: Record<string, StatementComponent> = {
   },
 
   IfStatement: (props) => {
-    const _renderDepth = (context: Context, dispatcher: any, depth: number) => {
-      return context.render((e: ImmutableNode, _: any, p: ImmutablePath) =>
-        dispatcher(e, p.takeLast(depth).join('.'), p),
+    const _renderDepth = (
+      context: Context,
+      dispatcher: Dispatcher,
+      depth: number,
+    ) => {
+      return context.render(
+        (e: ImmutableNode, _: string | number, p: ImmutablePath) => {
+          const key = p.takeLast(depth).join('.');
+          return dispatcher(e, key, p);
+        },
       );
     };
 
-    const renderElseClause = (context: Context, depth: number = 1): React.ReactNode => {
+    const renderElseClause = (context: Context, depth = 1): React.ReactNode => {
       if (context.isEmpty()) {
         return null;
       }
 
-      if (context.node.get('type') === 'IfStatement') {
+      if (context.node?.get('type') === 'IfStatement') {
         return (
           <>
             {' '}
@@ -148,7 +155,7 @@ const statements: Record<string, StatementComponent> = {
       }
     };
 
-    const renderIfClause = (context: Context, depth: number = 1): React.ReactNode => {
+    const renderIfClause = (context: Context, depth = 1): React.ReactNode => {
       const test = _renderDepth(
         context.child('test'),
         dispatchExpression,
@@ -180,7 +187,7 @@ const statements: Record<string, StatementComponent> = {
   SwitchStatement: (props) => {
     const context = new Context(props);
 
-    const renderCase = (caseClause, i) => {
+    const renderCase = (caseClause: Context, i: number): ReactNode => {
       const consequent = caseClause
         .child('consequent')
         .blockConstruct(dispatchStatement);
@@ -314,7 +321,7 @@ const statements: Record<string, StatementComponent> = {
   TryStatement: (props) => {
     const context = new Context(props);
 
-    const renderCatchClause = (context, i) => {
+    const renderCatchClause = (context: Context, i: number): ReactNode => {
       const param = context.child('param').render(dispatchExpression);
       const body = context.child('body').render(dispatchStatement);
       return (
@@ -324,7 +331,7 @@ const statements: Record<string, StatementComponent> = {
       );
     };
 
-    const renderFinallyClause = (context) => {
+    const renderFinallyClause = (context: Context): ReactNode => {
       const finalizer = context.child('finalizer');
       if (finalizer.isEmpty()) {
         return null;
@@ -349,7 +356,7 @@ const statements: Record<string, StatementComponent> = {
         <span className="statement-header">
           <span className="keyword">try</span>
         </span>{' '}
-        {block} {catchClause} {guardedCatchClauses}{' '}
+        {block} {catchClause} {guardedCatchClauses.toArray()}{' '}
         {renderFinallyClause(context)}
       </div>
     );
@@ -375,11 +382,11 @@ const statements: Record<string, StatementComponent> = {
   },
 };
 
-function renderForStatementInit(context) {
+function renderForStatementInit(context: Context): ReactNode {
   if (context.isEmpty()) {
     return null;
   }
-  if (context.node.get('type') === 'VariableDeclaration') {
+  if (context.node?.get('type') === 'VariableDeclaration') {
     return (
       <statements.VariableDeclaration
         key={context.key}
@@ -393,7 +400,7 @@ function renderForStatementInit(context) {
   }
 }
 
-function renderReturnStatement(keyword, argument) {
+function renderReturnStatement(keyword: string, argument: Context): ReactNode {
   const className = 'statement ' + keyword + '-statement';
   if (!argument.isEmpty()) {
     return (
@@ -411,7 +418,7 @@ function renderReturnStatement(keyword, argument) {
   }
 }
 
-const UnknownStatement = (props) => {
+const UnknownStatement = (props: StatementProps) => {
   const inspect = () => {
     console.log(props.node);
   };
@@ -426,8 +433,12 @@ const UnknownStatement = (props) => {
   );
 };
 
-function dispatchStatement(e: ImmutableNode, key: string | number, path: ImmutablePath): React.ReactNode {
-  const elem = statements[e.get('type')];
+function dispatchStatement(
+  e: ImmutableNode,
+  key: string | number,
+  path: ImmutablePath,
+): React.ReactNode {
+  const elem = statements[e.get('type') as keyof typeof statements];
   if (typeof elem !== 'undefined') {
     return React.createElement(elem, { key: key, node: e, path: path });
   } else {
@@ -435,8 +446,8 @@ function dispatchStatement(e: ImmutableNode, key: string | number, path: Immutab
   }
 }
 
-export default Map(statements)
-  .merge({ dispatchStatement: dispatchStatement })
-  .toObject();
-
+// Export only the dispatcher to avoid Fast Refresh warnings
 export { dispatchStatement };
+
+// Export statements map for external use if needed
+export const statementComponents = statements;

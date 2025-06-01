@@ -34,6 +34,22 @@ export default tseslint.config(
     ...tseslint.configs.disableTypeChecked,
   },
   {
+    // Electron main process file
+    files: ['main.js'],
+    languageOptions: {
+      globals: {
+        require: 'readonly',
+        process: 'readonly',
+        __dirname: 'readonly',
+      },
+      sourceType: 'commonjs',
+    },
+    rules: {
+      'no-undef': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  {
     // React configuration
     files: ['**/*.{jsx,tsx}'],
     plugins: {
@@ -102,7 +118,7 @@ export default tseslint.config(
       'no-unused-vars': 'off',
 
       // General rules
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': 'off',
       'no-debugger': 'warn',
       'prefer-const': 'warn',
       'no-var': 'error',

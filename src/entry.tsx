@@ -13,7 +13,10 @@ window.Immutable = Immutable; // DEBUG
 console.log('entry.jsx loaded');
 
 // React 18+ doesn't need to wait for DOMContentLoaded
-const rootElement = document.getElementById('root')!;
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error('Root element not found');
+}
 console.log('Root element:', rootElement);
 
 try {

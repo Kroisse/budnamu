@@ -5,7 +5,11 @@ import { Context } from './constructs';
 interface Utils {
   comma: (i: number) => ReactElement;
   commaSeparated: (seq: Seq<number, ReactNode>) => ReactNode[];
-  enclose: (array: ReactNode[], parenOpen?: ReactNode, parenClose?: ReactNode) => void;
+  enclose: (
+    array: ReactNode[],
+    parenOpen?: ReactNode,
+    parenClose?: ReactNode,
+  ) => void;
   renderFunction: (context: Context) => ReactElement;
   openBrace: ReactElement;
   closeBrace: ReactElement;
@@ -26,15 +30,16 @@ const utils: Utils = {
       .toArray();
   },
   enclose(array: ReactNode[], parenOpen?: ReactNode, parenClose?: ReactNode) {
-    parenOpen = parenOpen || utils.openParen;
-    parenClose = parenClose || utils.closeParen;
+    parenOpen = parenOpen ?? utils.openParen;
+    parenClose = parenClose ?? utils.closeParen;
     array.unshift(parenOpen);
     array.push(parenClose);
   },
   renderFunction(context: Context) {
     // Circular imports resolved at the module level
     // TODO: should reflect ES6 features
-    const { type } = context.node?.toObject() || {};
+    const nodeObj = context.node?.toObject() ?? {};
+    const type = typeof nodeObj.type === 'string' ? nodeObj.type : '';
     const id = context.child('id').render(dispatchExpression);
     const params = utils.commaSeparated(
       context
@@ -43,7 +48,7 @@ const utils: Utils = {
         .map((e) => e.render(dispatchPattern)),
     );
     let tag: string, className: string;
-    if (type.match(/Expression$/)) {
+    if (type.endsWith('Expression')) {
       tag = 'span';
       className = 'expression function-expression';
     } else {
@@ -55,7 +60,7 @@ const utils: Utils = {
       tag,
       { className: className },
       <span className="function-header">
-        <span className="keyword">function</span> {id || ''}
+        <span className="keyword">function</span> {id ?? ''}
         {utils.openParen}
         {params}
         {utils.closeParen}

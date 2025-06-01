@@ -1,6 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Map } from 'immutable';
-import { Context, ImmutableNode, ImmutablePath, Dispatcher } from './constructs';
+import {
+  Context,
+  ImmutableNode,
+  ImmutablePath,
+  Dispatcher,
+} from './constructs';
 import * as utils from './utils';
 const {
   openBrace,
@@ -24,12 +29,16 @@ const expressions: Record<string, ExpressionComponent> = {
     const type = typeof node.get('value');
     return (
       <span className={'expression literal literal-' + type}>
-        {node.get('raw')}
+        {node.get('raw') as ReactNode}
       </span>
     );
   },
   Identifier: ({ node }) => {
-    return <span className="expression identifier">{node.get('name')}</span>;
+    return (
+      <span className="expression identifier">
+        {node.get('name') as ReactNode}
+      </span>
+    );
   },
   ThisExpression: () => {
     return (
@@ -142,7 +151,7 @@ const expressions: Record<string, ExpressionComponent> = {
   },
   BinaryExpression: (props) => {
     const context = new Context(props);
-    const op = props.node.get('operator');
+    const op = props.node.get('operator') as ReactNode;
     const left = context.child('left').render(dispatchExpression);
     const right = context.child('right').render(dispatchExpression);
     return (
@@ -153,7 +162,7 @@ const expressions: Record<string, ExpressionComponent> = {
   },
   LogicalExpression: (props) => {
     const context = new Context(props);
-    const op = props.node.get('operator');
+    const op = props.node.get('operator') as ReactNode;
     const left = context.child('left').render(dispatchExpression);
     const right = context.child('right').render(dispatchExpression);
     return (
@@ -176,7 +185,7 @@ const expressions: Record<string, ExpressionComponent> = {
   },
   AssignmentExpression: (props) => {
     const context = new Context(props);
-    const op = props.node.get('operator');
+    const op = props.node.get('operator') as ReactNode;
     const left = context.child('left').render(dispatchExpression);
     const right = context.child('right').render(dispatchExpression);
     return (
@@ -210,7 +219,7 @@ const expressions: Record<string, ExpressionComponent> = {
 };
 
 function renderUnaryExpression(className: string, context: Context): ReactNode {
-  const op = context.node.get('operator');
+  const op = context.node?.get('operator') as ReactNode;
   const argument = context.child('argument').render(dispatchExpression);
   className = 'expression ' + className;
   if (op === 'typeof') {
@@ -219,7 +228,7 @@ function renderUnaryExpression(className: string, context: Context): ReactNode {
         <span className="keyword operator">{op}</span> {argument}
       </span>
     );
-  } else if (context.node.get('prefix')) {
+  } else if (context.node?.get('prefix')) {
     return (
       <span className={className}>
         <span className="operator">{op}</span>
@@ -236,9 +245,9 @@ function renderUnaryExpression(className: string, context: Context): ReactNode {
   }
 }
 
-const patterns: Record<string, ExpressionComponent> = (Map(expressions)
+const patterns: Record<string, ExpressionComponent> = Map(expressions)
   .merge({
-    ObjectPattern: (props) => {
+    ObjectPattern: (props: ExpressionProps) => {
       const context = new Context(props);
       const properties = utils.commaSeparated(
         context
@@ -246,7 +255,7 @@ const patterns: Record<string, ExpressionComponent> = (Map(expressions)
           .elements()
           .map((e, i) => {
             const key = e.child('key').render(dispatchExpression);
-            if (e.node.get('shorthand')) {
+            if (e.node?.get('shorthand')) {
               return (
                 <span key={i} className="property">
                   {key}
@@ -270,7 +279,7 @@ const patterns: Record<string, ExpressionComponent> = (Map(expressions)
         </span>
       );
     },
-    ArrayPattern: (props) => {
+    ArrayPattern: (props: ExpressionProps) => {
       const context = new Context(props);
       const elements = utils.commaSeparated(
         context
@@ -287,9 +296,13 @@ const patterns: Record<string, ExpressionComponent> = (Map(expressions)
       );
     },
   })
-  .toObject()) as Record<string, ExpressionComponent>;
+  .toObject() as Record<string, ExpressionComponent>;
 
-const UnknownExpression: React.FC<{ node: ImmutableNode; key?: string | number; path?: ImmutablePath }> = ({ node }) => {
+const UnknownExpression: React.FC<{
+  node: ImmutableNode;
+  key?: string | number;
+  path?: ImmutablePath;
+}> = ({ node }) => {
   const inspect = () => {
     console.log(node);
   };
@@ -303,28 +316,28 @@ const UnknownExpression: React.FC<{ node: ImmutableNode; key?: string | number; 
 };
 
 const dispatchExpression: Dispatcher = (e, key, path) => {
-  const elem = expressions[e.get('type')];
+  const elem = expressions[e.get('type') as keyof typeof expressions];
   if (typeof elem !== 'undefined') {
     return React.createElement(elem, { key: key, node: e, path: path });
   } else {
     return <UnknownExpression key={key} node={e} path={path} />;
   }
-}
-
-const dispatchPattern: Dispatcher = (e, key, path) => {
-  const elem = patterns[e.get('type')];
-  if (typeof elem !== 'undefined') {
-    return React.createElement(elem, { key: key, node: e, path: path });
-  } else {
-    return <UnknownExpression key={key} node={e} path={path} />;
-  }
-}
-
-export default {
-  ...expressions,
-  ...patterns,
-  dispatchExpression,
-  dispatchPattern,
 };
 
+const dispatchPattern: Dispatcher = (e, key, path) => {
+  const elem = patterns[e.get('type') as keyof typeof patterns];
+  if (typeof elem !== 'undefined') {
+    return React.createElement(elem, { key: key, node: e, path: path });
+  } else {
+    return <UnknownExpression key={key} node={e} path={path} />;
+  }
+};
+
+// Export only the dispatchers to avoid Fast Refresh warnings
 export { dispatchExpression, dispatchPattern };
+
+// Export expressions map for external use if needed
+export const expressionComponents = {
+  ...expressions,
+  ...patterns,
+};
