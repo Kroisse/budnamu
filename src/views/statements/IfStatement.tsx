@@ -1,7 +1,12 @@
 import React from 'react';
 import { Map } from 'immutable';
 import { StatementProps } from './types';
-import { Context, ImmutableNode, ImmutablePath, Dispatcher } from '../constructs';
+import {
+  Context,
+  ImmutableNode,
+  ImmutablePath,
+  Dispatcher,
+} from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
 import * as utils from '../utils';
@@ -22,10 +27,7 @@ export const IfStatement: React.FC<StatementProps> = (props) => {
     );
   };
 
-  const renderElseClause = (
-    context: Context,
-    depth = 1,
-  ): React.ReactNode => {
+  const renderElseClause = (context: Context, depth = 1): React.ReactNode => {
     if (context.isEmpty()) {
       return null;
     }
@@ -50,11 +52,7 @@ export const IfStatement: React.FC<StatementProps> = (props) => {
   };
 
   const renderIfClause = (context: Context, depth = 1): React.ReactNode => {
-    const test = _renderDepth(
-      context.child('test'),
-      dispatchExpression,
-      depth,
-    );
+    const test = _renderDepth(context.child('test'), dispatchExpression, depth);
     const consequent = _renderDepth(
       context.child('consequent'),
       dispatchStatement,

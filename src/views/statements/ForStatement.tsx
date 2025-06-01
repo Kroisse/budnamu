@@ -12,13 +12,14 @@ const { openParen, closeParen } = utils;
 import { VariableDeclaration } from './VariableDeclaration';
 
 // Helper function for rendering for statement init
-function renderForStatementInit(
-  context: Context,
-): ReactNode {
+function renderForStatementInit(context: Context): ReactNode {
   if (context.isEmpty()) {
     return null;
   }
-  if (Map.isMap(context.node) && context.node.get('type') === 'VariableDeclaration') {
+  if (
+    Map.isMap(context.node) &&
+    context.node.get('type') === 'VariableDeclaration'
+  ) {
     return (
       <VariableDeclaration
         key={context.key}

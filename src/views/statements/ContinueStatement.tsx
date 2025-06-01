@@ -22,8 +22,5 @@ function renderReturnStatement(keyword: string, argument: Context): ReactNode {
 }
 
 export const ContinueStatement: React.FC<StatementProps> = (props) => {
-  return renderReturnStatement(
-    'continue',
-    new Context(props).child('label'),
-  );
+  return renderReturnStatement('continue', new Context(props).child('label'));
 };

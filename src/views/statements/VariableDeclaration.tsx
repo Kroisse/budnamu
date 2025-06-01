@@ -1,10 +1,16 @@
 import React from 'react';
 import { StatementProps } from './types';
 import { Context } from '../constructs';
-import { dispatchExpression, dispatchPattern } from '../expressions/dispatchers';
+import {
+  dispatchExpression,
+  dispatchPattern,
+} from '../expressions/dispatchers';
 import * as utils from '../utils';
 
-export const VariableDeclaration: React.FC<StatementProps> = ({ expression = false, ...props }) => {
+export const VariableDeclaration: React.FC<StatementProps> = ({
+  expression = false,
+  ...props
+}) => {
   const context = new Context(props);
 
   const renderDeclaration = (context: Context, i: number) => {

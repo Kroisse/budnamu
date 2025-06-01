@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { Context } from './constructs';
+import { Context, type ImmutableNode, type ImmutableValue } from './constructs';
 import { dispatchStatement } from './statements';
 import {
   parsedSyntaxTreeAtom,
@@ -28,11 +28,11 @@ const SyntaxTree: React.FC = () => {
   }, [parseSyntaxTree]);
 
   // Ensure syntaxTree is a Map or List before creating context
-  let contextNode = null;
+  let contextNode: ImmutableNode | List<ImmutableValue> | undefined;
   if (Map.isMap(syntaxTree) || List.isList(syntaxTree)) {
     contextNode = syntaxTree;
   }
-  
+
   const context = new Context({
     node: contextNode,
     path: List(),
@@ -63,13 +63,13 @@ const SyntaxTree: React.FC = () => {
   // Get the body directly as it's a List
   const bodyValue = Map.isMap(context.node) ? context.node.get('body') : null;
   const bodyList = List.isList(bodyValue) ? bodyValue : null;
-  
+
   console.log('SyntaxTree render:', {
     syntaxTree,
-    contextNode: Map.isMap(context.node) ? context.node.toJS() : context.node,
-    bodyList: List.isList(bodyList) ? bodyList.toJS() : bodyList,
+    contextNode: context.node,
+    bodyList: bodyList,
   });
-  
+
   // Create a context with the body list directly
   const bodyContext = new Context({
     node: bodyList,
@@ -80,7 +80,10 @@ const SyntaxTree: React.FC = () => {
     <div className="syntax-tree">
       <div style={{ padding: '20px', border: '1px solid #ccc' }}>
         <h2>Syntax Tree Visualization</h2>
-        <div>AST Type: {Map.isMap(context.node) ? context.node.get('type') : 'Unknown'}</div>
+        <div>
+          AST Type:{' '}
+          {Map.isMap(context.node) ? context.node.get('type') : 'Unknown'}
+        </div>
         {bodyContext.blockConstruct(dispatchStatement)}
       </div>
     </div>

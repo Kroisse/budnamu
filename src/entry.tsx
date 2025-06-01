@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'jotai';
 import SyntaxTree from './views/SyntaxTree';
 import * as Immutable from 'immutable';
+import { StrictMode } from 'react';
 
 console.log('Starting SWC initialization...');
 try {
@@ -28,9 +29,11 @@ console.log('Root element:', rootElement);
 try {
   const root = createRoot(rootElement);
   root.render(
-    <Provider>
-      <SyntaxTree />
-    </Provider>,
+    <StrictMode>
+      <Provider>
+        <SyntaxTree />
+      </Provider>
+    </StrictMode>,
   );
   console.log('React app rendered with Jotai');
 } catch (error) {

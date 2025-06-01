@@ -2,13 +2,13 @@ import React, { ReactNode } from 'react';
 import { Record, List, Seq, Map } from 'immutable';
 
 // Define recursive type for immutable values
-export type ImmutableValue = 
-  | string 
-  | number 
-  | boolean 
-  | null 
-  | undefined 
-  | Map<string, ImmutableValue>
+export type ImmutableValue =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | ImmutableNode
   | List<ImmutableValue>;
 
 export type ImmutableNode = Map<string, ImmutableValue>;
@@ -33,24 +33,24 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
   }
   child(key: string): Context {
     let childNode = null;
-    
+
     if (Map.isMap(this.node)) {
       childNode = this.node.get(key);
     }
-    
+
     let node: ImmutableNode | null = null;
-    
+
     if (Map.isMap(childNode)) {
       // Ensure it's a Map with string keys
-      const entries: Array<[string, ImmutableValue]> = [];
+      const entries: [string, ImmutableValue][] = [];
       childNode.forEach((value, k) => {
         if (typeof k === 'string') {
-          entries.push([k, value as ImmutableValue]);
+          entries.push([k, value]);
         }
       });
       node = Map(entries);
     }
-    
+
     return new Context({
       node: node,
       path: this.path.push(key),
@@ -71,7 +71,7 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
     if (!List.isList(this.node)) {
       return Seq.Indexed<Context>();
     }
-    
+
     // Type guard ensures this.node is a List
     const list = this.node;
     return list.toSeq().map((e, i) => {
@@ -79,17 +79,17 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
       let node: ImmutableNode | null = null;
       if (Map.isMap(e)) {
         // Create a new Map with string keys only
-        const entries: Array<[string, ImmutableValue]> = [];
+        const entries: [string, ImmutableValue][] = [];
         e.forEach((value, key) => {
           if (typeof key === 'string') {
-            entries.push([key, value as ImmutableValue]);
+            entries.push([key, value]);
           }
         });
         node = Map(entries);
       }
-      return new Context({ 
-        node: node, 
-        path: path.push(i) 
+      return new Context({
+        node: node,
+        path: path.push(i),
       });
     });
   }
@@ -104,51 +104,55 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
       childNode = this.node.get(this.key);
     }
     let statements: List<ImmutableValue> | null = null;
-    
+
     if (List.isList(childNode)) {
       // Convert to list of properly typed nodes
-      const convertedList = childNode.map(item => {
-        if (Map.isMap(item)) {
-          const entries: Array<[string, ImmutableValue]> = [];
-          item.forEach((value, key) => {
-            if (typeof key === 'string') {
-              entries.push([key, value as ImmutableValue]);
-            }
-          });
-          return Map(entries);
-        }
-        return null;
-      }).filter(item => item !== null);
-      
+      const convertedList = childNode
+        .map((item) => {
+          if (Map.isMap(item)) {
+            const entries: [string, ImmutableValue][] = [];
+            item.forEach((value, key) => {
+              if (typeof key === 'string') {
+                entries.push([key, value]);
+              }
+            });
+            return Map(entries);
+          }
+          return null;
+        })
+        .filter((item) => item !== null);
+
       if (convertedList.size > 0) {
         statements = convertedList;
       }
     } else if (List.isList(this.node)) {
       // Convert to list of properly typed nodes
-      const convertedList = this.node.map(item => {
-        if (Map.isMap(item)) {
-          const entries: Array<[string, ImmutableValue]> = [];
-          item.forEach((value, key) => {
-            if (typeof key === 'string') {
-              entries.push([key, value as ImmutableValue]);
-            }
-          });
-          return Map(entries);
-        }
-        return null;
-      }).filter(item => item !== null);
-      
+      const convertedList = this.node
+        .map((item) => {
+          if (Map.isMap(item)) {
+            const entries: [string, ImmutableValue][] = [];
+            item.forEach((value, key) => {
+              if (typeof key === 'string') {
+                entries.push([key, value]);
+              }
+            });
+            return Map(entries);
+          }
+          return null;
+        })
+        .filter((item) => item !== null);
+
       if (convertedList.size > 0) {
         statements = convertedList;
       }
     }
 
     console.log('blockConstruct:', {
-      node: this.node?.toJS?.(),
+      node: this.node,
       key: this.key,
       childNode: childNode,
       isList: List.isList(this.node),
-      statements: statements?.toJS?.(),
+      statements: statements,
     });
 
     if (!statements) {
@@ -188,7 +192,7 @@ const Block: React.FC<BlockProps> = ({
           }
           return null;
         })
-        .filter(item => item !== null)
+        .filter((item) => item !== null)
         .toArray()}
     </div>
   );

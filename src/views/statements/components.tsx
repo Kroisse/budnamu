@@ -25,8 +25,10 @@ import { BreakStatement } from './BreakStatement';
 // Removed unused helper functions
 
 // Factory function to create statement components
-export function createStatementComponents(): Record<string, StatementComponent> {
-
+export function createStatementComponents(): Record<
+  string,
+  StatementComponent
+> {
   const statements: Record<string, StatementComponent> = {
     VariableDeclaration,
     FunctionDeclaration,

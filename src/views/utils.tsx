@@ -44,10 +44,10 @@ const utils: Utils = {
     // TODO: should reflect ES6 features
     const nodeObj = context.node?.toObject() ?? {};
     const type = typeof nodeObj.type === 'string' ? nodeObj.type : '';
-    
+
     // Get identifier using dispatcher
     const id = context.child('id').render(dispatchExpression);
-    
+
     const params = utils.commaSeparated(
       context
         .child('params')

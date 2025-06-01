@@ -5,7 +5,9 @@ import { Context } from '../constructs';
 import { dispatchExpression } from './dispatchers';
 
 function renderUnaryExpression(className: string, context: Context): ReactNode {
-  const op = (Map.isMap(context.node) ? context.node.get('operator') : null) as ReactNode;
+  const op = (
+    Map.isMap(context.node) ? context.node.get('operator') : null
+  ) as ReactNode;
   const argument = context.child('argument').render(dispatchExpression);
   className = 'expression ' + className;
   if (op === 'typeof') {

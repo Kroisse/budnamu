@@ -38,9 +38,7 @@ export const SwitchStatement: React.FC<StatementProps> = (props) => {
     );
   };
 
-  const discriminant = context
-    .child('discriminant')
-    .render(dispatchExpression);
+  const discriminant = context.child('discriminant').render(dispatchExpression);
   const caseClauses = context
     .child('cases')
     .elements()

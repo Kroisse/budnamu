@@ -22,8 +22,5 @@ function renderReturnStatement(keyword: string, argument: Context): ReactNode {
 }
 
 export const ReturnStatement: React.FC<StatementProps> = (props) => {
-  return renderReturnStatement(
-    'return',
-    new Context(props).child('argument'),
-  );
+  return renderReturnStatement('return', new Context(props).child('argument'));
 };
