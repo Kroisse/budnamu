@@ -93,4 +93,4 @@ export const {
 
 // Import these after utils is defined to avoid circular dependency issues
 import { dispatchStatement } from './statements';
-import { dispatchExpression, dispatchPattern } from './expressions';
+import { dispatchExpression, dispatchPattern } from './expressions/dispatchers';
