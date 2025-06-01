@@ -1,5 +1,5 @@
 # Claude Code가 포함된 개발 환경
-FROM mcr.microsoft.com/devcontainers/base:ubuntu
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
 # Claude Code 설치 (npm을 통해)
 # RUN npm install -g @anthropic-ai/claude-code
