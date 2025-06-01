@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { Map } from 'immutable';
 import { StatementProps } from './types';
 import { Context } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
@@ -17,7 +18,7 @@ function renderForStatementInit(
   if (context.isEmpty()) {
     return null;
   }
-  if (context.node?.get('type') === 'VariableDeclaration') {
+  if (Map.isMap(context.node) && context.node.get('type') === 'VariableDeclaration') {
     return (
       <VariableDeclaration
         key={context.key}

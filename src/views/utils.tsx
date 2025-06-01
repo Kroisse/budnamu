@@ -2,6 +2,10 @@ import React, { ReactNode, ReactElement } from 'react';
 import { Seq } from 'immutable';
 import { Context } from './constructs';
 
+// Import these at the top to avoid circular dependency issues
+import { dispatchStatement } from './statements';
+import { dispatchExpression, dispatchPattern } from './expressions/dispatchers';
+
 interface Utils {
   comma: (i: number) => ReactElement;
   commaSeparated: (seq: Seq<number, ReactNode>) => ReactNode[];
@@ -40,7 +44,10 @@ const utils: Utils = {
     // TODO: should reflect ES6 features
     const nodeObj = context.node?.toObject() ?? {};
     const type = typeof nodeObj.type === 'string' ? nodeObj.type : '';
+    
+    // Get identifier using dispatcher
     const id = context.child('id').render(dispatchExpression);
+    
     const params = utils.commaSeparated(
       context
         .child('params')
@@ -60,7 +67,7 @@ const utils: Utils = {
       tag,
       { className: className },
       <span className="function-header">
-        <span className="keyword">function</span> {id ?? ''}
+        <span className="keyword">function</span> {id}
         {utils.openParen}
         {params}
         {utils.closeParen}
@@ -90,7 +97,3 @@ export const {
   openBracket,
   closeBracket,
 } = utils;
-
-// Import these after utils is defined to avoid circular dependency issues
-import { dispatchStatement } from './statements';
-import { dispatchExpression, dispatchPattern } from './expressions/dispatchers';

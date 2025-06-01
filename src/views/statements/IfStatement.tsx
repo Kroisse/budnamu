@@ -1,4 +1,5 @@
 import React from 'react';
+import { Map } from 'immutable';
 import { StatementProps } from './types';
 import { Context, ImmutableNode, ImmutablePath, Dispatcher } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
@@ -29,7 +30,7 @@ export const IfStatement: React.FC<StatementProps> = (props) => {
       return null;
     }
 
-    if (context.node?.get('type') === 'IfStatement') {
+    if (Map.isMap(context.node) && context.node.get('type') === 'IfStatement') {
       return (
         <>
           {' '}

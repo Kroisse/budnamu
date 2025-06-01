@@ -6,7 +6,13 @@ import { Provider } from 'jotai';
 import SyntaxTree from './views/SyntaxTree';
 import * as Immutable from 'immutable';
 
-await initSwc();
+console.log('Starting SWC initialization...');
+try {
+  await initSwc();
+  console.log('SWC initialized successfully');
+} catch (error) {
+  console.error('Failed to initialize SWC:', error);
+}
 
 window.Immutable = Immutable; // DEBUG
 

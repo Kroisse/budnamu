@@ -2,9 +2,10 @@ import React, { ReactNode } from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
 import { dispatchExpression } from './dispatchers';
+import { Map } from 'immutable';
 
 function renderUnaryExpression(className: string, context: Context): ReactNode {
-  const op = context.node?.get('operator') as ReactNode;
+  const op = Map.isMap(context.node) ? context.node.get('operator') : null;
   const argument = context.child('argument').render(dispatchExpression);
   className = 'expression ' + className;
   if (op === 'typeof') {
@@ -13,7 +14,7 @@ function renderUnaryExpression(className: string, context: Context): ReactNode {
         <span className="keyword operator">{op}</span> {argument}
       </span>
     );
-  } else if (context.node?.get('prefix')) {
+  } else if (Map.isMap(context.node) && context.node.get('prefix')) {
     return (
       <span className={className}>
         <span className="operator">{op}</span>

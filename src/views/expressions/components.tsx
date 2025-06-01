@@ -80,7 +80,7 @@ export function createExpressionComponents(
             .elements()
             .map((e, i) => {
               const key = e.child('key').render(dispatchExpression);
-              if (e.node?.get('shorthand')) {
+              if (Map.isMap(e.node) && e.node.get('shorthand')) {
                 return (
                   <span key={i} className="property">
                     {key}

@@ -1,12 +1,7 @@
 import { atom } from 'jotai';
 import { parse, ParseOptions } from '@swc/wasm-web';
 import { Map, List } from 'immutable';
-
-type Primitive = string | number | boolean | null | undefined;
-type ImmutableValue =
-  | Map<string, ImmutableValue>
-  | List<ImmutableValue>
-  | Primitive;
+import type { ImmutableValue } from '../views/constructs';
 
 // Helper function to convert JS objects to Immutable structures
 function toImmutable(json: unknown): ImmutableValue {

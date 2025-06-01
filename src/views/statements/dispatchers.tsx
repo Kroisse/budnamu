@@ -21,11 +21,8 @@ export const dispatchStatement: Dispatcher = (e, key, path) => {
   }
 };
 
-// Create the components with the dispatcher
-statements = createStatementComponents({
-  statements,
-  dispatchStatement,
-});
+// Create the components
+statements = createStatementComponents();
 
 // Export the statement components for external use if needed
 export const statementComponents = statements;
