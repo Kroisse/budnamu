@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactElement } from 'react';
+import { JSX, PropsWithChildren, ReactElement, ReactNode } from 'react';
 import { Seq } from 'immutable';
 import { Context } from './constructs';
 
@@ -6,87 +6,73 @@ import { Context } from './constructs';
 import { dispatchStatement } from './statements';
 import { dispatchExpression, dispatchPattern } from './expressions/dispatchers';
 
-interface Utils {
-  comma: (i: number) => ReactElement;
-  commaSeparated: (seq: Seq<number, ReactNode>) => ReactNode[];
-  enclose: (
-    array: ReactNode[],
-    parenOpen?: ReactNode,
-    parenClose?: ReactNode,
-  ) => void;
-  renderFunction: (context: Context) => ReactElement;
-  openBrace: ReactElement;
-  closeBrace: ReactElement;
-  openParen: ReactElement;
-  closeParen: ReactElement;
-  openBracket: ReactElement;
-  closeBracket: ReactElement;
+export function commaSeparated(seq: Seq<number, ReactNode>): ReactNode[] {
+  return seq
+    .flatMap((v) => [v, ', '])
+    .butLast()
+    .toArray();
 }
 
-const utils: Utils = {
-  comma(i: number) {
-    return <span key={'comma' + i}>, </span>;
-  },
-  commaSeparated(seq: Seq<number, ReactNode>) {
-    return seq
-      .flatMap((v, k) => [v, utils.comma(k)])
-      .butLast()
-      .toArray();
-  },
-  enclose(array: ReactNode[], parenOpen?: ReactNode, parenClose?: ReactNode) {
-    parenOpen = parenOpen ?? utils.openParen;
-    parenClose = parenClose ?? utils.closeParen;
-    array.unshift(parenOpen);
-    array.push(parenClose);
-  },
-  renderFunction(context: Context) {
-    // Circular imports resolved at the module level
-    // TODO: should reflect ES6 features
-    const nodeObj = context.node?.toObject() ?? {};
-    const type = typeof nodeObj.type === 'string' ? nodeObj.type : '';
+export function enclose(
+  array: ReactNode[],
+  parenOpen?: ReactNode,
+  parenClose?: ReactNode,
+): void {
+  parenOpen = parenOpen ?? openParen;
+  parenClose = parenClose ?? closeParen;
+  array.unshift(parenOpen);
+  array.push(parenClose);
+}
 
-    // Get identifier using dispatcher
-    const id = context.child('id').render(dispatchExpression);
+export function renderFunction(context: Context): JSX.Element {
+  // Circular imports resolved at the module level
+  // TODO: should reflect ES6 features
+  const nodeObj = context.node?.toObject() ?? {};
+  const type = typeof nodeObj.type === 'string' ? nodeObj.type : '';
 
-    const params = utils.commaSeparated(
-      context
-        .child('params')
-        .elements()
-        .map((e) => e.render(dispatchPattern)),
-    );
-    let tag: string, className: string;
-    if (type.endsWith('Expression')) {
-      tag = 'span';
-      className = 'expression function-expression';
-    } else {
-      tag = 'div';
-      className = 'statement function-declaration';
-    }
-    const body = context.child('body').render(dispatchStatement);
-    return React.createElement(
-      tag,
-      { className: className },
+  // Get identifier using dispatcher
+  const id = context.child('id').render(dispatchExpression);
+
+  const params = commaSeparated(
+    context
+      .child('params')
+      .elements()
+      .map((e) => e.render(dispatchPattern)),
+  );
+  const Tag = type.endsWith('Expression')
+    ? ExpressionWrapper
+    : StatementWrapper;
+  const body = context.child('body').render(dispatchStatement);
+  return (
+    <Tag>
       <span className="function-header">
         <span className="keyword">function</span> {id}
-        {utils.openParen}
+        {openParen}
         {params}
-        {utils.closeParen}
-      </span>,
-      ' ',
-      body,
-    );
-  },
-  openBrace: <span className="paren-open">{'{'}</span>,
-  closeBrace: <span className="paren-close">{'}'}</span>,
-  openParen: <span className="paren-open">{'('}</span>,
-  closeParen: <span className="paren-close">{')'}</span>,
-  openBracket: <span className="paren-open">{'['}</span>,
-  closeBracket: <span className="paren-close">{']'}</span>,
-};
+        {closeParen}
+      </span>{' '}
+      {body}
+    </Tag>
+  );
+}
 
-export default utils;
-export const {
-  comma,
+function ExpressionWrapper({ children }: PropsWithChildren): ReactElement {
+  return <span className="expression function-expression">{children}</span>;
+}
+
+function StatementWrapper({ children }: PropsWithChildren): ReactElement {
+  return <span className="statement function-declaration">{children}</span>;
+}
+
+export const openBrace = <span className="paren-open">{'{'}</span>;
+export const closeBrace = <span className="paren-close">{'}'}</span>;
+export const openParen = <span className="paren-open">{'('}</span>;
+export const closeParen = <span className="paren-close">{')'}</span>;
+export const openBracket = <span className="paren-open">{'['}</span>;
+export const closeBracket = <span className="paren-close">{']'}</span>;
+
+// Maintain backward compatibility with default export
+const utils = {
   commaSeparated,
   enclose,
   renderFunction,
@@ -96,4 +82,6 @@ export const {
   closeParen,
   openBracket,
   closeBracket,
-} = utils;
+};
+
+export default utils;
