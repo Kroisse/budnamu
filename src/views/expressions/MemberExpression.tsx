@@ -1,10 +1,8 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import * as utils from '../utils';
+import { openBracket, closeBracket } from '../utils';
 import { dispatchExpression } from './dispatchers';
-
-const { openBracket, closeBracket } = utils;
 
 export const MemberExpression: React.FC<ExpressionProps> = (props) => {
   const className = 'expression member-expression';

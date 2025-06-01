@@ -9,9 +9,7 @@ import {
 } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
-import * as utils from '../utils';
-
-const { openParen, closeParen } = utils;
+import { openParen, closeParen } from '../utils';
 
 export const IfStatement: React.FC<StatementProps> = (props) => {
   const _renderDepth = (

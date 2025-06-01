@@ -3,9 +3,7 @@ import { StatementProps } from './types';
 import { Context } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
-import * as utils from '../utils';
-
-const { openBrace, closeBrace, openParen, closeParen } = utils;
+import { openBrace, closeBrace, openParen, closeParen } from '../utils';
 
 export const SwitchStatement: React.FC<StatementProps> = (props) => {
   const context = new Context(props);

@@ -5,7 +5,7 @@ import {
   dispatchExpression,
   dispatchPattern,
 } from '../expressions/dispatchers';
-import * as utils from '../utils';
+import { commaSeparated } from '../utils';
 
 export const VariableDeclaration: React.FC<StatementProps> = ({
   expression = false,
@@ -35,7 +35,7 @@ export const VariableDeclaration: React.FC<StatementProps> = ({
     .child('declarations')
     .elements()
     .map(renderDeclaration);
-  const declarationsList = utils.commaSeparated(declarations);
+  const declarationsList = commaSeparated(declarations);
   const tag: 'span' | 'div' = expression ? 'span' : 'div';
   return React.createElement(
     tag,

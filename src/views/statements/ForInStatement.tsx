@@ -4,9 +4,7 @@ import { StatementProps } from './types';
 import { Context } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
-import * as utils from '../utils';
-
-const { openParen, closeParen } = utils;
+import { openParen, closeParen } from '../utils';
 
 // Import VariableDeclaration for the helper function
 import { VariableDeclaration } from './VariableDeclaration';

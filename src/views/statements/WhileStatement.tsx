@@ -3,9 +3,7 @@ import { StatementProps } from './types';
 import { Context } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
-import * as utils from '../utils';
-
-const { openParen, closeParen } = utils;
+import { openParen, closeParen } from '../utils';
 
 export const WhileStatement: React.FC<StatementProps> = (props) => {
   const context = new Context(props);

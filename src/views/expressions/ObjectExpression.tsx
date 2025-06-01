@@ -1,14 +1,12 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import * as utils from '../utils';
+import { openBrace, closeBrace, commaSeparated } from '../utils';
 import { dispatchExpression } from './dispatchers';
-
-const { openBrace, closeBrace } = utils;
 
 export const ObjectExpression: React.FC<ExpressionProps> = (props) => {
   const context = new Context(props);
-  const properties = utils.commaSeparated(
+  const properties = commaSeparated(
     context
       .child('properties')
       .elements()

@@ -70,18 +70,3 @@ export const openParen = <span className="paren-open">{'('}</span>;
 export const closeParen = <span className="paren-close">{')'}</span>;
 export const openBracket = <span className="paren-open">{'['}</span>;
 export const closeBracket = <span className="paren-close">{']'}</span>;
-
-// Maintain backward compatibility with default export
-const utils = {
-  commaSeparated,
-  enclose,
-  renderFunction,
-  openBrace,
-  closeBrace,
-  openParen,
-  closeParen,
-  openBracket,
-  closeBracket,
-};
-
-export default utils;

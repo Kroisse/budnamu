@@ -6,7 +6,13 @@ import {
   ImmutablePath,
   Dispatcher,
 } from '../constructs';
-import * as utils from '../utils';
+import {
+  openBrace,
+  closeBrace,
+  openBracket,
+  closeBracket,
+  commaSeparated,
+} from '../utils';
 
 // Import all individual expression components
 import { Literal } from './Literal';
@@ -25,8 +31,6 @@ import { AssignmentExpression } from './AssignmentExpression';
 import { UpdateExpression } from './UpdateExpression';
 import { FunctionExpression } from './FunctionExpression';
 import { SequenceExpression } from './SequenceExpression';
-
-const { openBrace, closeBrace, openBracket, closeBracket } = utils;
 
 export interface ExpressionProps {
   node: ImmutableNode;
@@ -74,7 +78,7 @@ export function createExpressionComponents(
     .merge({
       ObjectPattern: (props: ExpressionProps) => {
         const context = new Context(props);
-        const properties = utils.commaSeparated(
+        const properties = commaSeparated(
           context
             .child('properties')
             .elements()
@@ -106,7 +110,7 @@ export function createExpressionComponents(
       },
       ArrayPattern: (props: ExpressionProps) => {
         const context = new Context(props);
-        const elements = utils.commaSeparated(
+        const elements = commaSeparated(
           context
             .child('elements')
             .elements()
