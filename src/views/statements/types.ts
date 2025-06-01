@@ -1,3 +1,4 @@
+import React from 'react';
 import { ImmutableNode, ImmutablePath } from '../constructs';
 
 export interface StatementProps {
