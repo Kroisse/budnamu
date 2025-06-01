@@ -1,0 +1,66 @@
+{
+  "name": "Budnamu Development Environment",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  // 컨테이너 설정
+  "runArgs": [
+    "--name=budnamu-dev"
+  ],
+  // 포트 포워딩 (필요시)
+  "forwardPorts": [
+    5173
+  ],
+  // 환경 변수 (선택사항)
+  "containerEnv": {
+    "CLAUDE_WORKSPACE": "/workspace",
+    "TERM": "xterm-256color"
+  },
+  // VS Code 확장 프로그램 자동 설치
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "ms-python.python",
+        "ms-vscode.vscode-json",
+        "GitHub.copilot"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "files.watcherExclude": {
+          "**/node_modules/**": true,
+          "**/.git/**": true
+        }
+      }
+    }
+  },
+  // 원격 사용자 설정
+  "remoteUser": "vscode",
+  // 기능 추가 (선택사항)
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "installOhMyZshConfig": true,
+      "upgradePackages": true,
+      "username": "automatic",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": true,
+      "version": "os-provided"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers-extra/features/ripgrep:1": {
+      "version": "latest"
+    },
+    "ghcr.io/roul/devcontainer-features/mise-node:1": {},
+    "ghcr.io/roul/devcontainer-features/mise-python:1": {}
+  }
+}
