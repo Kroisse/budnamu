@@ -4,5 +4,9 @@ import { Context } from '../constructs';
 import { renderFunction } from '../utils';
 
 export const FunctionDeclaration: React.FC<StatementProps> = (props) => {
-  return renderFunction(new Context(props));
+  return (
+    <span className="statement function-declaration">
+      {renderFunction(new Context(props))}
+    </span>
+  );
 };

@@ -1,4 +1,4 @@
-import { JSX, PropsWithChildren, ReactElement, ReactNode } from 'react';
+import { JSX, ReactNode } from 'react';
 import { Seq } from 'immutable';
 import { Context } from './constructs';
 
@@ -25,11 +25,6 @@ export function enclose(
 }
 
 export function renderFunction(context: Context): JSX.Element {
-  // Circular imports resolved at the module level
-  // TODO: should reflect ES6 features
-  const nodeObj = context.node?.toObject() ?? {};
-  const type = typeof nodeObj.type === 'string' ? nodeObj.type : '';
-
   // Get identifier using dispatcher
   const id = context.child('id').render(dispatchExpression);
 
@@ -39,12 +34,9 @@ export function renderFunction(context: Context): JSX.Element {
       .elements()
       .map((e) => e.render(dispatchPattern)),
   );
-  const Tag = type.endsWith('Expression')
-    ? ExpressionWrapper
-    : StatementWrapper;
   const body = context.child('body').render(dispatchStatement);
   return (
-    <Tag>
+    <>
       <span className="function-header">
         <span className="keyword">function</span> {id}
         {openParen}
@@ -52,16 +44,8 @@ export function renderFunction(context: Context): JSX.Element {
         {closeParen}
       </span>{' '}
       {body}
-    </Tag>
+    </>
   );
-}
-
-function ExpressionWrapper({ children }: PropsWithChildren): ReactElement {
-  return <span className="expression function-expression">{children}</span>;
-}
-
-function StatementWrapper({ children }: PropsWithChildren): ReactElement {
-  return <span className="statement function-declaration">{children}</span>;
 }
 
 export const openBrace = <span className="paren-open">{'{'}</span>;
