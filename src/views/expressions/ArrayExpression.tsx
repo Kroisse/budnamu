@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import { openBracket, closeBracket, commaSeparated } from '../utils';
+import { OpenBracket, CloseBracket, commaSeparated } from '../utils';
 import { dispatchExpression } from './dispatchers';
 
 export const ArrayExpression: React.FC<ExpressionProps> = (props) => {
@@ -14,9 +14,9 @@ export const ArrayExpression: React.FC<ExpressionProps> = (props) => {
   );
   return (
     <span className="expression array-expression">
-      {openBracket}
+      <OpenBracket />
       {elements}
-      {closeBracket}
+      <CloseBracket />
     </span>
   );
 };

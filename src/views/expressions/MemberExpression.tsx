@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import { openBracket, closeBracket } from '../utils';
+import { OpenBracket, CloseBracket } from '../utils';
 import { dispatchExpression } from './dispatchers';
 
 export const MemberExpression: React.FC<ExpressionProps> = (props) => {
@@ -13,9 +13,9 @@ export const MemberExpression: React.FC<ExpressionProps> = (props) => {
     return (
       <span className={className}>
         {object}
-        {openBracket}
+        <OpenBracket />
         {property}
-        {closeBracket}
+        <CloseBracket />
       </span>
     );
   } else {

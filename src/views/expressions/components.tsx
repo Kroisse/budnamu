@@ -7,10 +7,10 @@ import {
   Dispatcher,
 } from '../constructs';
 import {
-  openBrace,
-  closeBrace,
-  openBracket,
-  closeBracket,
+  OpenBrace,
+  CloseBrace,
+  OpenBracket,
+  CloseBracket,
   commaSeparated,
 } from '../utils';
 
@@ -102,9 +102,9 @@ export function createExpressionComponents(
         );
         return (
           <span className="expression object-pattern">
-            {openBrace}
+            <OpenBrace />
             <span className="properties">{properties}</span>
-            {closeBrace}
+            <CloseBrace />
           </span>
         );
       },
@@ -118,9 +118,9 @@ export function createExpressionComponents(
         );
         return (
           <span className="expression array-pattern">
-            {openBracket}
+            <OpenBracket />
             {elements}
-            {closeBracket}
+            <CloseBracket />
           </span>
         );
       },

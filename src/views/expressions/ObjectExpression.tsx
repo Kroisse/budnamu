@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import { openBrace, closeBrace, commaSeparated } from '../utils';
+import { OpenBrace, CloseBrace, commaSeparated } from '../utils';
 import { dispatchExpression } from './dispatchers';
 
 export const ObjectExpression: React.FC<ExpressionProps> = (props) => {
@@ -22,9 +22,9 @@ export const ObjectExpression: React.FC<ExpressionProps> = (props) => {
   );
   return (
     <span className="expression object-expression">
-      {openBrace}
+      <OpenBrace />
       <span className="properties">{properties}</span>
-      {closeBrace}
+      <CloseBrace />
     </span>
   );
 };

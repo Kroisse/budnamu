@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import { openParen, closeParen, commaSeparated } from '../utils';
+import { OpenParen, CloseParen, commaSeparated } from '../utils';
 import { dispatchExpression } from './dispatchers';
 
 export const CallExpression: React.FC<ExpressionProps> = (props) => {
@@ -16,9 +16,9 @@ export const CallExpression: React.FC<ExpressionProps> = (props) => {
   return (
     <span className="expression call-expression">
       {callee}
-      {openParen}
+      <OpenParen />
       {args}
-      {closeParen}
+      <CloseParen />
     </span>
   );
 };

@@ -4,7 +4,7 @@ import { StatementProps } from './types';
 import { Context } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
-import { openParen, closeParen } from '../utils';
+import { OpenParen, CloseParen } from '../utils';
 
 // Import VariableDeclaration for the helper function
 import { VariableDeclaration } from './VariableDeclaration';
@@ -40,9 +40,9 @@ export const ForStatement: React.FC<StatementProps> = (props) => {
   return (
     <div className="statement for-statement">
       <span className="statement-header">
-        <span className="keyword">for</span> {openParen}
+        <span className="keyword">for</span> <OpenParen />
         {init}; {test}; {update}
-        {closeParen}
+        <CloseParen />
       </span>{' '}
       {body}
     </div>

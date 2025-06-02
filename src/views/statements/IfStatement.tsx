@@ -9,7 +9,7 @@ import {
 } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
-import { openParen, closeParen } from '../utils';
+import { OpenParen, CloseParen } from '../utils';
 
 export const IfStatement: React.FC<StatementProps> = (props) => {
   const _renderDepth = (
@@ -59,9 +59,9 @@ export const IfStatement: React.FC<StatementProps> = (props) => {
 
     return (
       <>
-        <span className="keyword">if</span> {openParen}
+        <span className="keyword">if</span> <OpenParen />
         {test}
-        {closeParen} {consequent}
+        <CloseParen /> {consequent}
         {renderElseClause(context.child('alternate'), depth)}
       </>
     );

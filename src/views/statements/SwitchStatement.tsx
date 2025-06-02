@@ -3,7 +3,7 @@ import { StatementProps } from './types';
 import { Context } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
-import { openBrace, closeBrace, openParen, closeParen } from '../utils';
+import { OpenBrace, CloseBrace, OpenParen, CloseParen } from '../utils';
 
 export const SwitchStatement: React.FC<StatementProps> = (props) => {
   const context = new Context(props);
@@ -45,13 +45,15 @@ export const SwitchStatement: React.FC<StatementProps> = (props) => {
   return (
     <div className="statement switch-statement">
       <span className="statement-header">
-        <span className="keyword">switch</span> {openParen}
+        <span className="keyword">switch</span> <OpenParen />
         {discriminant}
-        {closeParen}
+        <CloseParen />
       </span>{' '}
-      {openBrace}
+      <OpenBrace />
       <div className="switch-body">{caseClauses}</div>
-      <span className="statement-footer">{closeBrace}</span>
+      <span className="statement-footer">
+        <CloseBrace />
+      </span>
     </div>
   );
 };

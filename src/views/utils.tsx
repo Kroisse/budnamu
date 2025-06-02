@@ -22,9 +22,9 @@ interface EncloseProps {
 export function Enclose({ children, open, close }: EncloseProps): JSX.Element {
   return (
     <>
-      {open ?? openParen}
+      {open ?? <OpenParen />}
       {children}
-      {close ?? closeParen}
+      {close ?? <CloseParen />}
     </>
   );
 }
@@ -44,18 +44,35 @@ export function renderFunction(context: Context): JSX.Element {
     <>
       <span className="function-header">
         <span className="keyword">function</span> {id}
-        {openParen}
+        <OpenParen />
         {params}
-        {closeParen}
+        <CloseParen />
       </span>{' '}
       {body}
     </>
   );
 }
 
-export const openBrace = <span className="paren-open">{'{'}</span>;
-export const closeBrace = <span className="paren-close">{'}'}</span>;
-export const openParen = <span className="paren-open">{'('}</span>;
-export const closeParen = <span className="paren-close">{')'}</span>;
-export const openBracket = <span className="paren-open">{'['}</span>;
-export const closeBracket = <span className="paren-close">{']'}</span>;
+export function OpenBrace(): JSX.Element {
+  return <span className="paren-open">{'{'}</span>;
+}
+
+export function CloseBrace(): JSX.Element {
+  return <span className="paren-close">{'}'}</span>;
+}
+
+export function OpenParen(): JSX.Element {
+  return <span className="paren-open">{'('}</span>;
+}
+
+export function CloseParen(): JSX.Element {
+  return <span className="paren-close">{')'}</span>;
+}
+
+export function OpenBracket(): JSX.Element {
+  return <span className="paren-open">{'['}</span>;
+}
+
+export function CloseBracket(): JSX.Element {
+  return <span className="paren-close">{']'}</span>;
+}

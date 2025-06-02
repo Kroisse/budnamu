@@ -3,7 +3,7 @@ import { StatementProps } from './types';
 import { Context } from '../constructs';
 import { dispatchExpression } from '../expressions/dispatchers';
 import { dispatchStatement } from './dispatchers';
-import { openBrace, closeBrace } from '../utils';
+import { OpenBrace, CloseBrace } from '../utils';
 
 export const ClassDeclaration: React.FC<StatementProps> = (props) => {
   const context = new Context(props);
@@ -20,9 +20,9 @@ export const ClassDeclaration: React.FC<StatementProps> = (props) => {
   return (
     <div className="statement class-declaration">
       <span className="keyword">class</span> {id}
-      {superClass} {openBrace}
+      {superClass} <OpenBrace />
       {body.blockConstruct(dispatchStatement)}
-      {closeBrace}
+      <CloseBrace />
     </div>
   );
 };

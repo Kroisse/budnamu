@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import { openParen, closeParen, commaSeparated } from '../utils';
+import { OpenParen, CloseParen, commaSeparated } from '../utils';
 import { dispatchExpression } from './dispatchers';
 
 export const SequenceExpression: React.FC<ExpressionProps> = (props) => {
@@ -14,9 +14,9 @@ export const SequenceExpression: React.FC<ExpressionProps> = (props) => {
   );
   return (
     <span className="expression sequence-expression">
-      {openParen}
+      <OpenParen />
       {elements}
-      {closeParen}
+      <CloseParen />
     </span>
   );
 };
