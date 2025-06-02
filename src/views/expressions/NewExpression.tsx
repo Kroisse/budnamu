@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import { commaSeparated, enclose } from '../utils';
+import { commaSeparated, Enclose } from '../utils';
 import { dispatchExpression } from './dispatchers';
 
 export const NewExpression: React.FC<ExpressionProps> = (props) => {
@@ -13,11 +13,10 @@ export const NewExpression: React.FC<ExpressionProps> = (props) => {
       .elements()
       .map((e) => e.render(dispatchExpression)),
   );
-  enclose(args);
   return (
     <span className="expression new-expression">
       <span className="keyword">new</span> {callee}
-      {args.length > 0 ? args : ''}
+      {args.length > 0 ? <Enclose>{args}</Enclose> : ''}
     </span>
   );
 };

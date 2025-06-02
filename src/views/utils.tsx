@@ -13,15 +13,20 @@ export function commaSeparated(seq: Seq<number, ReactNode>): ReactNode[] {
     .toArray();
 }
 
-export function enclose(
-  array: ReactNode[],
-  parenOpen?: ReactNode,
-  parenClose?: ReactNode,
-): void {
-  parenOpen = parenOpen ?? openParen;
-  parenClose = parenClose ?? closeParen;
-  array.unshift(parenOpen);
-  array.push(parenClose);
+interface EncloseProps {
+  children: ReactNode[];
+  open?: ReactNode;
+  close?: ReactNode;
+}
+
+export function Enclose({ children, open, close }: EncloseProps): JSX.Element {
+  return (
+    <>
+      {open ?? openParen}
+      {children}
+      {close ?? closeParen}
+    </>
+  );
 }
 
 export function renderFunction(context: Context): JSX.Element {
