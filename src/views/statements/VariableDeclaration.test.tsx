@@ -120,25 +120,6 @@ describe('VariableDeclaration', () => {
     expect(exprDeclarations?.textContent).toBe('');
   });
 
-  it('should render var keyword with proper spacing', () => {
-    const node = Map({
-      type: 'VariableDeclaration',
-      declarations: List([]),
-    });
-    const path: ImmutablePath = List(['test']);
-
-    const { container } = render(
-      <VariableDeclaration node={node} path={path} />,
-    );
-
-    const keyword = container.querySelector('.keyword');
-    expect(keyword).toBeTruthy();
-    // Check that it includes trailing space
-    expect(keyword).toHaveTextContent('var');
-    // Check inline style
-    expect(keyword).toHaveStyle({ width: '5ex' });
-  });
-
   it('should create proper React element structure', () => {
     const node = Map({
       type: 'VariableDeclaration',
@@ -162,26 +143,122 @@ describe('VariableDeclaration', () => {
     expect(root?.children[1]).toHaveClass('declarations');
   });
 
-  it('should handle different path contexts', () => {
+  it.each([
+    ['statements at index 0', List(['statements', 0])],
+    ['nested statements', List(['body', 'statements', 5])],
+    ['test path', List(['test'])],
+    ['empty path', List([])],
+  ])('should handle different path contexts - %s', (_description, path) => {
     const node = Map({
       type: 'VariableDeclaration',
       declarations: List([]),
     });
 
-    // Different paths shouldn't affect rendering (only expression prop matters)
-    const paths = [
-      List(['statements', 0]),
-      List(['body', 'statements', 5]),
-      List(['test']),
-      List([]),
-    ];
+    const { container } = render(
+      <VariableDeclaration node={node} path={path} />,
+    );
+    expect(container.querySelector('.variable-declaration')).toBeTruthy();
+    expect(container.textContent).toBe('var ;');
+  });
 
-    paths.forEach((path) => {
+  describe('declaration kinds (var/let/const)', () => {
+    it.each([
+      { kind: 'const', expected: 'const ;' },
+      { kind: 'let', expected: 'let ;' },
+      { kind: 'var', expected: 'var ;' },
+    ])('should handle $kind declaration', ({ kind, expected }) => {
+      const node = Map({
+        type: 'VariableDeclaration',
+        kind,
+        declarations: List([]),
+      });
+      const path: ImmutablePath = List(['statements', 0]);
+
       const { container } = render(
         <VariableDeclaration node={node} path={path} />,
       );
-      expect(container.querySelector('.variable-declaration')).toBeTruthy();
-      expect(container.textContent).toBe('var ;');
+
+      const keyword = container.querySelector('.keyword');
+      expect(keyword).toHaveTextContent(kind);
+      expect(keyword).toHaveStyle({ width: '5ex' });
+      expect(container.textContent).toBe(expected);
+    });
+
+    it('should default to var when kind is not specified', () => {
+      const node = Map({
+        type: 'VariableDeclaration',
+        // No kind property
+        declarations: List([]),
+      });
+      const path: ImmutablePath = List(['statements', 0]);
+
+      const { container } = render(
+        <VariableDeclaration node={node} path={path} />,
+      );
+
+      const keyword = container.querySelector('.keyword');
+      expect(keyword).toHaveTextContent('var');
+    });
+
+    it('const declaration should work in both expression and statement mode', () => {
+      const node = Map({
+        type: 'VariableDeclaration',
+        kind: 'const',
+        declarations: List([]),
+      });
+      const path: ImmutablePath = List(['test']);
+
+      // Should work in expression mode
+      const { container: exprContainer } = render(
+        <VariableDeclaration node={node} path={path} expression />,
+      );
+      expect(exprContainer.querySelector('.expression')).toBeTruthy();
+      expect(exprContainer.textContent).toBe('const ');
+
+      // Should work in statement mode
+      const { container: stmtContainer } = render(
+        <VariableDeclaration node={node} path={path} expression={false} />,
+      );
+      expect(stmtContainer.querySelector('.statement')).toBeTruthy();
+      expect(stmtContainer.textContent).toBe('const ;');
+    });
+
+    it('should handle const with multiple declarations (realistic example)', () => {
+      // This simulates: const x = 5, y = 10, z;
+      // Note: In real JS, const requires initialization, but the AST might allow it
+      const node = Map({
+        type: 'VariableDeclaration',
+        kind: 'const',
+        declarations: List([
+          Map({
+            type: 'VariableDeclarator',
+            id: Map({ type: 'Identifier', name: 'x' }),
+            init: Map({ type: 'Literal', value: 5 }),
+          }),
+          Map({
+            type: 'VariableDeclarator',
+            id: Map({ type: 'Identifier', name: 'y' }),
+            init: Map({ type: 'Literal', value: 10 }),
+          }),
+          Map({
+            type: 'VariableDeclarator',
+            id: Map({ type: 'Identifier', name: 'z' }),
+          }),
+        ]),
+      });
+      const path: ImmutablePath = List(['statements', 0]);
+
+      const { container } = render(
+        <VariableDeclaration node={node} path={path} />,
+      );
+
+      expect(container.querySelector('.keyword')).toHaveTextContent('const');
+      // Due to Context limitations with Lists, we won't see the actual declarations
+      // but we can verify the structure is correct
+      expect(
+        container.querySelector('.variable-declaration'),
+      ).toBeInTheDocument();
+      expect(container.querySelector('.declarations')).toBeInTheDocument();
     });
   });
 });

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Map } from 'immutable';
 import { StatementProps } from './types';
 import { Context } from '../constructs';
 import {
@@ -12,6 +13,12 @@ export const VariableDeclaration: React.FC<StatementProps> = ({
   ...props
 }) => {
   const context = new Context(props);
+
+  // Get the declaration kind (var, let, const) from the AST node
+  const kind =
+    context.node && Map.isMap(context.node)
+      ? (context.node.get('kind') as string) || 'var'
+      : 'var';
 
   const renderDeclaration = (context: Context, i: number) => {
     const id = context.child('id').render(dispatchPattern);
@@ -44,7 +51,7 @@ export const VariableDeclaration: React.FC<StatementProps> = ({
         (expression ? 'expression' : 'statement') + ' variable-declaration',
     },
     <span className="keyword" style={{ width: '5ex' }}>
-      var{' '}
+      {kind}{' '}
     </span>,
     <span className="declarations">
       {declarationsList}
