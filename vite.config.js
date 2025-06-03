@@ -31,6 +31,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    setupFiles: ['./src/views/test-setup.ts'],
   },
   optimizeDeps: {
     exclude: ['@swc/wasm-web'],

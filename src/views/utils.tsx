@@ -29,6 +29,25 @@ export function Enclose({ children, open, close }: EncloseProps): JSX.Element {
   );
 }
 
+interface FunctionHeaderProps {
+  id: ReactNode;
+  params: ReactNode[];
+}
+
+export function FunctionHeader({
+  id,
+  params,
+}: FunctionHeaderProps): JSX.Element {
+  return (
+    <span className="function-header">
+      <span className="keyword">function</span> {id}
+      <OpenParen />
+      {params}
+      <CloseParen />
+    </span>
+  );
+}
+
 export function renderFunction(context: Context): JSX.Element {
   // Get identifier using dispatcher
   const id = context.child('id').render(dispatchExpression);
@@ -42,13 +61,7 @@ export function renderFunction(context: Context): JSX.Element {
   const body = context.child('body').render(dispatchStatement);
   return (
     <>
-      <span className="function-header">
-        <span className="keyword">function</span> {id}
-        <OpenParen />
-        {params}
-        <CloseParen />
-      </span>{' '}
-      {body}
+      <FunctionHeader id={id} params={params} /> {body}
     </>
   );
 }
