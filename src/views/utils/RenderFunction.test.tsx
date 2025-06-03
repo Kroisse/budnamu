@@ -95,22 +95,22 @@ describe('RenderFunction', () => {
   });
 
   it('should render with destructuring parameters', () => {
-    const node = Map({
+    const node = fromJS({
       type: 'FunctionExpression',
-      id: Map({ type: 'Identifier', name: 'processData' }),
-      params: List([
-        Map({
+      id: { type: 'Identifier', name: 'processData' },
+      params: [
+        {
           type: 'ObjectPattern',
-          properties: List([
-            Map({
+          properties: [
+            {
               type: 'Property',
-              key: Map({ type: 'Identifier', name: 'name' }),
-              value: Map({ type: 'Identifier', name: 'name' }),
-            }),
-          ]),
-        }),
-      ]),
-      body: Map({ type: 'BlockStatement', body: List([]) }),
+              key: { type: 'Identifier', name: 'name' },
+              value: { type: 'Identifier', name: 'name' },
+            },
+          ],
+        },
+      ],
+      body: { type: 'BlockStatement', body: [] },
     });
     const path: ImmutablePath = List(['expression']);
 

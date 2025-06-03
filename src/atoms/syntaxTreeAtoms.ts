@@ -1,31 +1,11 @@
 import { atom } from 'jotai';
 import { parse, ParseOptions } from '@swc/wasm-web';
-import { Map, List } from 'immutable';
+import { fromJS } from 'immutable';
 import type { ImmutableValue } from '../views/constructs';
-
-// Helper function to convert JS objects to Immutable structures
-function toImmutable(json: unknown): ImmutableValue {
-  if (
-    json == null ||
-    typeof json === 'string' ||
-    typeof json === 'number' ||
-    typeof json === 'boolean'
-  ) {
-    return json;
-  }
-  if (Array.isArray(json)) {
-    return List(json.map(toImmutable));
-  }
-  if (typeof json === 'object') {
-    const obj = json as Record<string, unknown>;
-    return Map(Object.entries(obj).map(([k, v]) => [k, toImmutable(v)]));
-  }
-  throw new Error(`Unsupported type for immutability: ${typeof json}`);
-}
 
 // Base atom for storing the syntax tree
 export const syntaxTreeAtom = atom<ImmutableValue>(
-  toImmutable({ type: 'Program', body: [] }),
+  fromJS({ type: 'Program', body: [] }) as ImmutableValue,
 );
 
 // Atom for storing the current file content
@@ -97,7 +77,7 @@ export const parsedSyntaxTreeAtom = atom(
 
       // Use SWC's native async parse function
       const ast = await parse(content, parseOptions);
-      set(syntaxTreeAtom, toImmutable(ast));
+      set(syntaxTreeAtom, fromJS(ast) as ImmutableValue);
       set(fileContentAtom, content);
       set(parsingStateAtom, { isLoading: false, error: null });
 

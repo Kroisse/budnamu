@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render } from '@testing-library/react';
-import { Map, List } from 'immutable';
+import { Map, List, fromJS } from 'immutable';
 import { VariableDeclaration } from './VariableDeclaration';
 import type { ImmutablePath } from '../constructs';
 
@@ -232,25 +232,26 @@ describe('VariableDeclaration', () => {
     it('should handle const with multiple declarations (realistic example)', () => {
       // This simulates: const x = 5, y = 10, z;
       // Note: In real JS, const requires initialization, but the AST might allow it
-      const node = Map({
+      // fromJS()를 사용하여 복잡한 구조를 간단하게 생성
+      const node = fromJS({
         type: 'VariableDeclaration',
         kind: 'const',
-        declarations: List([
-          Map({
+        declarations: [
+          {
             type: 'VariableDeclarator',
-            id: Map({ type: 'Identifier', name: 'x' }),
-            init: Map({ type: 'Literal', value: 5, raw: '5' }),
-          }),
-          Map({
+            id: { type: 'Identifier', name: 'x' },
+            init: { type: 'Literal', value: 5, raw: '5' },
+          },
+          {
             type: 'VariableDeclarator',
-            id: Map({ type: 'Identifier', name: 'y' }),
-            init: Map({ type: 'Literal', value: 10, raw: '10' }),
-          }),
-          Map({
+            id: { type: 'Identifier', name: 'y' },
+            init: { type: 'Literal', value: 10, raw: '10' },
+          },
+          {
             type: 'VariableDeclarator',
-            id: Map({ type: 'Identifier', name: 'z' }),
-          }),
-        ]),
+            id: { type: 'Identifier', name: 'z' },
+          },
+        ],
       });
       const path: ImmutablePath = List(['statements', 0]);
 
