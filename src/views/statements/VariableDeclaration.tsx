@@ -66,7 +66,7 @@ export const VariableDeclaration: React.FC<StatementProps> = ({
       })
       .filter(Boolean);
 
-    declarationsList = commaSeparated(declarationElements.toSeq());
+    declarationsList = [...commaSeparated(declarationElements.toSeq())];
   }
   const tag: 'span' | 'div' = expression ? 'span' : 'div';
   return React.createElement(

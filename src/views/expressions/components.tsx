@@ -58,7 +58,7 @@ export function createExpressionComponents(
   const expressions: Record<string, ExpressionComponent> = {
     Literal,
     NumericLiteral: Literal, // Babel uses NumericLiteral, map it to Literal
-    StringLiteral: Literal,  // Also map StringLiteral
+    StringLiteral: Literal, // Also map StringLiteral
     BooleanLiteral: Literal, // And BooleanLiteral
     Identifier,
     ThisExpression,

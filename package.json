@@ -44,6 +44,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
   }

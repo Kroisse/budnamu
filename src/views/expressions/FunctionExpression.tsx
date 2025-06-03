@@ -1,12 +1,12 @@
 import React from 'react';
 import { ExpressionProps } from './types';
 import { Context } from '../constructs';
-import { renderFunction } from '../utils';
+import { RenderFunction } from '../utils/RenderFunction';
 
 export const FunctionExpression: React.FC<ExpressionProps> = (props) => {
   return (
     <span className="expression function-expression">
-      {renderFunction(new Context(props))}
+      <RenderFunction context={new Context(props)} />
     </span>
   );
 };
