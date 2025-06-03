@@ -14,8 +14,10 @@ describe('Literal', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Literal node={node} path={path} />);
-    
-    const element = container.querySelector('.expression.literal.literal-string');
+
+    const element = container.querySelector(
+      '.expression.literal.literal-string',
+    );
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('"hello"');
   });
@@ -29,8 +31,10 @@ describe('Literal', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Literal node={node} path={path} />);
-    
-    const element = container.querySelector('.expression.literal.literal-number');
+
+    const element = container.querySelector(
+      '.expression.literal.literal-number',
+    );
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('42');
   });
@@ -44,8 +48,10 @@ describe('Literal', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Literal node={node} path={path} />);
-    
-    const element = container.querySelector('.expression.literal.literal-boolean');
+
+    const element = container.querySelector(
+      '.expression.literal.literal-boolean',
+    );
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('true');
   });
@@ -59,8 +65,10 @@ describe('Literal', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Literal node={node} path={path} />);
-    
-    const element = container.querySelector('.expression.literal.literal-object');
+
+    const element = container.querySelector(
+      '.expression.literal.literal-object',
+    );
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('null');
   });
@@ -78,8 +86,10 @@ describe('Literal', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Literal node={node} path={path} />);
-    
-    const element = container.querySelector('.expression.literal.literal-object');
+
+    const element = container.querySelector(
+      '.expression.literal.literal-object',
+    );
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('/[a-z]+/i');
   });
@@ -93,7 +103,7 @@ describe('Literal', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Literal node={node} path={path} />);
-    
+
     // Should display the raw value with escape sequences, not the actual newlines
     expect(container.textContent).toBe('"test\\nwith\\nnewlines"');
   });
@@ -107,7 +117,7 @@ describe('Literal', () => {
       { value: 1000, raw: '1_000', desc: 'numeric separator' },
     ];
 
-    testCases.forEach(({ value, raw, desc }) => {
+    testCases.forEach(({ value, raw }) => {
       const node = fromJS({
         type: 'Literal',
         value,
@@ -116,7 +126,7 @@ describe('Literal', () => {
       const path: ImmutablePath = List(['expression']);
 
       const { container } = render(<Literal node={node} path={path} />);
-      
+
       expect(container.textContent).toBe(raw);
       expect(container.querySelector('.literal-number')).toBeInTheDocument();
     });

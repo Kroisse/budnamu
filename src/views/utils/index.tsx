@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 export { commaSeparated } from './commaSeparated';
 export { FunctionHeader } from './FunctionHeader';
 export { Enclose } from './Enclose';

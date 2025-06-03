@@ -23,11 +23,11 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     const element = container.querySelector('.expression.binary-expression');
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('1 + 2');
-    
+
     const operator = container.querySelector('.operator');
     expect(operator).toBeInTheDocument();
     expect(operator).toHaveTextContent('+');
@@ -49,7 +49,7 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('x - y');
   });
 
@@ -71,7 +71,7 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('3 * 4');
   });
 
@@ -91,14 +91,14 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('total / count');
   });
 
   it('should render comparison operators', () => {
     const operators = ['>', '<', '>=', '<=', '==', '!=', '===', '!=='];
-    
-    operators.forEach(op => {
+
+    operators.forEach((op) => {
       const node = fromJS({
         type: 'BinaryExpression',
         operator: op,
@@ -113,8 +113,10 @@ describe('BinaryExpression', () => {
       }) as ImmutableNode;
       const path: ImmutablePath = List(['expression']);
 
-      const { container } = render(<BinaryExpression node={node} path={path} />);
-      
+      const { container } = render(
+        <BinaryExpression node={node} path={path} />,
+      );
+
       expect(container.textContent).toBe(`a ${op} b`);
       expect(container.querySelector('.operator')).toHaveTextContent(op);
     });
@@ -122,8 +124,8 @@ describe('BinaryExpression', () => {
 
   it('should render bitwise operators', () => {
     const operators = ['&', '|', '^', '<<', '>>', '>>>'];
-    
-    operators.forEach(op => {
+
+    operators.forEach((op) => {
       const node = fromJS({
         type: 'BinaryExpression',
         operator: op,
@@ -140,14 +142,15 @@ describe('BinaryExpression', () => {
       }) as ImmutableNode;
       const path: ImmutablePath = List(['expression']);
 
-      const { container } = render(<BinaryExpression node={node} path={path} />);
-      
+      const { container } = render(
+        <BinaryExpression node={node} path={path} />,
+      );
+
       expect(container.textContent).toBe(`5 ${op} 3`);
     });
   });
 
-  it.skip('should render nested binary expressions', () => {
-    // TODO: Fix dispatcher to handle nested expressions properly
+  it('should render nested binary expressions', () => {
     const node = fromJS({
       type: 'BinaryExpression',
       operator: '+',
@@ -174,9 +177,9 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('2 * 3 + 4');
-    
+
     // Check nested structure
     const binaryExpressions = container.querySelectorAll('.binary-expression');
     expect(binaryExpressions).toHaveLength(2); // Outer and inner
@@ -199,7 +202,7 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('"Hello, " + name');
   });
 
@@ -220,7 +223,7 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('num % 2');
   });
 
@@ -240,7 +243,7 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('obj instanceof Array');
   });
 
@@ -261,7 +264,7 @@ describe('BinaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('"prop" in object');
   });
 });

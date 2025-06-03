@@ -19,11 +19,11 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     const element = container.querySelector('.expression.unary-expression');
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('-5');
-    
+
     const operator = container.querySelector('.operator');
     expect(operator).toBeInTheDocument();
     expect(operator).toHaveTextContent('-');
@@ -42,7 +42,7 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('+x');
   });
 
@@ -59,7 +59,7 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('!isValid');
   });
 
@@ -77,7 +77,7 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('~10');
   });
 
@@ -94,9 +94,9 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('typeof value');
-    
+
     const operator = container.querySelector('.keyword.operator');
     expect(operator).toBeInTheDocument();
     expect(operator).toHaveTextContent('typeof');
@@ -123,7 +123,7 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('deleteobj.prop');
   });
 
@@ -141,7 +141,7 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('void0');
   });
 
@@ -158,9 +158,9 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('i++');
-    
+
     // Operator should come after the argument
     const operator = container.querySelector('.operator');
     expect(operator).toBeInTheDocument();
@@ -180,12 +180,11 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('count--');
   });
 
-  it.skip('should render nested unary expressions', () => {
-    // TODO: Fix dispatcher to handle nested expressions properly
+  it('should render nested unary expressions', () => {
     const node = fromJS({
       type: 'UnaryExpression',
       operator: '!',
@@ -203,16 +202,15 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('!!flag');
-    
+
     // Check nested structure
     const unaryExpressions = container.querySelectorAll('.unary-expression');
     expect(unaryExpressions).toHaveLength(2); // Outer and inner
   });
 
-  it.skip('should handle complex argument expressions', () => {
-    // TODO: Fix dispatcher to handle nested expressions properly
+  it('should handle complex argument expressions', () => {
     const node = fromJS({
       type: 'UnaryExpression',
       operator: '-',
@@ -233,7 +231,7 @@ describe('UnaryExpression', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('-a + b');
   });
 });

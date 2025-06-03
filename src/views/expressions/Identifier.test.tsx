@@ -13,7 +13,7 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
+
     const element = container.querySelector('.expression.identifier');
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('myVariable');
@@ -27,8 +27,10 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
-    expect(container.querySelector('.expression.identifier')).toBeInTheDocument();
+
+    expect(
+      container.querySelector('.expression.identifier'),
+    ).toBeInTheDocument();
     expect(container.textContent).toBe('x');
   });
 
@@ -40,7 +42,7 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('_privateVar');
   });
 
@@ -52,7 +54,7 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('$jquery');
   });
 
@@ -64,7 +66,7 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('getUserById');
   });
 
@@ -76,15 +78,15 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('MAX_VALUE');
   });
 
   it('should render JavaScript keywords as identifiers', () => {
     // Some keywords can appear as identifiers in certain contexts
     const keywords = ['undefined', 'arguments', 'constructor'];
-    
-    keywords.forEach(keyword => {
+
+    keywords.forEach((keyword) => {
       const node = fromJS({
         type: 'Identifier',
         name: keyword,
@@ -92,9 +94,11 @@ describe('Identifier', () => {
       const path: ImmutablePath = List(['expression']);
 
       const { container } = render(<Identifier node={node} path={path} />);
-      
+
       expect(container.textContent).toBe(keyword);
-      expect(container.querySelector('.expression.identifier')).toBeInTheDocument();
+      expect(
+        container.querySelector('.expression.identifier'),
+      ).toBeInTheDocument();
     });
   });
 
@@ -106,7 +110,7 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
+
     const element = container.querySelector('.expression.identifier');
     expect(element).toBeInTheDocument();
     expect(element).toHaveTextContent('');
@@ -120,7 +124,7 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
+
     expect(container.textContent).toBe('π');
   });
 
@@ -132,7 +136,7 @@ describe('Identifier', () => {
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
-    
+
     const span = container.firstElementChild;
     expect(span?.tagName).toBe('SPAN');
     expect(span?.className).toBe('expression identifier');
