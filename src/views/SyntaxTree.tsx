@@ -13,8 +13,8 @@ function greet(name) {
   console.log("Hello, " + name + "!");
 }
 
-var x = 42;
-var y = "hello";
+const x = 42;
+let y = "hello";
 `;
 
 const SyntaxTree: React.FC = () => {

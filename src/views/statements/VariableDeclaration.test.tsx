@@ -163,14 +163,20 @@ describe('VariableDeclaration', () => {
 
   describe('declaration kinds (var/let/const)', () => {
     it.each([
-      { kind: 'const', expected: 'const ;' },
-      { kind: 'let', expected: 'let ;' },
-      { kind: 'var', expected: 'var ;' },
+      { kind: 'const', expected: 'const x = 5;' },
+      { kind: 'let', expected: 'let x = 5;' },
+      { kind: 'var', expected: 'var x = 5;' },
     ])('should handle $kind declaration', ({ kind, expected }) => {
       const node = Map({
         type: 'VariableDeclaration',
         kind,
-        declarations: List([]),
+        declarations: List([
+          Map({
+            type: 'VariableDeclarator',
+            id: Map({ type: 'Identifier', name: 'x' }),
+            init: Map({ type: 'NumericLiteral', value: 5, raw: '5' }),
+          }),
+        ]),
       });
       const path: ImmutablePath = List(['statements', 0]);
 
@@ -233,12 +239,12 @@ describe('VariableDeclaration', () => {
           Map({
             type: 'VariableDeclarator',
             id: Map({ type: 'Identifier', name: 'x' }),
-            init: Map({ type: 'Literal', value: 5 }),
+            init: Map({ type: 'Literal', value: 5, raw: '5' }),
           }),
           Map({
             type: 'VariableDeclarator',
             id: Map({ type: 'Identifier', name: 'y' }),
-            init: Map({ type: 'Literal', value: 10 }),
+            init: Map({ type: 'Literal', value: 10, raw: '10' }),
           }),
           Map({
             type: 'VariableDeclarator',
