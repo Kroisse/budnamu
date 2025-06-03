@@ -1,4 +1,5 @@
 import React from 'react';
+import { List } from 'immutable';
 import { Context } from '../constructs';
 import { dispatchStatement } from '../statements';
 import {

@@ -38,7 +38,7 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
       childNode = this.node.get(key);
     }
 
-    let node: ImmutableNode | null = null;
+    let node: ImmutableNode | List<ImmutableValue> | null = null;
 
     if (Map.isMap(childNode)) {
       // Ensure it's a Map with string keys
@@ -49,6 +49,9 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
         }
       });
       node = Map(entries);
+    } else if (List.isList(childNode)) {
+      // Handle List nodes directly
+      node = childNode;
     }
 
     return new Context({
@@ -147,16 +150,7 @@ class Context extends Record<ContextData>({ node: null, path: List() }) {
       }
     }
 
-    console.log('blockConstruct:', {
-      node: this.node,
-      key: this.key,
-      childNode: childNode,
-      isList: List.isList(this.node),
-      statements: statements,
-    });
-
     if (!statements) {
-      console.log('blockConstruct - No statements found, node:', this.node);
       return null;
     }
 
