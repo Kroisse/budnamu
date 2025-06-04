@@ -141,4 +141,36 @@ describe('Identifier', () => {
     expect(span).toBeInTheDocument();
     expect(span).toHaveClass('expression', 'identifier');
   });
+
+  it('should handle SWC TypeScript identifier with value field', () => {
+    const node = fromJS({
+      type: 'Identifier',
+      span: { start: 0, end: 4 },
+      ctxt: 1,
+      value: 'test',
+      optional: false,
+      typeAnnotation: null,
+    }) as ImmutableNode;
+    const path: ImmutablePath = List(['expression']);
+
+    const { container } = render(<Identifier node={node} path={path} />);
+
+    expect(container).toHaveTextContent('test');
+    expect(
+      container.querySelector('.expression.identifier'),
+    ).toBeInTheDocument();
+  });
+
+  it('should prefer name over value if both exist', () => {
+    const node = fromJS({
+      type: 'Identifier',
+      name: 'preferredName',
+      value: 'fallbackName',
+    }) as ImmutableNode;
+    const path: ImmutablePath = List(['expression']);
+
+    const { container } = render(<Identifier node={node} path={path} />);
+
+    expect(container).toHaveTextContent('preferredName');
+  });
 });
