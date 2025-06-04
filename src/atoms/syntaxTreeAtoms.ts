@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 import { parse, ParseOptions } from '@swc/wasm-web';
 import { fromJS } from 'immutable';
-import type { ImmutableValue } from '../views/constructs';
+import type { ImmutableValue } from '../components/constructs';
 
 // Base atom for storing the syntax tree
 export const syntaxTreeAtom = atom<ImmutableValue>(

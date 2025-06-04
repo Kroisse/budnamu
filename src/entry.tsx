@@ -3,7 +3,7 @@ import './style.less';
 import initSwc from '@swc/wasm-web';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'jotai';
-import SyntaxTree from './views/SyntaxTree';
+import SyntaxTree from './components/SyntaxTree';
 import * as Immutable from 'immutable';
 import { StrictMode } from 'react';
 
