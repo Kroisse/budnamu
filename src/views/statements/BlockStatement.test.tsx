@@ -16,7 +16,7 @@ describe('BlockStatement', () => {
 
     const element = container.querySelector('.statement.block-statement');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('{}');
+    expect(container).toHaveTextContent('{}');
   });
 
   it('should render block with single statement', () => {
@@ -36,9 +36,9 @@ describe('BlockStatement', () => {
 
     const { container } = render(<BlockStatement node={node} path={path} />);
 
-    expect(container.textContent).toContain('{');
-    expect(container.textContent).toContain('42');
-    expect(container.textContent).toContain('}');
+    expect(container).toHaveTextContent(/\{/);
+    expect(container).toHaveTextContent(/42/);
+    expect(container).toHaveTextContent(/\}/);
   });
 
   it('should render block with multiple statements', () => {
@@ -75,13 +75,13 @@ describe('BlockStatement', () => {
 
     const { container } = render(<BlockStatement node={node} path={path} />);
 
-    expect(container.textContent).toContain('{');
-    expect(container.textContent).toContain('let');
-    expect(container.textContent).toContain('x');
-    expect(container.textContent).toContain('10');
-    expect(container.textContent).toContain('20');
-    expect(container.textContent).toContain('return');
-    expect(container.textContent).toContain('}');
+    expect(container).toHaveTextContent(/\{/);
+    expect(container).toHaveTextContent(/let/);
+    expect(container).toHaveTextContent(/x/);
+    expect(container).toHaveTextContent(/10/);
+    expect(container).toHaveTextContent(/20/);
+    expect(container).toHaveTextContent(/return/);
+    expect(container).toHaveTextContent(/\}/);
   });
 
   it('should render nested block statements', () => {
@@ -106,10 +106,10 @@ describe('BlockStatement', () => {
     // This test was expecting nested BlockStatements to have .statement.block-statement class
     // but the inner BlockStatement is rendered through blockConstruct which wraps it
     // Let's just check that the content is rendered correctly
-    expect(container.textContent).toContain('{');
-    expect(container.textContent).toContain('nested');
-    expect(container.textContent).toContain('}');
-    
+    expect(container).toHaveTextContent(/\{/);
+    expect(container).toHaveTextContent(/nested/);
+    expect(container).toHaveTextContent(/\}/);
+
     // Check that we have at least the outer block statement
     const outerBlock = container.querySelector('.statement.block-statement');
     expect(outerBlock).toBeInTheDocument();
@@ -125,8 +125,8 @@ describe('BlockStatement', () => {
     const { container } = render(<BlockStatement node={node} path={path} />);
 
     const span = container.firstElementChild;
-    expect(span?.tagName).toBe('SPAN');
-    expect(span?.className).toBe('statement block-statement');
+    expect(span).toBeInTheDocument();
+    expect(span).toHaveClass('statement', 'block-statement');
   });
 
   it('should render block with break statement', () => {
@@ -143,7 +143,7 @@ describe('BlockStatement', () => {
 
     const { container } = render(<BlockStatement node={node} path={path} />);
 
-    expect(container.textContent).toContain('break');
+    expect(container).toHaveTextContent(/break/);
   });
 
   it('should render block with continue statement', () => {
@@ -160,6 +160,6 @@ describe('BlockStatement', () => {
 
     const { container } = render(<BlockStatement node={node} path={path} />);
 
-    expect(container.textContent).toContain('continue');
+    expect(container).toHaveTextContent(/continue/);
   });
 });

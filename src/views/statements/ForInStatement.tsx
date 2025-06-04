@@ -37,7 +37,7 @@ export const ForInStatement: React.FC<StatementProps> = (props) => {
   const right = context.child('right').render(dispatchExpression);
   const body = context.child('body').render(dispatchStatement);
   return (
-    <div className="statement for-statement">
+    <div className="statement for-in-statement">
       <span className="statement-header">
         <span className="keyword">for</span> <OpenParen />
         {left} <span className="keyword">in</span> {right}

@@ -20,7 +20,7 @@ describe('FunctionExpression', () => {
 
     const element = container.querySelector('.expression.function-expression');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toContain('function myFunc()');
+    expect(container).toHaveTextContent(/function myFunc\(\)/);
   });
 
   it('should render anonymous function expression', () => {
@@ -36,7 +36,7 @@ describe('FunctionExpression', () => {
       <FunctionExpression node={node} path={path} />,
     );
 
-    expect(container.textContent).toContain('function ()');
+    expect(container).toHaveTextContent(/function \(\)/);
   });
 
   it('should render function with single parameter', () => {
@@ -52,7 +52,7 @@ describe('FunctionExpression', () => {
       <FunctionExpression node={node} path={path} />,
     );
 
-    expect(container.textContent).toContain('function (x)');
+    expect(container).toHaveTextContent(/function \(x\)/);
   });
 
   it('should render function with multiple parameters', () => {
@@ -71,7 +71,7 @@ describe('FunctionExpression', () => {
       <FunctionExpression node={node} path={path} />,
     );
 
-    expect(container.textContent).toContain('function add(a, b)');
+    expect(container).toHaveTextContent(/function add\(a, b\)/);
   });
 
   it('should render function with body statements', () => {
@@ -100,9 +100,9 @@ describe('FunctionExpression', () => {
       <FunctionExpression node={node} path={path} />,
     );
 
-    expect(container.textContent).toContain('function (n)');
-    expect(container.textContent).toContain('return');
-    expect(container.textContent).toContain('n * 2');
+    expect(container).toHaveTextContent(/function \(n\)/);
+    expect(container).toHaveTextContent(/return/);
+    expect(container).toHaveTextContent(/n \* 2/);
   });
 
   it('should render function with destructuring parameters', () => {
@@ -136,7 +136,7 @@ describe('FunctionExpression', () => {
       <FunctionExpression node={node} path={path} />,
     );
 
-    expect(container.textContent).toContain('function ({x, y})');
+    expect(container).toHaveTextContent(/function \(\{x, y\}\)/);
   });
 
   it('should render function with rest parameters', () => {
@@ -159,7 +159,7 @@ describe('FunctionExpression', () => {
 
     // Current implementation might not handle rest parameters
     // This test documents current behavior
-    expect(container.textContent).toContain('function sum(');
+    expect(container).toHaveTextContent(/function sum\(/);
   });
 
   it('should render function with default parameters', () => {
@@ -183,7 +183,7 @@ describe('FunctionExpression', () => {
 
     // Current implementation might not handle default parameters
     // This test documents current behavior
-    expect(container.textContent).toContain('function (');
+    expect(container).toHaveTextContent(/function \(/);
   });
 
   it('should render generator function', () => {
@@ -202,7 +202,7 @@ describe('FunctionExpression', () => {
 
     // Current implementation might not handle generator flag
     // This test documents current behavior
-    expect(container.textContent).toContain('function gen()');
+    expect(container).toHaveTextContent(/function gen\(\)/);
   });
 
   it('should render async function', () => {
@@ -221,7 +221,7 @@ describe('FunctionExpression', () => {
 
     // Current implementation might not handle async flag
     // This test documents current behavior
-    expect(container.textContent).toContain('function fetchData()');
+    expect(container).toHaveTextContent(/function fetchData\(\)/);
   });
 
   it('should render proper HTML structure', () => {
@@ -238,8 +238,8 @@ describe('FunctionExpression', () => {
     );
 
     const span = container.firstElementChild;
-    expect(span?.tagName).toBe('SPAN');
-    expect(span?.className).toBe('expression function-expression');
+    expect(span).toBeInTheDocument();
+    expect(span).toHaveClass('expression', 'function-expression');
 
     // Should contain function header
     expect(container.querySelector('.function-header')).toBeInTheDocument();

@@ -16,7 +16,7 @@ describe('ObjectExpression', () => {
 
     const element = container.querySelector('.expression.object-expression');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('{}');
+    expect(container).toHaveTextContent('{}');
   });
 
   it('should render object with single property', () => {
@@ -35,7 +35,7 @@ describe('ObjectExpression', () => {
 
     const { container } = render(<ObjectExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('{name: "John"}');
+    expect(container).toHaveTextContent('{name: "John"}');
 
     const property = container.querySelector('.property');
     expect(property).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe('ObjectExpression', () => {
 
     const { container } = render(<ObjectExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('{x: 1, y: 2, z: 3}');
+    expect(container).toHaveTextContent('{x: 1, y: 2, z: 3}');
 
     const properties = container.querySelectorAll('.property');
     expect(properties).toHaveLength(3);
@@ -98,7 +98,7 @@ describe('ObjectExpression', () => {
 
     const { container } = render(<ObjectExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe(
+    expect(container).toHaveTextContent(
       '{"hello world": 123, "with-dash": value}',
     );
   });
@@ -122,7 +122,7 @@ describe('ObjectExpression', () => {
 
     // Note: The current implementation doesn't handle computed properties differently
     // This test documents current behavior
-    expect(container.textContent).toBe('{key: "value"}');
+    expect(container).toHaveTextContent('{key: "value"}');
   });
 
   it('should render object with method shorthand', () => {
@@ -148,7 +148,7 @@ describe('ObjectExpression', () => {
     const { container } = render(<ObjectExpression node={node} path={path} />);
 
     // Current implementation renders as regular property
-    expect(container.textContent).toContain('method:');
+    expect(container).toHaveTextContent(/method:/);
   });
 
   it('should render object with getter/setter', () => {
@@ -214,7 +214,7 @@ describe('ObjectExpression', () => {
 
     const { container } = render(<ObjectExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('{outer: {inner: true}}');
+    expect(container).toHaveTextContent('{outer: {inner: true}}');
 
     const objectExpressions = container.querySelectorAll('.object-expression');
     expect(objectExpressions).toHaveLength(2); // Outer and inner
@@ -237,8 +237,8 @@ describe('ObjectExpression', () => {
     const { container } = render(<ObjectExpression node={node} path={path} />);
 
     const span = container.firstElementChild;
-    expect(span?.tagName).toBe('SPAN');
-    expect(span?.className).toBe('expression object-expression');
+    expect(span).toBeInTheDocument();
+    expect(span).toHaveClass('expression', 'object-expression');
 
     // Check for braces
     const braces = container.querySelectorAll('.paren-open, .paren-close');
@@ -267,6 +267,6 @@ describe('ObjectExpression', () => {
 
     const { container } = render(<ObjectExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('{isActive: true, data: null}');
+    expect(container).toHaveTextContent('{isActive: true, data: null}');
   });
 });

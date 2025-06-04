@@ -17,7 +17,7 @@ describe('CallExpression', () => {
 
     const element = container.querySelector('.expression.call-expression');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('doSomething()');
+    expect(container).toHaveTextContent('doSomething()');
   });
 
   it('should render function call with single argument', () => {
@@ -30,7 +30,7 @@ describe('CallExpression', () => {
 
     const { container } = render(<CallExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('alert("Hello!")');
+    expect(container).toHaveTextContent('alert("Hello!")');
   });
 
   it('should render function call with multiple arguments', () => {
@@ -47,7 +47,7 @@ describe('CallExpression', () => {
 
     const { container } = render(<CallExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('add(1, 2, 3)');
+    expect(container).toHaveTextContent('add(1, 2, 3)');
   });
 
   it('should render method call', () => {
@@ -67,7 +67,7 @@ describe('CallExpression', () => {
 
     const { container } = render(<CallExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('console.log("Debug message")');
+    expect(container).toHaveTextContent('console.log("Debug message")');
   });
 
   it('should render chained method calls', () => {
@@ -89,7 +89,7 @@ describe('CallExpression', () => {
 
     const { container } = render(<CallExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('getData().filter(predicate)');
+    expect(container).toHaveTextContent('getData().filter(predicate)');
   });
 
   it('should render call with computed member expression', () => {
@@ -107,7 +107,7 @@ describe('CallExpression', () => {
 
     const { container } = render(<CallExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('methods[name](arg)');
+    expect(container).toHaveTextContent('methods[name](arg)');
   });
 
   it('should render IIFE (Immediately Invoked Function Expression)', () => {
@@ -126,8 +126,8 @@ describe('CallExpression', () => {
     const { container } = render(<CallExpression node={node} path={path} />);
 
     // Should render function expression followed by ()
-    expect(container.textContent).toContain('function');
-    expect(container.textContent).toMatch(/function.*\(\).*\(\)/); // Function with two sets of parentheses
+    expect(container).toHaveTextContent(/function/);
+    expect(container).toHaveTextContent(/function.*\(\).*\(\)/); // Function with two sets of parentheses
   });
 
   it('should render call with spread arguments', () => {
@@ -148,8 +148,8 @@ describe('CallExpression', () => {
 
     // Current implementation might not handle spread elements
     // This test documents current behavior
-    expect(container.textContent).toContain('fn(');
-    expect(container.textContent).toContain('1');
+    expect(container).toHaveTextContent(/fn\(/);
+    expect(container).toHaveTextContent(/1/);
   });
 
   it('should render call with object and array arguments', () => {
@@ -181,7 +181,7 @@ describe('CallExpression', () => {
 
     const { container } = render(<CallExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('process({x: 1}, [2, 3])');
+    expect(container).toHaveTextContent('process({x: 1}, [2, 3])');
   });
 
   it('should render call with function expression as argument', () => {
@@ -201,8 +201,8 @@ describe('CallExpression', () => {
 
     const { container } = render(<CallExpression node={node} path={path} />);
 
-    expect(container.textContent).toContain('map(function');
-    expect(container.textContent).toContain('(x)');
+    expect(container).toHaveTextContent(/map\(function/);
+    expect(container).toHaveTextContent(/\(x\)/);
   });
 
   it('should render proper HTML structure', () => {
@@ -216,8 +216,8 @@ describe('CallExpression', () => {
     const { container } = render(<CallExpression node={node} path={path} />);
 
     const span = container.firstElementChild;
-    expect(span?.tagName).toBe('SPAN');
-    expect(span?.className).toBe('expression call-expression');
+    expect(span).toBeInTheDocument();
+    expect(span).toHaveClass('expression', 'call-expression');
 
     // Check for parentheses
     const parens = container.querySelectorAll('.paren-open, .paren-close');

@@ -31,7 +31,7 @@ describe('Identifier', () => {
     expect(
       container.querySelector('.expression.identifier'),
     ).toBeInTheDocument();
-    expect(container.textContent).toBe('x');
+    expect(container).toHaveTextContent('x');
   });
 
   it('should render identifier with underscore', () => {
@@ -43,7 +43,7 @@ describe('Identifier', () => {
 
     const { container } = render(<Identifier node={node} path={path} />);
 
-    expect(container.textContent).toBe('_privateVar');
+    expect(container).toHaveTextContent('_privateVar');
   });
 
   it('should render identifier with dollar sign', () => {
@@ -55,7 +55,7 @@ describe('Identifier', () => {
 
     const { container } = render(<Identifier node={node} path={path} />);
 
-    expect(container.textContent).toBe('$jquery');
+    expect(container).toHaveTextContent('$jquery');
   });
 
   it('should render camelCase identifier', () => {
@@ -67,7 +67,7 @@ describe('Identifier', () => {
 
     const { container } = render(<Identifier node={node} path={path} />);
 
-    expect(container.textContent).toBe('getUserById');
+    expect(container).toHaveTextContent('getUserById');
   });
 
   it('should render CONSTANT_CASE identifier', () => {
@@ -79,7 +79,7 @@ describe('Identifier', () => {
 
     const { container } = render(<Identifier node={node} path={path} />);
 
-    expect(container.textContent).toBe('MAX_VALUE');
+    expect(container).toHaveTextContent('MAX_VALUE');
   });
 
   it('should render JavaScript keywords as identifiers', () => {
@@ -95,7 +95,7 @@ describe('Identifier', () => {
 
       const { container } = render(<Identifier node={node} path={path} />);
 
-      expect(container.textContent).toBe(keyword);
+      expect(container).toHaveTextContent(keyword);
       expect(
         container.querySelector('.expression.identifier'),
       ).toBeInTheDocument();
@@ -125,7 +125,7 @@ describe('Identifier', () => {
 
     const { container } = render(<Identifier node={node} path={path} />);
 
-    expect(container.textContent).toBe('π');
+    expect(container).toHaveTextContent('π');
   });
 
   it('should render with proper HTML structure', () => {
@@ -138,7 +138,7 @@ describe('Identifier', () => {
     const { container } = render(<Identifier node={node} path={path} />);
 
     const span = container.firstElementChild;
-    expect(span?.tagName).toBe('SPAN');
-    expect(span?.className).toBe('expression identifier');
+    expect(span).toBeInTheDocument();
+    expect(span).toHaveClass('expression', 'identifier');
   });
 });

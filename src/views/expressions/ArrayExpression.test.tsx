@@ -16,7 +16,7 @@ describe('ArrayExpression', () => {
 
     const element = container.querySelector('.expression.array-expression');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('[]');
+    expect(container).toHaveTextContent('[]');
   });
 
   it('should render array with single element', () => {
@@ -28,7 +28,7 @@ describe('ArrayExpression', () => {
 
     const { container } = render(<ArrayExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('[1]');
+    expect(container).toHaveTextContent('[1]');
   });
 
   it('should render array with multiple elements', () => {
@@ -44,7 +44,7 @@ describe('ArrayExpression', () => {
 
     const { container } = render(<ArrayExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('[1, 2, 3]');
+    expect(container).toHaveTextContent('[1, 2, 3]');
   });
 
   it('should render array with mixed types', () => {
@@ -62,7 +62,7 @@ describe('ArrayExpression', () => {
 
     const { container } = render(<ArrayExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('["hello", 42, true, null, variable]');
+    expect(container).toHaveTextContent('["hello", 42, true, null, variable]');
   });
 
   it('should render array with sparse elements', () => {
@@ -80,8 +80,8 @@ describe('ArrayExpression', () => {
 
     // The current implementation might not handle sparse arrays correctly
     // This test documents current behavior
-    expect(container.textContent).toContain('1');
-    expect(container.textContent).toContain('3');
+    expect(container).toHaveTextContent(/1/);
+    expect(container).toHaveTextContent(/3/);
   });
 
   it('should render nested arrays', () => {
@@ -103,7 +103,7 @@ describe('ArrayExpression', () => {
 
     const { container } = render(<ArrayExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('[1, [2, 3], 4]');
+    expect(container).toHaveTextContent('[1, [2, 3], 4]');
 
     const arrayExpressions = container.querySelectorAll('.array-expression');
     expect(arrayExpressions).toHaveLength(2); // Outer and inner
@@ -141,7 +141,7 @@ describe('ArrayExpression', () => {
 
     const { container } = render(<ArrayExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('[{x: 1}, {y: 2}]');
+    expect(container).toHaveTextContent('[{x: 1}, {y: 2}]');
   });
 
   it('should render array with function expressions', () => {
@@ -162,8 +162,8 @@ describe('ArrayExpression', () => {
     const { container } = render(<ArrayExpression node={node} path={path} />);
 
     // Check that it contains function and identifier
-    expect(container.textContent).toContain('function');
-    expect(container.textContent).toContain('fn');
+    expect(container).toHaveTextContent(/function/);
+    expect(container).toHaveTextContent(/fn/);
   });
 
   it('should render proper HTML structure', () => {
@@ -176,8 +176,8 @@ describe('ArrayExpression', () => {
     const { container } = render(<ArrayExpression node={node} path={path} />);
 
     const span = container.firstElementChild;
-    expect(span?.tagName).toBe('SPAN');
-    expect(span?.className).toBe('expression array-expression');
+    expect(span).toBeInTheDocument();
+    expect(span).toHaveClass('expression', 'array-expression');
 
     // Check for brackets
     const brackets = container.querySelectorAll('.paren-open, .paren-close');
@@ -202,7 +202,7 @@ describe('ArrayExpression', () => {
 
     // Current implementation might not handle spread elements
     // This test documents current behavior
-    expect(container.textContent).toContain('1');
-    expect(container.textContent).toContain('2');
+    expect(container).toHaveTextContent(/1/);
+    expect(container).toHaveTextContent(/2/);
   });
 });

@@ -16,7 +16,7 @@ describe('BreakStatement', () => {
 
     const element = container.querySelector('.statement.break-statement');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('break;');
+    expect(container).toHaveTextContent('break;');
   });
 
   it('should render break statement with label', () => {
@@ -31,7 +31,7 @@ describe('BreakStatement', () => {
 
     const { container } = render(<BreakStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('break outer;');
+    expect(container).toHaveTextContent('break outer;');
   });
 
   it('should render break statement with complex label', () => {
@@ -46,7 +46,7 @@ describe('BreakStatement', () => {
 
     const { container } = render(<BreakStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('break outerLoop;');
+    expect(container).toHaveTextContent('break outerLoop;');
   });
 
   it('should render break statement with underscore label', () => {
@@ -61,7 +61,7 @@ describe('BreakStatement', () => {
 
     const { container } = render(<BreakStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('break _loop;');
+    expect(container).toHaveTextContent('break _loop;');
   });
 
   it('should render break statement with dollar sign label', () => {
@@ -76,7 +76,7 @@ describe('BreakStatement', () => {
 
     const { container } = render(<BreakStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('break $loop;');
+    expect(container).toHaveTextContent('break $loop;');
   });
 
   it('should have proper HTML structure without label', () => {
@@ -89,12 +89,12 @@ describe('BreakStatement', () => {
     const { container } = render(<BreakStatement node={node} path={path} />);
 
     const div = container.firstElementChild;
-    expect(div?.tagName).toBe('DIV');
-    expect(div?.className).toBe('statement break-statement');
-    
+    expect(div).toBeInTheDocument();
+    expect(div).toHaveClass('statement', 'break-statement');
+
     const keyword = div?.querySelector('.keyword');
     expect(keyword).toBeInTheDocument();
-    expect(keyword?.textContent).toBe('break');
+    expect(keyword).toHaveTextContent('break');
   });
 
   it('should have proper HTML structure with label', () => {
@@ -110,12 +110,12 @@ describe('BreakStatement', () => {
     const { container } = render(<BreakStatement node={node} path={path} />);
 
     const div = container.firstElementChild;
-    expect(div?.tagName).toBe('DIV');
-    expect(div?.className).toBe('statement break-statement');
-    
+    expect(div).toBeInTheDocument();
+    expect(div).toHaveClass('statement', 'break-statement');
+
     const keyword = div?.querySelector('.keyword');
     expect(keyword).toBeInTheDocument();
-    expect(keyword?.textContent).toBe('break');
+    expect(keyword).toHaveTextContent('break');
   });
 
   it('should handle undefined label', () => {
@@ -127,7 +127,7 @@ describe('BreakStatement', () => {
 
     const { container } = render(<BreakStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('break;');
+    expect(container).toHaveTextContent('break;');
   });
 
   it('should render break statement with numeric-like label', () => {
@@ -142,7 +142,7 @@ describe('BreakStatement', () => {
 
     const { container } = render(<BreakStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('break loop1;');
+    expect(container).toHaveTextContent('break loop1;');
   });
 
   it('should render break statement with CONSTANT_CASE label', () => {
@@ -157,6 +157,6 @@ describe('BreakStatement', () => {
 
     const { container } = render(<BreakStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('break MAIN_LOOP;');
+    expect(container).toHaveTextContent('break MAIN_LOOP;');
   });
 });

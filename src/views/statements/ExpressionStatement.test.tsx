@@ -15,11 +15,13 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
     const element = container.querySelector('.statement.expression-statement');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('42;');
+    expect(container).toHaveTextContent('42;');
   });
 
   it('should render string literal expression statement', () => {
@@ -32,9 +34,11 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
-    expect(container.textContent).toBe('"hello world";');
+    expect(container).toHaveTextContent('"hello world";');
   });
 
   it('should render identifier expression statement', () => {
@@ -47,9 +51,11 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
-    expect(container.textContent).toBe('myVariable;');
+    expect(container).toHaveTextContent('myVariable;');
   });
 
   it('should render call expression statement', () => {
@@ -71,11 +77,13 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
-    expect(container.textContent).toContain('console.log');
-    expect(container.textContent).toContain('"test"');
-    expect(container.textContent).toContain(';');
+    expect(container).toHaveTextContent('console.log');
+    expect(container).toHaveTextContent('"test"');
+    expect(container).toHaveTextContent(';');
   });
 
   it('should render assignment expression statement', () => {
@@ -96,9 +104,11 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
-    expect(container.textContent).toBe('x = 10;');
+    expect(container).toHaveTextContent('x = 10;');
   });
 
   it('should render update expression statement', () => {
@@ -116,9 +126,11 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
-    expect(container.textContent).toBe('i++;');
+    expect(container).toHaveTextContent('i++;');
   });
 
   it('should render binary expression statement', () => {
@@ -139,9 +151,11 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
-    expect(container.textContent).toBe('1 + 2;');
+    expect(container).toHaveTextContent('1 + 2;');
   });
 
   it('should render member expression statement', () => {
@@ -162,9 +176,11 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
-    expect(container.textContent).toBe('obj.prop;');
+    expect(container).toHaveTextContent('obj.prop;');
   });
 
   it('should have proper HTML structure', () => {
@@ -177,11 +193,13 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
     const div = container.firstElementChild;
-    expect(div?.tagName).toBe('DIV');
-    expect(div?.className).toBe('statement expression-statement');
+    expect(div).toBeInTheDocument();
+    expect(div).toHaveClass('statement', 'expression-statement');
   });
 
   it('should render complex nested expression', () => {
@@ -215,11 +233,13 @@ describe('ExpressionStatement', () => {
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
-    const { container } = render(<ExpressionStatement node={node} path={path} />);
+    const { container } = render(
+      <ExpressionStatement node={node} path={path} />,
+    );
 
-    expect(container.textContent).toContain('array.map');
-    expect(container.textContent).toContain('function');
-    expect(container.textContent).toContain('x');
-    expect(container.textContent).toContain(';');
+    expect(container).toHaveTextContent('array.map');
+    expect(container).toHaveTextContent('function');
+    expect(container).toHaveTextContent('x');
+    expect(container).toHaveTextContent(';');
   });
 });

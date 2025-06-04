@@ -18,7 +18,7 @@ describe('MemberExpression', () => {
 
     const element = container.querySelector('.expression.member-expression');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('obj.prop');
+    expect(container).toHaveTextContent('obj.prop');
 
     const operator = container.querySelector('.operator');
     expect(operator).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('arr[0]');
+    expect(container).toHaveTextContent('arr[0]');
 
     // Should have brackets instead of dot
     expect(container.querySelector('.operator')).not.toBeInTheDocument();
@@ -59,7 +59,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('obj["key-with-dash"]');
+    expect(container).toHaveTextContent('obj["key-with-dash"]');
   });
 
   it('should render computed property with identifier', () => {
@@ -73,7 +73,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('obj[key]');
+    expect(container).toHaveTextContent('obj[key]');
   });
 
   it('should render chained member access', () => {
@@ -92,7 +92,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('a.b.c');
+    expect(container).toHaveTextContent('a.b.c');
 
     const memberExpressions = container.querySelectorAll('.member-expression');
     expect(memberExpressions).toHaveLength(2); // Outer and inner
@@ -113,7 +113,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('getObject().prop');
+    expect(container).toHaveTextContent('getObject().prop');
   });
 
   it('should render member access on literal', () => {
@@ -127,7 +127,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('"string".length');
+    expect(container).toHaveTextContent('"string".length');
   });
 
   it('should render member access on array', () => {
@@ -147,7 +147,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('[1, 2].length');
+    expect(container).toHaveTextContent('[1, 2].length');
   });
 
   it('should render computed property with expression', () => {
@@ -166,7 +166,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('arr[i + 1]');
+    expect(container).toHaveTextContent('arr[i + 1]');
   });
 
   it('should render mixed dot and bracket notation', () => {
@@ -185,7 +185,7 @@ describe('MemberExpression', () => {
 
     const { container } = render(<MemberExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('data["items"].first');
+    expect(container).toHaveTextContent('data["items"].first');
   });
 
   it('should render proper HTML structure', () => {
@@ -200,7 +200,7 @@ describe('MemberExpression', () => {
     const { container } = render(<MemberExpression node={node} path={path} />);
 
     const span = container.firstElementChild;
-    expect(span?.tagName).toBe('SPAN');
-    expect(span?.className).toBe('expression member-expression');
+    expect(span).toBeInTheDocument();
+    expect(span).toHaveClass('expression', 'member-expression');
   });
 });

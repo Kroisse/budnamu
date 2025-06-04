@@ -25,13 +25,13 @@ describe('VariableDeclaration', () => {
     const varDecl = container.querySelector('.variable-declaration');
     expect(varDecl).toBeInTheDocument();
     expect(varDecl).toHaveClass('variable-declaration');
-    expect(varDecl?.tagName.toLowerCase()).toBe('div');
+    expect(varDecl?.tagName?.toLowerCase()).toBe('div');
 
     // Check keyword
     const keyword = container.querySelector('.keyword');
     expect(keyword).toBeInTheDocument();
     expect(keyword).toHaveClass('keyword');
-    expect(keyword?.textContent).toBe('var ');
+    expect(keyword).toHaveTextContent('var');
     expect(keyword).toHaveStyle({ width: '5ex' });
 
     // Check declarations container
@@ -54,8 +54,8 @@ describe('VariableDeclaration', () => {
 
     const varDecl = container.querySelector('.statement.variable-declaration');
     expect(varDecl).toBeTruthy();
-    expect(varDecl?.tagName.toLowerCase()).toBe('div');
-    expect(container.textContent).toBe('var ;');
+    expect(varDecl?.tagName?.toLowerCase()).toBe('div');
+    expect(container).toHaveTextContent('var ;');
   });
 
   it('should render as expression when expression prop is true', () => {
@@ -71,9 +71,9 @@ describe('VariableDeclaration', () => {
 
     const varDecl = container.querySelector('.expression.variable-declaration');
     expect(varDecl).toBeTruthy();
-    expect(varDecl?.tagName.toLowerCase()).toBe('span');
+    expect(varDecl?.tagName?.toLowerCase()).toBe('span');
     // No semicolon in expression mode
-    expect(container.textContent).toBe('var ');
+    expect(container).toHaveTextContent('var');
   });
 
   it('should apply correct CSS classes based on expression prop', () => {
@@ -110,14 +110,14 @@ describe('VariableDeclaration', () => {
       <VariableDeclaration node={node} path={path} expression={false} />,
     );
     const stmtDeclarations = stmtContainer.querySelector('.declarations');
-    expect(stmtDeclarations?.textContent).toBe(';');
+    expect(stmtDeclarations).toHaveTextContent(';');
 
     // Expression mode should not have semicolon
     const { container: exprContainer } = render(
       <VariableDeclaration node={node} path={path} expression={true} />,
     );
     const exprDeclarations = exprContainer.querySelector('.declarations');
-    expect(exprDeclarations?.textContent).toBe('');
+    expect(exprDeclarations).toHaveTextContent('');
   });
 
   it('should create proper React element structure', () => {
@@ -135,7 +135,7 @@ describe('VariableDeclaration', () => {
     expect(container.children).toHaveLength(1);
 
     const root = container.firstElementChild;
-    expect(root?.className).toBe('statement variable-declaration');
+    expect(root).toHaveClass('statement', 'variable-declaration');
 
     // Should have two direct children: keyword span and declarations span
     expect(root?.children).toHaveLength(2);
@@ -158,7 +158,7 @@ describe('VariableDeclaration', () => {
       <VariableDeclaration node={node} path={path} />,
     );
     expect(container.querySelector('.variable-declaration')).toBeTruthy();
-    expect(container.textContent).toBe('var ;');
+    expect(container).toHaveTextContent('var ;');
   });
 
   describe('declaration kinds (var/let/const)', () => {
@@ -187,7 +187,7 @@ describe('VariableDeclaration', () => {
       const keyword = container.querySelector('.keyword');
       expect(keyword).toHaveTextContent(kind);
       expect(keyword).toHaveStyle({ width: '5ex' });
-      expect(container.textContent).toBe(expected);
+      expect(container).toHaveTextContent(expected);
     });
 
     it('should default to var when kind is not specified', () => {
@@ -219,14 +219,14 @@ describe('VariableDeclaration', () => {
         <VariableDeclaration node={node} path={path} expression />,
       );
       expect(exprContainer.querySelector('.expression')).toBeTruthy();
-      expect(exprContainer.textContent).toBe('const ');
+      expect(exprContainer).toHaveTextContent('const');
 
       // Should work in statement mode
       const { container: stmtContainer } = render(
         <VariableDeclaration node={node} path={path} expression={false} />,
       );
       expect(stmtContainer.querySelector('.statement')).toBeTruthy();
-      expect(stmtContainer.textContent).toBe('const ;');
+      expect(stmtContainer).toHaveTextContent('const ;');
     });
 
     it('should handle const with multiple declarations (realistic example)', () => {

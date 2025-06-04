@@ -16,7 +16,7 @@ describe('ContinueStatement', () => {
 
     const element = container.querySelector('.statement.continue-statement');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('continue;');
+    expect(container).toHaveTextContent('continue;');
   });
 
   it('should render continue statement with label', () => {
@@ -31,7 +31,7 @@ describe('ContinueStatement', () => {
 
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('continue outer;');
+    expect(container).toHaveTextContent('continue outer;');
   });
 
   it('should render continue statement with complex label', () => {
@@ -46,7 +46,7 @@ describe('ContinueStatement', () => {
 
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('continue outerLoop;');
+    expect(container).toHaveTextContent('continue outerLoop;');
   });
 
   it('should render continue statement with underscore label', () => {
@@ -61,7 +61,7 @@ describe('ContinueStatement', () => {
 
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('continue _loop;');
+    expect(container).toHaveTextContent('continue _loop;');
   });
 
   it('should render continue statement with dollar sign label', () => {
@@ -76,7 +76,7 @@ describe('ContinueStatement', () => {
 
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('continue $loop;');
+    expect(container).toHaveTextContent('continue $loop;');
   });
 
   it('should have proper HTML structure without label', () => {
@@ -89,12 +89,12 @@ describe('ContinueStatement', () => {
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
     const div = container.firstElementChild;
-    expect(div?.tagName).toBe('DIV');
-    expect(div?.className).toBe('statement continue-statement');
-    
+    expect(div).toBeInTheDocument();
+    expect(div).toHaveClass('statement', 'continue-statement');
+
     const keyword = div?.querySelector('.keyword');
     expect(keyword).toBeInTheDocument();
-    expect(keyword?.textContent).toBe('continue');
+    expect(keyword).toHaveTextContent('continue');
   });
 
   it('should have proper HTML structure with label', () => {
@@ -110,12 +110,12 @@ describe('ContinueStatement', () => {
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
     const div = container.firstElementChild;
-    expect(div?.tagName).toBe('DIV');
-    expect(div?.className).toBe('statement continue-statement');
-    
+    expect(div).toBeInTheDocument();
+    expect(div).toHaveClass('statement', 'continue-statement');
+
     const keyword = div?.querySelector('.keyword');
     expect(keyword).toBeInTheDocument();
-    expect(keyword?.textContent).toBe('continue');
+    expect(keyword).toHaveTextContent('continue');
   });
 
   it('should handle undefined label', () => {
@@ -127,7 +127,7 @@ describe('ContinueStatement', () => {
 
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('continue;');
+    expect(container).toHaveTextContent('continue;');
   });
 
   it('should render continue statement with numeric-like label', () => {
@@ -142,7 +142,7 @@ describe('ContinueStatement', () => {
 
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('continue loop1;');
+    expect(container).toHaveTextContent('continue loop1;');
   });
 
   it('should render continue statement with CONSTANT_CASE label', () => {
@@ -157,7 +157,7 @@ describe('ContinueStatement', () => {
 
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('continue MAIN_LOOP;');
+    expect(container).toHaveTextContent('continue MAIN_LOOP;');
   });
 
   it('should render continue statement with camelCase label', () => {
@@ -172,6 +172,6 @@ describe('ContinueStatement', () => {
 
     const { container } = render(<ContinueStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('continue mainLoop;');
+    expect(container).toHaveTextContent('continue mainLoop;');
   });
 });

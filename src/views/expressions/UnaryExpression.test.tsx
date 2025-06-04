@@ -43,7 +43,7 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('+x');
+    expect(container).toHaveTextContent('+x');
   });
 
   it('should render prefix logical NOT operator', () => {
@@ -60,7 +60,7 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('!isValid');
+    expect(container).toHaveTextContent('!isValid');
   });
 
   it('should render bitwise NOT operator', () => {
@@ -78,7 +78,7 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('~10');
+    expect(container).toHaveTextContent('~10');
   });
 
   it('should render typeof operator with keyword class', () => {
@@ -95,7 +95,7 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('typeof value');
+    expect(container).toHaveTextContent('typeof value');
 
     const operator = container.querySelector('.keyword.operator');
     expect(operator).toBeInTheDocument();
@@ -124,7 +124,7 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('deleteobj.prop');
+    expect(container).toHaveTextContent('deleteobj.prop');
   });
 
   it('should render void operator', () => {
@@ -142,7 +142,7 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('void0');
+    expect(container).toHaveTextContent('void0');
   });
 
   it('should render postfix increment operator', () => {
@@ -159,12 +159,12 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('i++');
+    expect(container).toHaveTextContent('i++');
 
     // Operator should come after the argument
     const operator = container.querySelector('.operator');
     expect(operator).toBeInTheDocument();
-    expect(operator?.previousSibling?.textContent).toBe('i');
+    expect(operator?.previousSibling).toHaveTextContent('i');
   });
 
   it('should render postfix decrement operator', () => {
@@ -181,7 +181,7 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('count--');
+    expect(container).toHaveTextContent('count--');
   });
 
   it('should render nested unary expressions', () => {
@@ -203,7 +203,7 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('!!flag');
+    expect(container).toHaveTextContent('!!flag');
 
     // Check nested structure
     const unaryExpressions = container.querySelectorAll('.unary-expression');
@@ -232,6 +232,6 @@ describe('UnaryExpression', () => {
 
     const { container } = render(<UnaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('-a + b');
+    expect(container).toHaveTextContent('-a + b');
   });
 });

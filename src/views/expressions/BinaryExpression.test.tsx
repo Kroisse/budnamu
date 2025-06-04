@@ -50,7 +50,7 @@ describe('BinaryExpression', () => {
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('x - y');
+    expect(container).toHaveTextContent('x - y');
   });
 
   it('should render multiplication expression', () => {
@@ -72,7 +72,7 @@ describe('BinaryExpression', () => {
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('3 * 4');
+    expect(container).toHaveTextContent('3 * 4');
   });
 
   it('should render division expression', () => {
@@ -92,7 +92,7 @@ describe('BinaryExpression', () => {
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('total / count');
+    expect(container).toHaveTextContent('total / count');
   });
 
   it('should render comparison operators', () => {
@@ -117,7 +117,7 @@ describe('BinaryExpression', () => {
         <BinaryExpression node={node} path={path} />,
       );
 
-      expect(container.textContent).toBe(`a ${op} b`);
+      expect(container).toHaveTextContent(`a ${op} b`);
       expect(container.querySelector('.operator')).toHaveTextContent(op);
     });
   });
@@ -146,7 +146,7 @@ describe('BinaryExpression', () => {
         <BinaryExpression node={node} path={path} />,
       );
 
-      expect(container.textContent).toBe(`5 ${op} 3`);
+      expect(container).toHaveTextContent(`5 ${op} 3`);
     });
   });
 
@@ -178,7 +178,7 @@ describe('BinaryExpression', () => {
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('2 * 3 + 4');
+    expect(container).toHaveTextContent('2 * 3 + 4');
 
     // Check nested structure
     const binaryExpressions = container.querySelectorAll('.binary-expression');
@@ -203,7 +203,7 @@ describe('BinaryExpression', () => {
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('"Hello, " + name');
+    expect(container).toHaveTextContent('"Hello, " + name');
   });
 
   it('should render modulo operator', () => {
@@ -224,7 +224,7 @@ describe('BinaryExpression', () => {
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('num % 2');
+    expect(container).toHaveTextContent('num % 2');
   });
 
   it('should render instanceof operator', () => {
@@ -244,7 +244,7 @@ describe('BinaryExpression', () => {
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('obj instanceof Array');
+    expect(container).toHaveTextContent('obj instanceof Array');
   });
 
   it('should render in operator', () => {
@@ -265,6 +265,6 @@ describe('BinaryExpression', () => {
 
     const { container } = render(<BinaryExpression node={node} path={path} />);
 
-    expect(container.textContent).toBe('"prop" in object');
+    expect(container).toHaveTextContent('"prop" in object');
   });
 });

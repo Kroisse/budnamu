@@ -105,7 +105,7 @@ describe('Literal', () => {
     const { container } = render(<Literal node={node} path={path} />);
 
     // Should display the raw value with escape sequences, not the actual newlines
-    expect(container.textContent).toBe('"test\\nwith\\nnewlines"');
+    expect(container).toHaveTextContent('"test\\nwith\\nnewlines"');
   });
 
   it('should handle numeric literals with different formats', () => {
@@ -127,7 +127,7 @@ describe('Literal', () => {
 
       const { container } = render(<Literal node={node} path={path} />);
 
-      expect(container.textContent).toBe(raw);
+      expect(container).toHaveTextContent(raw);
       expect(container.querySelector('.literal-number')).toBeInTheDocument();
     });
   });

@@ -16,7 +16,7 @@ describe('ReturnStatement', () => {
 
     const element = container.querySelector('.statement.return-statement');
     expect(element).toBeInTheDocument();
-    expect(container.textContent).toBe('return;');
+    expect(container).toHaveTextContent('return;');
   });
 
   it('should render return statement with literal argument', () => {
@@ -31,7 +31,7 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('return 42;');
+    expect(container).toHaveTextContent('return 42;');
   });
 
   it('should render return statement with string literal', () => {
@@ -46,7 +46,7 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('return "success";');
+    expect(container).toHaveTextContent('return "success";');
   });
 
   it('should render return statement with identifier', () => {
@@ -61,7 +61,7 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('return result;');
+    expect(container).toHaveTextContent('return result;');
   });
 
   it('should render return statement with binary expression', () => {
@@ -84,7 +84,7 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('return a + b;');
+    expect(container).toHaveTextContent('return a + b;');
   });
 
   it('should render return statement with call expression', () => {
@@ -108,7 +108,7 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('return calculate(10);');
+    expect(container).toHaveTextContent('return calculate(10);');
   });
 
   it('should render return statement with object expression', () => {
@@ -130,12 +130,12 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toContain('return');
-    expect(container.textContent).toContain('{');
-    expect(container.textContent).toContain('status');
-    expect(container.textContent).toContain(':');
-    expect(container.textContent).toContain('"ok"');
-    expect(container.textContent).toContain('}');
+    expect(container).toHaveTextContent('return');
+    expect(container).toHaveTextContent('{');
+    expect(container).toHaveTextContent('status');
+    expect(container).toHaveTextContent(':');
+    expect(container).toHaveTextContent('"ok"');
+    expect(container).toHaveTextContent('}');
   });
 
   it('should render return statement with array expression', () => {
@@ -154,7 +154,7 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('return [1, 2, 3];');
+    expect(container).toHaveTextContent('return [1, 2, 3];');
   });
 
   it('should render return statement with conditional expression', () => {
@@ -180,7 +180,7 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('return condition ? true : false;');
+    expect(container).toHaveTextContent('return condition ? true : false;');
   });
 
   it('should have proper HTML structure with argument', () => {
@@ -196,12 +196,12 @@ describe('ReturnStatement', () => {
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
     const div = container.firstElementChild;
-    expect(div?.tagName).toBe('DIV');
-    expect(div?.className).toBe('statement return-statement');
-    
+    expect(div).toBeInTheDocument();
+    expect(div).toHaveClass('statement', 'return-statement');
+
     const keyword = div?.querySelector('.keyword');
     expect(keyword).toBeInTheDocument();
-    expect(keyword?.textContent).toBe('return');
+    expect(keyword).toHaveTextContent('return');
   });
 
   it('should have proper HTML structure without argument', () => {
@@ -214,12 +214,12 @@ describe('ReturnStatement', () => {
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
     const div = container.firstElementChild;
-    expect(div?.tagName).toBe('DIV');
-    expect(div?.className).toBe('statement return-statement');
-    
+    expect(div).toBeInTheDocument();
+    expect(div).toHaveClass('statement', 'return-statement');
+
     const keyword = div?.querySelector('.keyword');
     expect(keyword).toBeInTheDocument();
-    expect(keyword?.textContent).toBe('return');
+    expect(keyword).toHaveTextContent('return');
   });
 
   it('should handle undefined argument', () => {
@@ -231,6 +231,6 @@ describe('ReturnStatement', () => {
 
     const { container } = render(<ReturnStatement node={node} path={path} />);
 
-    expect(container.textContent).toBe('return;');
+    expect(container).toHaveTextContent('return;');
   });
 });
