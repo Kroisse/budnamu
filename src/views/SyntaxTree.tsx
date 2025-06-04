@@ -8,14 +8,12 @@ import {
 } from '../atoms/syntaxTreeAtoms';
 import { List, Map } from 'immutable';
 
-const DEFAULT_CODE = `
-function greet(name) {
+const DEFAULT_CODE = `function greet(name) {
   console.log("Hello, " + name + "!");
 }
 
 const x = 42;
-let y = "hello";
-`;
+let y = "hello";`;
 
 const SyntaxTree: React.FC = () => {
   const [syntaxTree, parseSyntaxTree] = useAtom(parsedSyntaxTreeAtom);

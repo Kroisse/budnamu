@@ -38,26 +38,30 @@ const SWC_PARSE_OPTIONS: ParseOptions = {
   importMeta: true,
 };
 
-// TypeScript parse options for SWC
-const SWC_TS_PARSE_OPTIONS: ParseOptions = {
-  syntax: 'typescript',
-  tsx: true,
-  target: 'es2022',
-  dynamicImport: true,
-  decorators: true,
-};
+// TypeScript parse options for SWC (disabled for now)
+// const SWC_TS_PARSE_OPTIONS: ParseOptions = {
+//   syntax: 'typescript',
+//   tsx: true,
+//   target: 'es2022',
+//   dynamicImport: true,
+//   decorators: true,
+// };
 
-// Function to detect if content is TypeScript
-function isTypeScript(content: string): boolean {
-  // Simple heuristics to detect TypeScript
-  return (
-    /\.(ts|tsx)$/.test(content) ||
-    /\b(interface|type|enum|namespace|declare|abstract|readonly|private|protected|public)\b/.test(
-      content,
-    ) ||
-    /:\s*\w+(\[\])?(\s*\|\s*\w+)*\s*[=;,)]/.test(content)
-  );
-}
+// Function to detect if content is TypeScript (disabled for now)
+// function isTypeScript(content: string): boolean {
+//   // Very conservative heuristics - only explicit TypeScript syntax
+//   return (
+//     /\.(ts|tsx)$/.test(content) ||
+//     /\b(interface|type|declare|namespace|enum|abstract)\b/.test(content) ||
+//     /\b(private|protected|public|readonly)\s+[\w$]/.test(content) ||
+//     /:\s*[A-Z][\w$]*(<[^>]+>)?(\[\])?(\s*\|\s*[A-Z][\w$]*)*\s*[=;,)]/.test(
+//       content,
+//     ) ||
+//     /\bas\s+[A-Z][\w$]/.test(content) ||
+//     /<[A-Z][\w$]*(\s+extends\s+[^>]+)?>/.test(content) ||
+//     /\?\s*:/.test(content) // optional properties
+//   );
+// }
 
 // Derived atom that parses the file content into a syntax tree
 export const parsedSyntaxTreeAtom = atom(
@@ -67,13 +71,11 @@ export const parsedSyntaxTreeAtom = atom(
     set(parsingStateAtom, { isLoading: true, error: null });
 
     try {
-      // Determine if content is TypeScript
-      const isTS = isTypeScript(content);
-      const parseOptions = isTS ? SWC_TS_PARSE_OPTIONS : SWC_PARSE_OPTIONS;
+      // For now, always parse as JavaScript to avoid TypeScript-specific nodes
+      // TODO: Add proper TypeScript support later
+      const parseOptions = SWC_PARSE_OPTIONS;
 
-      console.log(
-        `Parsing ${isTS ? 'TypeScript' : 'JavaScript'} content with SWC (async)`,
-      );
+      console.log('Parsing JavaScript content with SWC (async)');
 
       // Use SWC's native async parse function
       const ast = await parse(content, parseOptions);

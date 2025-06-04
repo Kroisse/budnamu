@@ -31,6 +31,7 @@ import { AssignmentExpression } from './AssignmentExpression';
 import { UpdateExpression } from './UpdateExpression';
 import { FunctionExpression } from './FunctionExpression';
 import { SequenceExpression } from './SequenceExpression';
+import { Parameter } from './Parameter';
 
 export interface ExpressionProps {
   node: ImmutableNode;
@@ -75,6 +76,7 @@ export function createExpressionComponents(
     UpdateExpression,
     FunctionExpression,
     SequenceExpression,
+    Parameter,
   };
 
   const patterns: Record<string, ExpressionComponent> = Map(expressions)
