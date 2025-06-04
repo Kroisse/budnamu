@@ -116,7 +116,12 @@ describe('ForInStatement', () => {
         type: 'ExpressionStatement',
         expression: {
           type: 'CallExpression',
-          callee: { type: 'Identifier', name: 'console.log' },
+          callee: {
+            type: 'MemberExpression',
+            object: { type: 'Identifier', name: 'console' },
+            property: { type: 'Identifier', name: 'log' },
+            computed: false,
+          },
           arguments: [{ type: 'Identifier', name: 'k' }],
         },
       },
