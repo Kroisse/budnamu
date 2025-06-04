@@ -1,0 +1,1091 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SyntaxTree Integration > should render complete JavaScript code with proper components 1`] = `
+<div
+  class="syntax-tree"
+>
+  <div
+    style="padding: 20px; border: 1px solid rgb(204, 204, 204);"
+  >
+    <h2>
+      Syntax Tree Visualization
+    </h2>
+    <div>
+      AST Type:
+       
+      Program
+    </div>
+    <div
+      class="block"
+    >
+      <span
+        class="statement function-declaration"
+      >
+        <span
+          class="function-header"
+        >
+          <span
+            class="keyword"
+          >
+            function
+          </span>
+           
+          <span
+            class="expression identifier"
+          >
+            greet
+          </span>
+          <span
+            class="paren-open"
+          >
+            (
+          </span>
+          <span
+            class="expression parameter"
+          >
+            <span
+              class="expression identifier"
+            >
+              name
+            </span>
+          </span>
+          <span
+            class="paren-close"
+          >
+            )
+          </span>
+        </span>
+         
+        <span
+          class="statement block-statement"
+        >
+          <span
+            class="paren-open"
+          >
+            {
+          </span>
+          <div
+            class="block"
+          >
+            <div
+              class="statement expression-statement"
+            >
+              <span
+                class="expression call-expression"
+              >
+                <span
+                  class="expression member-expression"
+                >
+                  <span
+                    class="expression identifier"
+                  >
+                    console
+                  </span>
+                  <span
+                    class="operator"
+                  >
+                    .
+                  </span>
+                  <span
+                    class="expression identifier"
+                  >
+                    log
+                  </span>
+                </span>
+                <span
+                  class="paren-open"
+                >
+                  (
+                </span>
+                <span
+                  class="expression binary-expression"
+                >
+                  <span
+                    class="expression binary-expression"
+                  >
+                    <span
+                      class="expression literal literal-string"
+                    >
+                      "Hello, "
+                    </span>
+                     
+                    <span
+                      class="operator"
+                    >
+                      +
+                    </span>
+                     
+                    <span
+                      class="expression identifier"
+                    >
+                      name
+                    </span>
+                  </span>
+                   
+                  <span
+                    class="operator"
+                  >
+                    +
+                  </span>
+                   
+                  <span
+                    class="expression literal literal-string"
+                  >
+                    "!"
+                  </span>
+                </span>
+                <span
+                  class="paren-close"
+                >
+                  )
+                </span>
+              </span>
+              ;
+            </div>
+          </div>
+          <span
+            class="paren-close"
+          >
+            }
+          </span>
+        </span>
+      </span>
+      <div
+        class="statement variable-declaration"
+      >
+        <span
+          class="keyword"
+          style="width: 5ex;"
+        >
+          const
+           
+        </span>
+        <span
+          class="declarations"
+        >
+          <span
+            class="declaration"
+          >
+            <span
+              class="expression identifier"
+            >
+              x
+            </span>
+             
+            <span
+              class="operator"
+            >
+              =
+            </span>
+             
+            <span
+              class="expression literal literal-number"
+            >
+              42
+            </span>
+          </span>
+          ;
+        </span>
+      </div>
+      <div
+        class="statement variable-declaration"
+      >
+        <span
+          class="keyword"
+          style="width: 5ex;"
+        >
+          let
+           
+        </span>
+        <span
+          class="declarations"
+        >
+          <span
+            class="declaration"
+          >
+            <span
+              class="expression identifier"
+            >
+              y
+            </span>
+             
+            <span
+              class="operator"
+            >
+              =
+            </span>
+             
+            <span
+              class="expression literal literal-string"
+            >
+              "hello"
+            </span>
+          </span>
+          ;
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SyntaxTree Integration with SWC Structure > should parse and render array expressions with @swc/core 1`] = `
+<div>
+  <div
+    class="block"
+  >
+    <div
+      class="statement variable-declaration"
+    >
+      <span
+        class="keyword"
+        style="width: 5ex;"
+      >
+        const
+         
+      </span>
+      <span
+        class="declarations"
+      >
+        <span
+          class="declaration"
+        >
+          <span
+            class="expression identifier"
+          >
+            arr
+          </span>
+           
+          <span
+            class="operator"
+          >
+            =
+          </span>
+           
+          <span
+            class="expression array-expression"
+          >
+            <span
+              class="paren-open"
+            >
+              [
+            </span>
+            <span
+              class="expression unknown-expression"
+            >
+              &lt;&lt;
+               unknown: 
+              {"spread":null,"expression":{"type":"NumericLiteral","span":{"start":177,"end":178},"value":1,"raw":"1"}}
+               
+              &gt;&gt;
+            </span>
+            , 
+            <span
+              class="expression unknown-expression"
+            >
+              &lt;&lt;
+               unknown: 
+              {"spread":null,"expression":{"type":"NumericLiteral","span":{"start":180,"end":181},"value":2,"raw":"2"}}
+               
+              &gt;&gt;
+            </span>
+            , 
+            <span
+              class="expression unknown-expression"
+            >
+              &lt;&lt;
+               unknown: 
+              {"spread":null,"expression":{"type":"StringLiteral","span":{"start":183,"end":190},"value":"hello","raw":"\\"hello\\""}}
+               
+              &gt;&gt;
+            </span>
+            <span
+              class="paren-close"
+            >
+              ]
+            </span>
+          </span>
+        </span>
+        ;
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SyntaxTree Integration with SWC Structure > should parse and render member expressions with @swc/core 1`] = `
+<div>
+  <div
+    class="block"
+  >
+    <div
+      class="statement expression-statement"
+    >
+      <span
+        class="expression call-expression"
+      >
+        <span
+          class="expression member-expression"
+        >
+          <span
+            class="expression identifier"
+          >
+            console
+          </span>
+          <span
+            class="operator"
+          >
+            .
+          </span>
+          <span
+            class="expression identifier"
+          >
+            log
+          </span>
+        </span>
+        <span
+          class="paren-open"
+        >
+          (
+        </span>
+        <span
+          class="expression member-expression"
+        >
+          <span
+            class="expression identifier"
+          >
+            obj
+          </span>
+          <span
+            class="operator"
+          >
+            .
+          </span>
+          <span
+            class="expression identifier"
+          >
+            property
+          </span>
+        </span>
+        <span
+          class="paren-close"
+        >
+          )
+        </span>
+      </span>
+      ;
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SyntaxTree Integration with SWC Structure > should parse and render object expressions with @swc/core 1`] = `
+<div>
+  <div
+    class="block"
+  >
+    <div
+      class="statement variable-declaration"
+    >
+      <span
+        class="keyword"
+        style="width: 5ex;"
+      >
+        const
+         
+      </span>
+      <span
+        class="declarations"
+      >
+        <span
+          class="declaration"
+        >
+          <span
+            class="expression identifier"
+          >
+            obj
+          </span>
+           
+          <span
+            class="operator"
+          >
+            =
+          </span>
+           
+          <span
+            class="expression object-expression"
+          >
+            <span
+              class="paren-open"
+            >
+              {
+            </span>
+            <span
+              class="properties"
+            >
+              <span
+                class="property"
+              >
+                <span
+                  class="expression identifier"
+                >
+                  name
+                </span>
+                : 
+                <span
+                  class="expression literal literal-string"
+                >
+                  "test"
+                </span>
+              </span>
+              , 
+              <span
+                class="property"
+              >
+                <span
+                  class="expression identifier"
+                >
+                  value
+                </span>
+                : 
+                <span
+                  class="expression literal literal-number"
+                >
+                  42
+                </span>
+              </span>
+            </span>
+            <span
+              class="paren-close"
+            >
+              }
+            </span>
+          </span>
+        </span>
+        ;
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SyntaxTree Integration with SWC Structure > should parse and render with @swc/core in Node.js 1`] = `
+<div
+  class="syntax-tree"
+>
+  <div
+    style="padding: 20px; border: 1px solid rgb(204, 204, 204);"
+  >
+    <h2>
+      Syntax Tree Visualization
+    </h2>
+    <div>
+      AST Type: 
+      Module
+    </div>
+    <div
+      class="block"
+    >
+      <span
+        class="statement function-declaration"
+      >
+        <span
+          class="function-header"
+        >
+          <span
+            class="keyword"
+          >
+            function
+          </span>
+           
+          <span
+            class="expression identifier"
+          >
+            greet
+          </span>
+          <span
+            class="paren-open"
+          >
+            (
+          </span>
+          <span
+            class="expression parameter"
+          >
+            <span
+              class="expression identifier"
+            >
+              name
+            </span>
+          </span>
+          <span
+            class="paren-close"
+          >
+            )
+          </span>
+        </span>
+         
+        <span
+          class="statement block-statement"
+        >
+          <span
+            class="paren-open"
+          >
+            {
+          </span>
+          <div
+            class="block"
+          >
+            <div
+              class="statement expression-statement"
+            >
+              <span
+                class="expression call-expression"
+              >
+                <span
+                  class="expression member-expression"
+                >
+                  <span
+                    class="expression identifier"
+                  >
+                    console
+                  </span>
+                  <span
+                    class="operator"
+                  >
+                    .
+                  </span>
+                  <span
+                    class="expression identifier"
+                  >
+                    log
+                  </span>
+                </span>
+                <span
+                  class="paren-open"
+                >
+                  (
+                </span>
+                <span
+                  class="expression binary-expression"
+                >
+                  <span
+                    class="expression binary-expression"
+                  >
+                    <span
+                      class="expression literal literal-string"
+                    >
+                      "Hello, "
+                    </span>
+                     
+                    <span
+                      class="operator"
+                    >
+                      +
+                    </span>
+                     
+                    <span
+                      class="expression identifier"
+                    >
+                      name
+                    </span>
+                  </span>
+                   
+                  <span
+                    class="operator"
+                  >
+                    +
+                  </span>
+                   
+                  <span
+                    class="expression literal literal-string"
+                  >
+                    "!"
+                  </span>
+                </span>
+                <span
+                  class="paren-close"
+                >
+                  )
+                </span>
+              </span>
+              ;
+            </div>
+          </div>
+          <span
+            class="paren-close"
+          >
+            }
+          </span>
+        </span>
+      </span>
+      <div
+        class="statement variable-declaration"
+      >
+        <span
+          class="keyword"
+          style="width: 5ex;"
+        >
+          const
+           
+        </span>
+        <span
+          class="declarations"
+        >
+          <span
+            class="declaration"
+          >
+            <span
+              class="expression identifier"
+            >
+              x
+            </span>
+             
+            <span
+              class="operator"
+            >
+              =
+            </span>
+             
+            <span
+              class="expression literal literal-number"
+            >
+              42
+            </span>
+          </span>
+          ;
+        </span>
+      </div>
+      <div
+        class="statement variable-declaration"
+      >
+        <span
+          class="keyword"
+          style="width: 5ex;"
+        >
+          let
+           
+        </span>
+        <span
+          class="declarations"
+        >
+          <span
+            class="declaration"
+          >
+            <span
+              class="expression identifier"
+            >
+              y
+            </span>
+             
+            <span
+              class="operator"
+            >
+              =
+            </span>
+             
+            <span
+              class="expression literal literal-string"
+            >
+              "hello"
+            </span>
+          </span>
+          ;
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SyntaxTree Integration with SWC Structure > should parse simple function with @swc/core 1`] = `
+<div>
+  <div
+    class="block"
+  >
+    <span
+      class="statement function-declaration"
+    >
+      <span
+        class="function-header"
+      >
+        <span
+          class="keyword"
+        >
+          function
+        </span>
+         
+        <span
+          class="expression identifier"
+        >
+          test
+        </span>
+        <span
+          class="paren-open"
+        >
+          (
+        </span>
+        <span
+          class="expression parameter"
+        >
+          <span
+            class="expression identifier"
+          >
+            param
+          </span>
+        </span>
+        <span
+          class="paren-close"
+        >
+          )
+        </span>
+      </span>
+       
+      <span
+        class="statement block-statement"
+      >
+        <span
+          class="paren-open"
+        >
+          {
+        </span>
+        <div
+          class="block"
+        >
+          <div
+            class="statement return-statement"
+          >
+            <span
+              class="keyword"
+            >
+              return
+            </span>
+             
+            <span
+              class="expression literal literal-number"
+            >
+              42
+            </span>
+            ;
+          </div>
+        </div>
+        <span
+          class="paren-close"
+        >
+          }
+        </span>
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`SyntaxTree Integration with SWC Structure > should parse variable declarations with @swc/core 1`] = `
+<div>
+  <div
+    class="block"
+  >
+    <div
+      class="statement variable-declaration"
+    >
+      <span
+        class="keyword"
+        style="width: 5ex;"
+      >
+        const
+         
+      </span>
+      <span
+        class="declarations"
+      >
+        <span
+          class="declaration"
+        >
+          <span
+            class="expression identifier"
+          >
+            x
+          </span>
+           
+          <span
+            class="operator"
+          >
+            =
+          </span>
+           
+          <span
+            class="expression literal literal-number"
+          >
+            42
+          </span>
+        </span>
+        ;
+      </span>
+    </div>
+    <div
+      class="statement variable-declaration"
+    >
+      <span
+        class="keyword"
+        style="width: 5ex;"
+      >
+        let
+         
+      </span>
+      <span
+        class="declarations"
+      >
+        <span
+          class="declaration"
+        >
+          <span
+            class="expression identifier"
+          >
+            y
+          </span>
+           
+          <span
+            class="operator"
+          >
+            =
+          </span>
+           
+          <span
+            class="expression literal literal-string"
+          >
+            "hello"
+          </span>
+        </span>
+        ;
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SyntaxTree Integration with SWC Structure > should render the DEFAULT_CODE using real SWC AST structure 1`] = `
+<div
+  class="syntax-tree"
+>
+  <div
+    style="padding: 20px; border: 1px solid rgb(204, 204, 204);"
+  >
+    <h2>
+      Syntax Tree Visualization
+    </h2>
+    <div>
+      AST Type: 
+      Program
+    </div>
+    <div
+      class="block"
+    >
+      <span
+        class="statement function-declaration"
+      >
+        <span
+          class="function-header"
+        >
+          <span
+            class="keyword"
+          >
+            function
+          </span>
+           
+          <span
+            class="expression identifier"
+          >
+            greet
+          </span>
+          <span
+            class="paren-open"
+          >
+            (
+          </span>
+          <span
+            class="expression parameter"
+          >
+            <span
+              class="expression identifier"
+            >
+              name
+            </span>
+          </span>
+          <span
+            class="paren-close"
+          >
+            )
+          </span>
+        </span>
+         
+        <span
+          class="statement block-statement"
+        >
+          <span
+            class="paren-open"
+          >
+            {
+          </span>
+          <div
+            class="block"
+          >
+            <div
+              class="statement expression-statement"
+            >
+              <span
+                class="expression call-expression"
+              >
+                <span
+                  class="expression member-expression"
+                >
+                  <span
+                    class="expression identifier"
+                  >
+                    console
+                  </span>
+                  <span
+                    class="operator"
+                  >
+                    .
+                  </span>
+                  <span
+                    class="expression identifier"
+                  >
+                    log
+                  </span>
+                </span>
+                <span
+                  class="paren-open"
+                >
+                  (
+                </span>
+                <span
+                  class="expression binary-expression"
+                >
+                  <span
+                    class="expression binary-expression"
+                  >
+                    <span
+                      class="expression literal literal-string"
+                    >
+                      "Hello, "
+                    </span>
+                     
+                    <span
+                      class="operator"
+                    >
+                      +
+                    </span>
+                     
+                    <span
+                      class="expression identifier"
+                    >
+                      name
+                    </span>
+                  </span>
+                   
+                  <span
+                    class="operator"
+                  >
+                    +
+                  </span>
+                   
+                  <span
+                    class="expression literal literal-string"
+                  >
+                    "!"
+                  </span>
+                </span>
+                <span
+                  class="paren-close"
+                >
+                  )
+                </span>
+              </span>
+              ;
+            </div>
+          </div>
+          <span
+            class="paren-close"
+          >
+            }
+          </span>
+        </span>
+      </span>
+      <div
+        class="statement variable-declaration"
+      >
+        <span
+          class="keyword"
+          style="width: 5ex;"
+        >
+          const
+           
+        </span>
+        <span
+          class="declarations"
+        >
+          <span
+            class="declaration"
+          >
+            <span
+              class="expression identifier"
+            >
+              x
+            </span>
+             
+            <span
+              class="operator"
+            >
+              =
+            </span>
+             
+            <span
+              class="expression literal literal-number"
+            >
+              42
+            </span>
+          </span>
+          ;
+        </span>
+      </div>
+      <div
+        class="statement variable-declaration"
+      >
+        <span
+          class="keyword"
+          style="width: 5ex;"
+        >
+          let
+           
+        </span>
+        <span
+          class="declarations"
+        >
+          <span
+            class="declaration"
+          >
+            <span
+              class="expression identifier"
+            >
+              y
+            </span>
+             
+            <span
+              class="operator"
+            >
+              =
+            </span>
+             
+            <span
+              class="expression literal literal-string"
+            >
+              "hello"
+            </span>
+          </span>
+          ;
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
