@@ -13,19 +13,19 @@ describe('ForInStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'key' },
+            id: { type: 'Identifier', value: 'key' },
             init: null,
           },
         ],
         kind: 'let',
       },
-      right: { type: 'Identifier', name: 'obj' },
+      right: { type: 'Identifier', value: 'obj' },
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
-            expression: { type: 'Identifier', name: 'key' },
+            expression: { type: 'Identifier', value: 'key' },
           },
         ],
       },
@@ -43,17 +43,17 @@ describe('ForInStatement', () => {
   it('should render for-in with identifier left side', () => {
     const node = fromJS({
       type: 'ForInStatement',
-      left: { type: 'Identifier', name: 'prop' },
-      right: { type: 'Identifier', name: 'object' },
+      left: { type: 'Identifier', value: 'prop' },
+      right: { type: 'Identifier', value: 'object' },
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: {
               type: 'MemberExpression',
-              object: { type: 'Identifier', name: 'object' },
-              property: { type: 'Identifier', name: 'prop' },
+              object: { type: 'Identifier', value: 'object' },
+              property: { type: 'Identifier', value: 'prop' },
               computed: true,
             },
           },
@@ -79,14 +79,14 @@ describe('ForInStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'key' },
+            id: { type: 'Identifier', value: 'key' },
             init: null,
           },
         ],
         kind: 'const',
       },
-      right: { type: 'Identifier', name: 'data' },
-      body: { type: 'BlockStatement', body: [] },
+      right: { type: 'Identifier', value: 'data' },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -105,24 +105,24 @@ describe('ForInStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'k' },
+            id: { type: 'Identifier', value: 'k' },
             init: null,
           },
         ],
         kind: 'var',
       },
-      right: { type: 'Identifier', name: 'obj' },
+      right: { type: 'Identifier', value: 'obj' },
       body: {
         type: 'ExpressionStatement',
         expression: {
           type: 'CallExpression',
           callee: {
             type: 'MemberExpression',
-            object: { type: 'Identifier', name: 'console' },
-            property: { type: 'Identifier', name: 'log' },
+            object: { type: 'Identifier', value: 'console' },
+            property: { type: 'Identifier', value: 'log' },
             computed: false,
           },
-          arguments: [{ type: 'Identifier', name: 'k' }],
+          arguments: [{ type: 'Identifier', value: 'k' }],
         },
       },
     }) as ImmutableNode;
@@ -143,7 +143,7 @@ describe('ForInStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'prop' },
+            id: { type: 'Identifier', value: 'prop' },
             init: null,
           },
         ],
@@ -154,19 +154,19 @@ describe('ForInStatement', () => {
         properties: [
           {
             type: 'Property',
-            key: { type: 'Identifier', name: 'a' },
+            key: { type: 'Identifier', value: 'a' },
             value: { type: 'Literal', value: 1 },
             kind: 'init',
           },
           {
             type: 'Property',
-            key: { type: 'Identifier', name: 'b' },
+            key: { type: 'Identifier', value: 'b' },
             value: { type: 'Literal', value: 2 },
             kind: 'init',
           },
         ],
       },
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -185,16 +185,16 @@ describe('ForInStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'outer' },
+            id: { type: 'Identifier', value: 'outer' },
             init: null,
           },
         ],
         kind: 'let',
       },
-      right: { type: 'Identifier', name: 'obj1' },
+      right: { type: 'Identifier', value: 'obj1' },
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ForInStatement',
             left: {
@@ -202,14 +202,14 @@ describe('ForInStatement', () => {
               declarations: [
                 {
                   type: 'VariableDeclarator',
-                  id: { type: 'Identifier', name: 'inner' },
+                  id: { type: 'Identifier', value: 'inner' },
                   init: null,
                 },
               ],
               kind: 'let',
             },
-            right: { type: 'Identifier', name: 'obj2' },
-            body: { type: 'BlockStatement', body: [] },
+            right: { type: 'Identifier', value: 'obj2' },
+            body: { type: 'BlockStatement', stmts: [] },
           },
         ],
       },
@@ -233,7 +233,7 @@ describe('ForInStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'key' },
+            id: { type: 'Identifier', value: 'key' },
             init: null,
           },
         ],
@@ -241,10 +241,10 @@ describe('ForInStatement', () => {
       },
       right: {
         type: 'CallExpression',
-        callee: { type: 'Identifier', name: 'getObject' },
+        callee: { type: 'Identifier', value: 'getObject' },
         arguments: [],
       },
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -258,9 +258,9 @@ describe('ForInStatement', () => {
   it('should render proper HTML structure', () => {
     const node = fromJS({
       type: 'ForInStatement',
-      left: { type: 'Identifier', name: 'k' },
-      right: { type: 'Identifier', name: 'o' },
-      body: { type: 'BlockStatement', body: [] },
+      left: { type: 'Identifier', value: 'k' },
+      right: { type: 'Identifier', value: 'o' },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -281,12 +281,12 @@ describe('ForInStatement', () => {
       type: 'ForInStatement',
       left: {
         type: 'MemberExpression',
-        object: { type: 'Identifier', name: 'this' },
-        property: { type: 'Identifier', name: 'prop' },
+        object: { type: 'Identifier', value: 'this' },
+        property: { type: 'Identifier', value: 'prop' },
         computed: false,
       },
-      right: { type: 'Identifier', name: 'source' },
-      body: { type: 'BlockStatement', body: [] },
+      right: { type: 'Identifier', value: 'source' },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -305,7 +305,7 @@ describe('ForInStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'index' },
+            id: { type: 'Identifier', value: 'index' },
             init: null,
           },
         ],
@@ -319,7 +319,7 @@ describe('ForInStatement', () => {
           { type: 'Literal', value: 3 },
         ],
       },
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 

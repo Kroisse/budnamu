@@ -173,7 +173,7 @@ describe('VariableDeclaration', () => {
         declarations: List([
           Map({
             type: 'VariableDeclarator',
-            id: Map({ type: 'Identifier', name: 'x' }),
+            id: Map({ type: 'Identifier', value: 'x' }),
             init: Map({ type: 'NumericLiteral', value: 5, raw: '5' }),
           }),
         ]),
@@ -239,17 +239,17 @@ describe('VariableDeclaration', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'x' },
+            id: { type: 'Identifier', value: 'x' },
             init: { type: 'Literal', value: 5, raw: '5' },
           },
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'y' },
+            id: { type: 'Identifier', value: 'y' },
             init: { type: 'Literal', value: 10, raw: '10' },
           },
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'z' },
+            id: { type: 'Identifier', value: 'z' },
           },
         ],
       });

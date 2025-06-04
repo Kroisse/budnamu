@@ -8,7 +8,7 @@ describe('CallExpression', () => {
   it('should render function call with no arguments', () => {
     const node = fromJS({
       type: 'CallExpression',
-      callee: { type: 'Identifier', name: 'doSomething' },
+      callee: { type: 'Identifier', value: 'doSomething' },
       arguments: [],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -23,7 +23,7 @@ describe('CallExpression', () => {
   it('should render function call with single argument', () => {
     const node = fromJS({
       type: 'CallExpression',
-      callee: { type: 'Identifier', name: 'alert' },
+      callee: { type: 'Identifier', value: 'alert' },
       arguments: [{ type: 'Literal', value: 'Hello!', raw: '"Hello!"' }],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -36,7 +36,7 @@ describe('CallExpression', () => {
   it('should render function call with multiple arguments', () => {
     const node = fromJS({
       type: 'CallExpression',
-      callee: { type: 'Identifier', name: 'add' },
+      callee: { type: 'Identifier', value: 'add' },
       arguments: [
         { type: 'Literal', value: 1, raw: '1' },
         { type: 'Literal', value: 2, raw: '2' },
@@ -55,8 +55,8 @@ describe('CallExpression', () => {
       type: 'CallExpression',
       callee: {
         type: 'MemberExpression',
-        object: { type: 'Identifier', name: 'console' },
-        property: { type: 'Identifier', name: 'log' },
+        object: { type: 'Identifier', value: 'console' },
+        property: { type: 'Identifier', value: 'log' },
         computed: false,
       },
       arguments: [
@@ -77,13 +77,13 @@ describe('CallExpression', () => {
         type: 'MemberExpression',
         object: {
           type: 'CallExpression',
-          callee: { type: 'Identifier', name: 'getData' },
+          callee: { type: 'Identifier', value: 'getData' },
           arguments: [],
         },
-        property: { type: 'Identifier', name: 'filter' },
+        property: { type: 'Identifier', value: 'filter' },
         computed: false,
       },
-      arguments: [{ type: 'Identifier', name: 'predicate' }],
+      arguments: [{ type: 'Identifier', value: 'predicate' }],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -97,11 +97,11 @@ describe('CallExpression', () => {
       type: 'CallExpression',
       callee: {
         type: 'MemberExpression',
-        object: { type: 'Identifier', name: 'methods' },
-        property: { type: 'Identifier', name: 'name' },
+        object: { type: 'Identifier', value: 'methods' },
+        property: { type: 'Identifier', value: 'name' },
         computed: true,
       },
-      arguments: [{ type: 'Identifier', name: 'arg' }],
+      arguments: [{ type: 'Identifier', value: 'arg' }],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -133,12 +133,12 @@ describe('CallExpression', () => {
   it('should render call with spread arguments', () => {
     const node = fromJS({
       type: 'CallExpression',
-      callee: { type: 'Identifier', name: 'fn' },
+      callee: { type: 'Identifier', value: 'fn' },
       arguments: [
         { type: 'Literal', value: 1, raw: '1' },
         {
           type: 'SpreadElement',
-          argument: { type: 'Identifier', name: 'args' },
+          argument: { type: 'Identifier', value: 'args' },
         },
       ],
     }) as ImmutableNode;
@@ -155,14 +155,14 @@ describe('CallExpression', () => {
   it('should render call with object and array arguments', () => {
     const node = fromJS({
       type: 'CallExpression',
-      callee: { type: 'Identifier', name: 'process' },
+      callee: { type: 'Identifier', value: 'process' },
       arguments: [
         {
           type: 'ObjectExpression',
           properties: [
             {
               type: 'Property',
-              key: { type: 'Identifier', name: 'x' },
+              key: { type: 'Identifier', value: 'x' },
               value: { type: 'Literal', value: 1, raw: '1' },
               kind: 'init',
             },
@@ -187,12 +187,12 @@ describe('CallExpression', () => {
   it('should render call with function expression as argument', () => {
     const node = fromJS({
       type: 'CallExpression',
-      callee: { type: 'Identifier', name: 'map' },
+      callee: { type: 'Identifier', value: 'map' },
       arguments: [
         {
           type: 'FunctionExpression',
           id: null,
-          params: [{ type: 'Identifier', name: 'x' }],
+          params: [{ type: 'Identifier', value: 'x' }],
           body: { type: 'BlockStatement', body: [] },
         },
       ],
@@ -208,8 +208,8 @@ describe('CallExpression', () => {
   it('should render proper HTML structure', () => {
     const node = fromJS({
       type: 'CallExpression',
-      callee: { type: 'Identifier', name: 'fn' },
-      arguments: [{ type: 'Identifier', name: 'arg' }],
+      callee: { type: 'Identifier', value: 'fn' },
+      arguments: [{ type: 'Identifier', value: 'arg' }],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 

@@ -8,7 +8,7 @@ describe('Identifier', () => {
   it('should render identifier with correct class', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: 'myVariable',
+      value: 'myVariable',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -22,7 +22,7 @@ describe('Identifier', () => {
   it('should render single character identifier', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: 'x',
+      value: 'x',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -37,7 +37,7 @@ describe('Identifier', () => {
   it('should render identifier with underscore', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: '_privateVar',
+      value: '_privateVar',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -49,7 +49,7 @@ describe('Identifier', () => {
   it('should render identifier with dollar sign', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: '$jquery',
+      value: '$jquery',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -61,7 +61,7 @@ describe('Identifier', () => {
   it('should render camelCase identifier', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: 'getUserById',
+      value: 'getUserById',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -73,7 +73,7 @@ describe('Identifier', () => {
   it('should render CONSTANT_CASE identifier', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: 'MAX_VALUE',
+      value: 'MAX_VALUE',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -89,7 +89,7 @@ describe('Identifier', () => {
     keywords.forEach((keyword) => {
       const node = fromJS({
         type: 'Identifier',
-        name: keyword,
+        value: keyword,
       }) as ImmutableNode;
       const path: ImmutablePath = List(['expression']);
 
@@ -105,7 +105,7 @@ describe('Identifier', () => {
   it('should handle empty name gracefully', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: '',
+      value: '',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -119,7 +119,7 @@ describe('Identifier', () => {
   it('should handle Unicode identifiers', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: 'π',
+      value: 'π',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -131,7 +131,7 @@ describe('Identifier', () => {
   it('should render with proper HTML structure', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: 'test',
+      value: 'test',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -161,16 +161,16 @@ describe('Identifier', () => {
     ).toBeInTheDocument();
   });
 
-  it('should prefer name over value if both exist', () => {
+  it('should prefer value over name if both exist', () => {
     const node = fromJS({
       type: 'Identifier',
-      name: 'preferredName',
-      value: 'fallbackName',
+      value: 'preferredValue',
+      name: 'fallbackName',
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
     const { container } = render(<Identifier node={node} path={path} />);
 
-    expect(container).toHaveTextContent('preferredName');
+    expect(container).toHaveTextContent('preferredValue');
   });
 });

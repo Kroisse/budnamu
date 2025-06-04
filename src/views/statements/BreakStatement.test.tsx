@@ -24,7 +24,7 @@ describe('BreakStatement', () => {
       type: 'BreakStatement',
       label: {
         type: 'Identifier',
-        name: 'outer',
+        value: 'outer',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -39,7 +39,7 @@ describe('BreakStatement', () => {
       type: 'BreakStatement',
       label: {
         type: 'Identifier',
-        name: 'outerLoop',
+        value: 'outerLoop',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -54,7 +54,7 @@ describe('BreakStatement', () => {
       type: 'BreakStatement',
       label: {
         type: 'Identifier',
-        name: '_loop',
+        value: '_loop',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -69,7 +69,7 @@ describe('BreakStatement', () => {
       type: 'BreakStatement',
       label: {
         type: 'Identifier',
-        name: '$loop',
+        value: '$loop',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -102,7 +102,7 @@ describe('BreakStatement', () => {
       type: 'BreakStatement',
       label: {
         type: 'Identifier',
-        name: 'test',
+        value: 'test',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -135,7 +135,7 @@ describe('BreakStatement', () => {
       type: 'BreakStatement',
       label: {
         type: 'Identifier',
-        name: 'loop1',
+        value: 'loop1',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -150,7 +150,7 @@ describe('BreakStatement', () => {
       type: 'BreakStatement',
       label: {
         type: 'Identifier',
-        name: 'MAIN_LOOP',
+        value: 'MAIN_LOOP',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);

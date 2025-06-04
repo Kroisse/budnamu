@@ -9,9 +9,9 @@ describe('RenderFunction', () => {
   it('should render function structure', () => {
     const node = Map({
       type: 'FunctionExpression',
-      id: Map({ type: 'Identifier', name: 'myFunction' }),
+      id: Map({ type: 'Identifier', value: 'myFunction' }),
       params: List([]),
-      body: Map({ type: 'BlockStatement', body: List([]) }),
+      body: Map({ type: 'BlockStatement', stmts: List([]) }),
     });
     const path: ImmutablePath = List(['expression']);
 
@@ -33,7 +33,7 @@ describe('RenderFunction', () => {
       type: 'FunctionExpression',
       id: null,
       params: List([]),
-      body: Map({ type: 'BlockStatement', body: List([]) }),
+      body: Map({ type: 'BlockStatement', stmts: List([]) }),
     });
     const path: ImmutablePath = List(['expression']);
 
@@ -49,12 +49,12 @@ describe('RenderFunction', () => {
   it('should render with parameters', () => {
     const node = Map({
       type: 'FunctionExpression',
-      id: Map({ type: 'Identifier', name: 'add' }),
+      identifier: Map({ type: 'Identifier', value: 'add' }),
       params: List([
-        Map({ type: 'Identifier', name: 'a' }),
-        Map({ type: 'Identifier', name: 'b' }),
+        Map({ type: 'Identifier', value: 'a' }),
+        Map({ type: 'Identifier', value: 'b' }),
       ]),
-      body: Map({ type: 'BlockStatement', body: List([]) }),
+      body: Map({ type: 'BlockStatement', stmts: List([]) }),
     });
     const path: ImmutablePath = List(['expression']);
 
@@ -81,8 +81,8 @@ describe('RenderFunction', () => {
     const node = Map({
       type: 'ArrowFunctionExpression',
       id: null, // Arrow functions don't have ids
-      params: List([Map({ type: 'Identifier', name: 'x' })]),
-      body: Map({ type: 'BlockStatement', body: List([]) }),
+      params: List([Map({ type: 'Identifier', value: 'x' })]),
+      body: Map({ type: 'BlockStatement', stmts: List([]) }),
     });
     const path: ImmutablePath = List(['expression']);
 
@@ -97,20 +97,20 @@ describe('RenderFunction', () => {
   it('should render with destructuring parameters', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: { type: 'Identifier', name: 'processData' },
+      id: { type: 'Identifier', value: 'processData' },
       params: [
         {
           type: 'ObjectPattern',
           properties: [
             {
               type: 'Property',
-              key: { type: 'Identifier', name: 'name' },
-              value: { type: 'Identifier', name: 'name' },
+              key: { type: 'Identifier', value: 'name' },
+              value: { type: 'Identifier', value: 'name' },
             },
           ],
         },
       ],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     });
     const path: ImmutablePath = List(['expression']);
 
@@ -124,9 +124,9 @@ describe('RenderFunction', () => {
   it('should handle different node paths', () => {
     const node = Map({
       type: 'FunctionExpression',
-      id: Map({ type: 'Identifier', name: 'test' }),
+      id: Map({ type: 'Identifier', value: 'test' }),
       params: List([]),
-      body: Map({ type: 'BlockStatement', body: List([]) }),
+      body: Map({ type: 'BlockStatement', stmts: List([]) }),
     });
 
     const paths: ImmutablePath[] = [
@@ -146,11 +146,11 @@ describe('RenderFunction', () => {
     // fromJS()를 사용하여 복잡한 JavaScript object를 한 번에 Immutable로 변환
     const node = fromJS({
       type: 'FunctionExpression',
-      id: { type: 'Identifier', name: 'greet' },
-      params: [{ type: 'Identifier', name: 'name' }],
+      identifier: { type: 'Identifier', value: 'greet' },
+      params: [{ type: 'Identifier', value: 'name' }],
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ReturnStatement',
             argument: {
@@ -161,7 +161,7 @@ describe('RenderFunction', () => {
                 value: 'Hello, ',
                 raw: '"Hello, "',
               },
-              right: { type: 'Identifier', name: 'name' },
+              right: { type: 'Identifier', value: 'name' },
             },
           },
         ],
@@ -194,11 +194,11 @@ describe('RenderFunction', () => {
     const node = fromJS({
       type: 'ArrowFunctionExpression',
       id: null,
-      params: [{ type: 'Identifier', name: 'x' }],
+      params: [{ type: 'Identifier', value: 'x' }],
       body: {
         type: 'BinaryExpression',
         operator: '*',
-        left: { type: 'Identifier', name: 'x' },
+        left: { type: 'Identifier', value: 'x' },
         right: { type: 'Literal', value: 2, raw: '2' },
       },
     });

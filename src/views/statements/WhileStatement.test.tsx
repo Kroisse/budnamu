@@ -11,7 +11,7 @@ describe('WhileStatement', () => {
       test: { type: 'Literal', value: true },
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: { type: 'Literal', value: 'loop body' },
@@ -34,17 +34,17 @@ describe('WhileStatement', () => {
       test: {
         type: 'BinaryExpression',
         operator: '<',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 10 },
       },
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'UpdateExpression',
             operator: '++',
             prefix: false,
-            argument: { type: 'Identifier', name: 'i' },
+            argument: { type: 'Identifier', value: 'i' },
           },
         ],
       },
@@ -62,12 +62,12 @@ describe('WhileStatement', () => {
   it('should render while loop with single statement body', () => {
     const node = fromJS({
       type: 'WhileStatement',
-      test: { type: 'Identifier', name: 'condition' },
+      test: { type: 'Identifier', value: 'condition' },
       body: {
         type: 'ExpressionStatement',
         expression: {
           type: 'CallExpression',
-          callee: { type: 'Identifier', name: 'doSomething' },
+          callee: { type: 'Identifier', value: 'doSomething' },
           arguments: [],
         },
       },
@@ -86,7 +86,7 @@ describe('WhileStatement', () => {
     const node = fromJS({
       type: 'WhileStatement',
       test: { type: 'Literal', value: false },
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -100,16 +100,16 @@ describe('WhileStatement', () => {
   it('should render nested while loops', () => {
     const node = fromJS({
       type: 'WhileStatement',
-      test: { type: 'Identifier', name: 'outer' },
+      test: { type: 'Identifier', value: 'outer' },
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'WhileStatement',
-            test: { type: 'Identifier', name: 'inner' },
+            test: { type: 'Identifier', value: 'inner' },
             body: {
               type: 'BlockStatement',
-              body: [{ type: 'BreakStatement', label: null }],
+              stmts: [{ type: 'BreakStatement', label: null }],
             },
           },
         ],
@@ -132,10 +132,10 @@ describe('WhileStatement', () => {
       test: {
         type: 'LogicalExpression',
         operator: '&&',
-        left: { type: 'Identifier', name: 'a' },
-        right: { type: 'Identifier', name: 'b' },
+        left: { type: 'Identifier', value: 'a' },
+        right: { type: 'Identifier', value: 'b' },
       },
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -152,9 +152,9 @@ describe('WhileStatement', () => {
         type: 'UnaryExpression',
         operator: '!',
         prefix: true,
-        argument: { type: 'Identifier', name: 'done' },
+        argument: { type: 'Identifier', value: 'done' },
       },
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -168,7 +168,7 @@ describe('WhileStatement', () => {
     const node = fromJS({
       type: 'WhileStatement',
       test: { type: 'Literal', value: true },
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -187,17 +187,17 @@ describe('WhileStatement', () => {
       type: 'WhileStatement',
       test: {
         type: 'CallExpression',
-        callee: { type: 'Identifier', name: 'hasNext' },
+        callee: { type: 'Identifier', value: 'hasNext' },
         arguments: [],
       },
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: {
               type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'processNext' },
+              callee: { type: 'Identifier', value: 'processNext' },
               arguments: [],
             },
           },
@@ -219,22 +219,22 @@ describe('WhileStatement', () => {
       test: {
         type: 'AssignmentExpression',
         operator: '=',
-        left: { type: 'Identifier', name: 'line' },
+        left: { type: 'Identifier', value: 'line' },
         right: {
           type: 'CallExpression',
-          callee: { type: 'Identifier', name: 'readLine' },
+          callee: { type: 'Identifier', value: 'readLine' },
           arguments: [],
         },
       },
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: {
               type: 'CallExpression',
-              callee: { type: 'Identifier', name: 'process' },
-              arguments: [{ type: 'Identifier', name: 'line' }],
+              callee: { type: 'Identifier', value: 'process' },
+              arguments: [{ type: 'Identifier', value: 'line' }],
             },
           },
         ],

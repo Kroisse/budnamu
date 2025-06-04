@@ -8,7 +8,7 @@ describe('BlockStatement', () => {
   it('should render empty block statement', () => {
     const node = fromJS({
       type: 'BlockStatement',
-      body: [],
+      stmts: [],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -22,7 +22,7 @@ describe('BlockStatement', () => {
   it('should render block with single statement', () => {
     const node = fromJS({
       type: 'BlockStatement',
-      body: [
+      stmts: [
         {
           type: 'ExpressionStatement',
           expression: {
@@ -44,13 +44,13 @@ describe('BlockStatement', () => {
   it('should render block with multiple statements', () => {
     const node = fromJS({
       type: 'BlockStatement',
-      body: [
+      stmts: [
         {
           type: 'VariableDeclaration',
           declarations: [
             {
               type: 'VariableDeclarator',
-              id: { type: 'Identifier', name: 'x' },
+              id: { type: 'Identifier', value: 'x' },
               init: { type: 'Literal', value: 10 },
             },
           ],
@@ -61,13 +61,13 @@ describe('BlockStatement', () => {
           expression: {
             type: 'AssignmentExpression',
             operator: '=',
-            left: { type: 'Identifier', name: 'x' },
+            left: { type: 'Identifier', value: 'x' },
             right: { type: 'Literal', value: 20 },
           },
         },
         {
           type: 'ReturnStatement',
-          argument: { type: 'Identifier', name: 'x' },
+          argument: { type: 'Identifier', value: 'x' },
         },
       ],
     }) as ImmutableNode;
@@ -87,10 +87,10 @@ describe('BlockStatement', () => {
   it('should render nested block statements', () => {
     const node = fromJS({
       type: 'BlockStatement',
-      body: [
+      stmts: [
         {
           type: 'BlockStatement',
-          body: [
+          stmts: [
             {
               type: 'ExpressionStatement',
               expression: { type: 'Literal', value: 'nested' },
@@ -118,7 +118,7 @@ describe('BlockStatement', () => {
   it('should have proper HTML structure', () => {
     const node = fromJS({
       type: 'BlockStatement',
-      body: [],
+      stmts: [],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -132,7 +132,7 @@ describe('BlockStatement', () => {
   it('should render block with break statement', () => {
     const node = fromJS({
       type: 'BlockStatement',
-      body: [
+      stmts: [
         {
           type: 'BreakStatement',
           label: null,
@@ -149,7 +149,7 @@ describe('BlockStatement', () => {
   it('should render block with continue statement', () => {
     const node = fromJS({
       type: 'BlockStatement',
-      body: [
+      stmts: [
         {
           type: 'ContinueStatement',
           label: null,

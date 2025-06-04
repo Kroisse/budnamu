@@ -46,7 +46,7 @@ describe('ExpressionStatement', () => {
       type: 'ExpressionStatement',
       expression: {
         type: 'Identifier',
-        name: 'myVariable',
+        value: 'myVariable',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -65,8 +65,8 @@ describe('ExpressionStatement', () => {
         type: 'CallExpression',
         callee: {
           type: 'MemberExpression',
-          object: { type: 'Identifier', name: 'console' },
-          property: { type: 'Identifier', name: 'log' },
+          object: { type: 'Identifier', value: 'console' },
+          property: { type: 'Identifier', value: 'log' },
           computed: false,
         },
         arguments: [
@@ -96,7 +96,7 @@ describe('ExpressionStatement', () => {
         operator: '=',
         left: {
           type: 'Identifier',
-          name: 'x',
+          value: 'x',
         },
         right: {
           type: 'Literal',
@@ -121,7 +121,7 @@ describe('ExpressionStatement', () => {
         operator: '++',
         argument: {
           type: 'Identifier',
-          name: 'i',
+          value: 'i',
         },
         prefix: false,
       },
@@ -167,11 +167,11 @@ describe('ExpressionStatement', () => {
         type: 'MemberExpression',
         object: {
           type: 'Identifier',
-          name: 'obj',
+          value: 'obj',
         },
         property: {
           type: 'Identifier',
-          name: 'prop',
+          value: 'prop',
         },
         computed: false,
       },
@@ -213,18 +213,18 @@ describe('ExpressionStatement', () => {
           type: 'MemberExpression',
           object: {
             type: 'Identifier',
-            name: 'array',
+            value: 'array',
           },
           property: {
             type: 'Identifier',
-            name: 'map',
+            value: 'map',
           },
           computed: false,
         },
         arguments: [
           {
             type: 'FunctionExpression',
-            params: [{ type: 'Identifier', name: 'x' }],
+            params: [{ type: 'Identifier', value: 'x' }],
             body: {
               type: 'BlockStatement',
               body: [],

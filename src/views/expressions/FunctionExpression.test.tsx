@@ -8,9 +8,9 @@ describe('FunctionExpression', () => {
   it('should render named function expression', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: { type: 'Identifier', name: 'myFunc' },
+      identifier: { type: 'Identifier', value: 'myFunc' },
       params: [],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -26,9 +26,9 @@ describe('FunctionExpression', () => {
   it('should render anonymous function expression', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: null,
+      identifier: null,
       params: [],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -42,9 +42,9 @@ describe('FunctionExpression', () => {
   it('should render function with single parameter', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: null,
-      params: [{ type: 'Identifier', name: 'x' }],
-      body: { type: 'BlockStatement', body: [] },
+      identifier: null,
+      params: [{ type: 'Identifier', value: 'x' }],
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -58,12 +58,12 @@ describe('FunctionExpression', () => {
   it('should render function with multiple parameters', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: { type: 'Identifier', name: 'add' },
+      identifier: { type: 'Identifier', value: 'add' },
       params: [
-        { type: 'Identifier', name: 'a' },
-        { type: 'Identifier', name: 'b' },
+        { type: 'Identifier', value: 'a' },
+        { type: 'Identifier', value: 'b' },
       ],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -77,17 +77,17 @@ describe('FunctionExpression', () => {
   it('should render function with body statements', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: null,
-      params: [{ type: 'Identifier', name: 'n' }],
+      identifier: null,
+      params: [{ type: 'Identifier', value: 'n' }],
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ReturnStatement',
             argument: {
               type: 'BinaryExpression',
               operator: '*',
-              left: { type: 'Identifier', name: 'n' },
+              left: { type: 'Identifier', value: 'n' },
               right: { type: 'Literal', value: 2, raw: '2' },
             },
           },
@@ -108,27 +108,27 @@ describe('FunctionExpression', () => {
   it('should render function with destructuring parameters', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: null,
+      identifier: null,
       params: [
         {
           type: 'ObjectPattern',
           properties: [
             {
               type: 'Property',
-              key: { type: 'Identifier', name: 'x' },
-              value: { type: 'Identifier', name: 'x' },
+              key: { type: 'Identifier', value: 'x' },
+              value: { type: 'Identifier', value: 'x' },
               shorthand: true,
             },
             {
               type: 'Property',
-              key: { type: 'Identifier', name: 'y' },
-              value: { type: 'Identifier', name: 'y' },
+              key: { type: 'Identifier', value: 'y' },
+              value: { type: 'Identifier', value: 'y' },
               shorthand: true,
             },
           ],
         },
       ],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -142,14 +142,14 @@ describe('FunctionExpression', () => {
   it('should render function with rest parameters', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: { type: 'Identifier', name: 'sum' },
+      identifier: { type: 'Identifier', value: 'sum' },
       params: [
         {
           type: 'RestElement',
-          argument: { type: 'Identifier', name: 'numbers' },
+          argument: { type: 'Identifier', value: 'numbers' },
         },
       ],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -165,15 +165,15 @@ describe('FunctionExpression', () => {
   it('should render function with default parameters', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: null,
+      identifier: null,
       params: [
         {
           type: 'AssignmentPattern',
-          left: { type: 'Identifier', name: 'x' },
+          left: { type: 'Identifier', value: 'x' },
           right: { type: 'Literal', value: 0, raw: '0' },
         },
       ],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 
@@ -189,9 +189,9 @@ describe('FunctionExpression', () => {
   it('should render generator function', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: { type: 'Identifier', name: 'gen' },
+      identifier: { type: 'Identifier', value: 'gen' },
       params: [],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
       generator: true,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -208,9 +208,9 @@ describe('FunctionExpression', () => {
   it('should render async function', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: { type: 'Identifier', name: 'fetchData' },
+      identifier: { type: 'Identifier', value: 'fetchData' },
       params: [],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
       async: true,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -227,9 +227,9 @@ describe('FunctionExpression', () => {
   it('should render proper HTML structure', () => {
     const node = fromJS({
       type: 'FunctionExpression',
-      id: null,
+      identifier: null,
       params: [],
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
 

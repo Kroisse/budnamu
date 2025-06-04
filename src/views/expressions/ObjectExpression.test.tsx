@@ -25,7 +25,7 @@ describe('ObjectExpression', () => {
       properties: [
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'name' },
+          key: { type: 'Identifier', value: 'name' },
           value: { type: 'Literal', value: 'John', raw: '"John"' },
           kind: 'init',
         },
@@ -48,19 +48,19 @@ describe('ObjectExpression', () => {
       properties: [
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'x' },
+          key: { type: 'Identifier', value: 'x' },
           value: { type: 'Literal', value: 1, raw: '1' },
           kind: 'init',
         },
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'y' },
+          key: { type: 'Identifier', value: 'y' },
           value: { type: 'Literal', value: 2, raw: '2' },
           kind: 'init',
         },
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'z' },
+          key: { type: 'Identifier', value: 'z' },
           value: { type: 'Literal', value: 3, raw: '3' },
           kind: 'init',
         },
@@ -89,7 +89,7 @@ describe('ObjectExpression', () => {
         {
           type: 'Property',
           key: { type: 'Literal', value: 'with-dash', raw: '"with-dash"' },
-          value: { type: 'Identifier', name: 'value' },
+          value: { type: 'Identifier', value: 'value' },
           kind: 'init',
         },
       ],
@@ -109,7 +109,7 @@ describe('ObjectExpression', () => {
       properties: [
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'key' },
+          key: { type: 'Identifier', value: 'key' },
           value: { type: 'Literal', value: 'value', raw: '"value"' },
           computed: true,
           kind: 'init',
@@ -131,7 +131,7 @@ describe('ObjectExpression', () => {
       properties: [
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'method' },
+          key: { type: 'Identifier', value: 'method' },
           value: {
             type: 'FunctionExpression',
             id: null,
@@ -157,7 +157,7 @@ describe('ObjectExpression', () => {
       properties: [
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'prop' },
+          key: { type: 'Identifier', value: 'prop' },
           value: {
             type: 'FunctionExpression',
             id: null,
@@ -168,11 +168,11 @@ describe('ObjectExpression', () => {
         },
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'prop' },
+          key: { type: 'Identifier', value: 'prop' },
           value: {
             type: 'FunctionExpression',
             id: null,
-            params: [{ type: 'Identifier', name: 'val' }],
+            params: [{ type: 'Identifier', value: 'val' }],
             body: { type: 'BlockStatement', body: [] },
           },
           kind: 'set',
@@ -194,13 +194,13 @@ describe('ObjectExpression', () => {
       properties: [
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'outer' },
+          key: { type: 'Identifier', value: 'outer' },
           value: {
             type: 'ObjectExpression',
             properties: [
               {
                 type: 'Property',
-                key: { type: 'Identifier', name: 'inner' },
+                key: { type: 'Identifier', value: 'inner' },
                 value: { type: 'Literal', value: true, raw: 'true' },
                 kind: 'init',
               },
@@ -226,7 +226,7 @@ describe('ObjectExpression', () => {
       properties: [
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'a' },
+          key: { type: 'Identifier', value: 'a' },
           value: { type: 'Literal', value: 1, raw: '1' },
           kind: 'init',
         },
@@ -251,13 +251,13 @@ describe('ObjectExpression', () => {
       properties: [
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'isActive' },
+          key: { type: 'Identifier', value: 'isActive' },
           value: { type: 'Literal', value: true, raw: 'true' },
           kind: 'init',
         },
         {
           type: 'Property',
-          key: { type: 'Identifier', name: 'data' },
+          key: { type: 'Identifier', value: 'data' },
           value: { type: 'Literal', value: null, raw: 'null' },
           kind: 'init',
         },

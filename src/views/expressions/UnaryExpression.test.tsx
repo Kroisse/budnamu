@@ -36,7 +36,7 @@ describe('UnaryExpression', () => {
       prefix: true,
       argument: {
         type: 'Identifier',
-        name: 'x',
+        value: 'x',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -53,7 +53,7 @@ describe('UnaryExpression', () => {
       prefix: true,
       argument: {
         type: 'Identifier',
-        name: 'isValid',
+        value: 'isValid',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -88,7 +88,7 @@ describe('UnaryExpression', () => {
       prefix: true,
       argument: {
         type: 'Identifier',
-        name: 'value',
+        value: 'value',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -111,11 +111,11 @@ describe('UnaryExpression', () => {
         type: 'MemberExpression',
         object: {
           type: 'Identifier',
-          name: 'obj',
+          value: 'obj',
         },
         property: {
           type: 'Identifier',
-          name: 'prop',
+          value: 'prop',
         },
         computed: false,
       },
@@ -152,7 +152,7 @@ describe('UnaryExpression', () => {
       prefix: false,
       argument: {
         type: 'Identifier',
-        name: 'i',
+        value: 'i',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -174,7 +174,7 @@ describe('UnaryExpression', () => {
       prefix: false,
       argument: {
         type: 'Identifier',
-        name: 'count',
+        value: 'count',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -195,7 +195,7 @@ describe('UnaryExpression', () => {
         prefix: true,
         argument: {
           type: 'Identifier',
-          name: 'flag',
+          value: 'flag',
         },
       },
     }) as ImmutableNode;
@@ -220,11 +220,11 @@ describe('UnaryExpression', () => {
         operator: '+',
         left: {
           type: 'Identifier',
-          name: 'a',
+          value: 'a',
         },
         right: {
           type: 'Identifier',
-          name: 'b',
+          value: 'b',
         },
       },
     }) as ImmutableNode;

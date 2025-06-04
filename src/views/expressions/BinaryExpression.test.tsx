@@ -39,11 +39,11 @@ describe('BinaryExpression', () => {
       operator: '-',
       left: {
         type: 'Identifier',
-        name: 'x',
+        value: 'x',
       },
       right: {
         type: 'Identifier',
-        name: 'y',
+        value: 'y',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -81,11 +81,11 @@ describe('BinaryExpression', () => {
       operator: '/',
       left: {
         type: 'Identifier',
-        name: 'total',
+        value: 'total',
       },
       right: {
         type: 'Identifier',
-        name: 'count',
+        value: 'count',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -104,11 +104,11 @@ describe('BinaryExpression', () => {
         operator: op,
         left: {
           type: 'Identifier',
-          name: 'a',
+          value: 'a',
         },
         right: {
           type: 'Identifier',
-          name: 'b',
+          value: 'b',
         },
       }) as ImmutableNode;
       const path: ImmutablePath = List(['expression']);
@@ -196,7 +196,7 @@ describe('BinaryExpression', () => {
       },
       right: {
         type: 'Identifier',
-        name: 'name',
+        value: 'name',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -212,7 +212,7 @@ describe('BinaryExpression', () => {
       operator: '%',
       left: {
         type: 'Identifier',
-        name: 'num',
+        value: 'num',
       },
       right: {
         type: 'Literal',
@@ -233,11 +233,11 @@ describe('BinaryExpression', () => {
       operator: 'instanceof',
       left: {
         type: 'Identifier',
-        name: 'obj',
+        value: 'obj',
       },
       right: {
         type: 'Identifier',
-        name: 'Array',
+        value: 'Array',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -258,7 +258,7 @@ describe('BinaryExpression', () => {
       },
       right: {
         type: 'Identifier',
-        name: 'object',
+        value: 'object',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);

@@ -11,7 +11,7 @@ describe('IfStatement', () => {
       test: { type: 'Literal', value: true },
       consequent: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: { type: 'Literal', value: 'then' },
@@ -33,10 +33,10 @@ describe('IfStatement', () => {
   it('should render if-else statement', () => {
     const node = fromJS({
       type: 'IfStatement',
-      test: { type: 'Identifier', name: 'condition' },
+      test: { type: 'Identifier', value: 'condition' },
       consequent: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: { type: 'Literal', value: 'then' },
@@ -45,7 +45,7 @@ describe('IfStatement', () => {
       },
       alternate: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: { type: 'Literal', value: 'else' },
@@ -66,10 +66,10 @@ describe('IfStatement', () => {
   it('should render if-else if-else chain', () => {
     const node = fromJS({
       type: 'IfStatement',
-      test: { type: 'Identifier', name: 'x' },
+      test: { type: 'Identifier', value: 'x' },
       consequent: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: { type: 'Literal', value: 1 },
@@ -78,10 +78,10 @@ describe('IfStatement', () => {
       },
       alternate: {
         type: 'IfStatement',
-        test: { type: 'Identifier', name: 'y' },
+        test: { type: 'Identifier', value: 'y' },
         consequent: {
           type: 'BlockStatement',
-          body: [
+          stmts: [
             {
               type: 'ExpressionStatement',
               expression: { type: 'Literal', value: 2 },
@@ -90,7 +90,7 @@ describe('IfStatement', () => {
         },
         alternate: {
           type: 'BlockStatement',
-          body: [
+          stmts: [
             {
               type: 'ExpressionStatement',
               expression: { type: 'Literal', value: 3 },
@@ -119,7 +119,7 @@ describe('IfStatement', () => {
       test: {
         type: 'BinaryExpression',
         operator: '>',
-        left: { type: 'Identifier', name: 'x' },
+        left: { type: 'Identifier', value: 'x' },
         right: { type: 'Literal', value: 10 },
       },
       consequent: {
@@ -159,13 +159,13 @@ describe('IfStatement', () => {
   it('should render nested if statements', () => {
     const node = fromJS({
       type: 'IfStatement',
-      test: { type: 'Identifier', name: 'outer' },
+      test: { type: 'Identifier', value: 'outer' },
       consequent: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'IfStatement',
-            test: { type: 'Identifier', name: 'inner' },
+            test: { type: 'Identifier', value: 'inner' },
             consequent: {
               type: 'ExpressionStatement',
               expression: { type: 'Literal', value: 'nested' },
@@ -191,7 +191,7 @@ describe('IfStatement', () => {
     const node = fromJS({
       type: 'IfStatement',
       test: { type: 'Literal', value: true },
-      consequent: { type: 'BlockStatement', body: [] },
+      consequent: { type: 'BlockStatement', stmts: [] },
       alternate: null,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -209,7 +209,7 @@ describe('IfStatement', () => {
   it('should handle multiple else-if chains', () => {
     const createElseIf = (name: string, value: number, alternate: any) => ({
       type: 'IfStatement',
-      test: { type: 'Identifier', name },
+      test: { type: 'Identifier', value: name },
       consequent: {
         type: 'ExpressionStatement',
         expression: { type: 'Literal', value },
@@ -219,7 +219,7 @@ describe('IfStatement', () => {
 
     const node = fromJS({
       type: 'IfStatement',
-      test: { type: 'Identifier', name: 'a' },
+      test: { type: 'Identifier', value: 'a' },
       consequent: {
         type: 'ExpressionStatement',
         expression: { type: 'Literal', value: 1 },
@@ -247,8 +247,8 @@ describe('IfStatement', () => {
       test: {
         type: 'LogicalExpression',
         operator: '&&',
-        left: { type: 'Identifier', name: 'x' },
-        right: { type: 'Identifier', name: 'y' },
+        left: { type: 'Identifier', value: 'x' },
+        right: { type: 'Identifier', value: 'y' },
       },
       consequent: {
         type: 'ExpressionStatement',
@@ -268,8 +268,8 @@ describe('IfStatement', () => {
     const node = fromJS({
       type: 'IfStatement',
       test: { type: 'Literal', value: true },
-      consequent: { type: 'BlockStatement', body: [] },
-      alternate: { type: 'BlockStatement', body: [] },
+      consequent: { type: 'BlockStatement', stmts: [] },
+      alternate: { type: 'BlockStatement', stmts: [] },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 

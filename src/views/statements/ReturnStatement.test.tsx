@@ -54,7 +54,7 @@ describe('ReturnStatement', () => {
       type: 'ReturnStatement',
       argument: {
         type: 'Identifier',
-        name: 'result',
+        value: 'result',
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -72,11 +72,11 @@ describe('ReturnStatement', () => {
         operator: '+',
         left: {
           type: 'Identifier',
-          name: 'a',
+          value: 'a',
         },
         right: {
           type: 'Identifier',
-          name: 'b',
+          value: 'b',
         },
       },
     }) as ImmutableNode;
@@ -94,7 +94,7 @@ describe('ReturnStatement', () => {
         type: 'CallExpression',
         callee: {
           type: 'Identifier',
-          name: 'calculate',
+          value: 'calculate',
         },
         arguments: [
           {
@@ -119,7 +119,7 @@ describe('ReturnStatement', () => {
         properties: [
           {
             type: 'Property',
-            key: { type: 'Identifier', name: 'status' },
+            key: { type: 'Identifier', value: 'status' },
             value: { type: 'Literal', value: 'ok' },
             kind: 'init',
           },
@@ -164,7 +164,7 @@ describe('ReturnStatement', () => {
         type: 'ConditionalExpression',
         test: {
           type: 'Identifier',
-          name: 'condition',
+          value: 'condition',
         },
         consequent: {
           type: 'Literal',

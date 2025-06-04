@@ -55,7 +55,7 @@ describe('ArrayExpression', () => {
         { type: 'Literal', value: 42, raw: '42' },
         { type: 'Literal', value: true, raw: 'true' },
         { type: 'Literal', value: null, raw: 'null' },
-        { type: 'Identifier', name: 'variable' },
+        { type: 'Identifier', value: 'variable' },
       ],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -118,7 +118,7 @@ describe('ArrayExpression', () => {
           properties: [
             {
               type: 'Property',
-              key: { type: 'Identifier', name: 'x' },
+              key: { type: 'Identifier', value: 'x' },
               value: { type: 'Literal', value: 1, raw: '1' },
               kind: 'init',
             },
@@ -129,7 +129,7 @@ describe('ArrayExpression', () => {
           properties: [
             {
               type: 'Property',
-              key: { type: 'Identifier', name: 'y' },
+              key: { type: 'Identifier', value: 'y' },
               value: { type: 'Literal', value: 2, raw: '2' },
               kind: 'init',
             },
@@ -154,7 +154,7 @@ describe('ArrayExpression', () => {
           params: [],
           body: { type: 'BlockStatement', body: [] },
         },
-        { type: 'Identifier', name: 'fn' },
+        { type: 'Identifier', value: 'fn' },
       ],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -191,7 +191,7 @@ describe('ArrayExpression', () => {
         { type: 'Literal', value: 1, raw: '1' },
         {
           type: 'SpreadElement',
-          argument: { type: 'Identifier', name: 'arr' },
+          argument: { type: 'Identifier', value: 'arr' },
         },
         { type: 'Literal', value: 2, raw: '2' },
       ],

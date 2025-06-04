@@ -10,7 +10,7 @@ describe('DoWhileStatement', () => {
       type: 'DoWhileStatement',
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: { type: 'Literal', value: 'loop body' },
@@ -35,19 +35,19 @@ describe('DoWhileStatement', () => {
       type: 'DoWhileStatement',
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'UpdateExpression',
             operator: '++',
             prefix: false,
-            argument: { type: 'Identifier', name: 'i' },
+            argument: { type: 'Identifier', value: 'i' },
           },
         ],
       },
       test: {
         type: 'BinaryExpression',
         operator: '<',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 10 },
       },
     }) as ImmutableNode;
@@ -69,11 +69,11 @@ describe('DoWhileStatement', () => {
         type: 'ExpressionStatement',
         expression: {
           type: 'CallExpression',
-          callee: { type: 'Identifier', name: 'process' },
+          callee: { type: 'Identifier', value: 'process' },
           arguments: [],
         },
       },
-      test: { type: 'Identifier', name: 'condition' },
+      test: { type: 'Identifier', value: 'condition' },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -88,7 +88,7 @@ describe('DoWhileStatement', () => {
   it('should render do-while with empty body', () => {
     const node = fromJS({
       type: 'DoWhileStatement',
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
       test: { type: 'Literal', value: false },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -106,18 +106,18 @@ describe('DoWhileStatement', () => {
       type: 'DoWhileStatement',
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'DoWhileStatement',
             body: {
               type: 'BlockStatement',
-              body: [{ type: 'BreakStatement', label: null }],
+              stmts: [{ type: 'BreakStatement', label: null }],
             },
-            test: { type: 'Identifier', name: 'inner' },
+            test: { type: 'Identifier', value: 'inner' },
           },
         ],
       },
-      test: { type: 'Identifier', name: 'outer' },
+      test: { type: 'Identifier', value: 'outer' },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
 
@@ -133,12 +133,12 @@ describe('DoWhileStatement', () => {
   it('should render do-while with logical test expression', () => {
     const node = fromJS({
       type: 'DoWhileStatement',
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
       test: {
         type: 'LogicalExpression',
         operator: '||',
-        left: { type: 'Identifier', name: 'a' },
-        right: { type: 'Identifier', name: 'b' },
+        left: { type: 'Identifier', value: 'a' },
+        right: { type: 'Identifier', value: 'b' },
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -153,12 +153,12 @@ describe('DoWhileStatement', () => {
   it('should render do-while with unary test expression', () => {
     const node = fromJS({
       type: 'DoWhileStatement',
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
       test: {
         type: 'UnaryExpression',
         operator: '!',
         prefix: true,
-        argument: { type: 'Identifier', name: 'complete' },
+        argument: { type: 'Identifier', value: 'complete' },
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -172,7 +172,7 @@ describe('DoWhileStatement', () => {
   it('should render proper HTML structure', () => {
     const node = fromJS({
       type: 'DoWhileStatement',
-      body: { type: 'BlockStatement', body: [] },
+      body: { type: 'BlockStatement', stmts: [] },
       test: { type: 'Literal', value: true },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -194,16 +194,16 @@ describe('DoWhileStatement', () => {
       type: 'DoWhileStatement',
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: {
               type: 'AssignmentExpression',
               operator: '=',
-              left: { type: 'Identifier', name: 'result' },
+              left: { type: 'Identifier', value: 'result' },
               right: {
                 type: 'CallExpression',
-                callee: { type: 'Identifier', name: 'process' },
+                callee: { type: 'Identifier', value: 'process' },
                 arguments: [],
               },
             },
@@ -212,8 +212,8 @@ describe('DoWhileStatement', () => {
       },
       test: {
         type: 'CallExpression',
-        callee: { type: 'Identifier', name: 'shouldContinue' },
-        arguments: [{ type: 'Identifier', name: 'result' }],
+        callee: { type: 'Identifier', value: 'shouldContinue' },
+        arguments: [{ type: 'Identifier', value: 'result' }],
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -229,7 +229,7 @@ describe('DoWhileStatement', () => {
       type: 'DoWhileStatement',
       body: {
         type: 'BlockStatement',
-        body: [
+        stmts: [
           {
             type: 'ExpressionStatement',
             expression: { type: 'Literal', value: 'first' },

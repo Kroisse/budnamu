@@ -8,8 +8,8 @@ describe('MemberExpression', () => {
   it('should render dot notation member access', () => {
     const node = fromJS({
       type: 'MemberExpression',
-      object: { type: 'Identifier', name: 'obj' },
-      property: { type: 'Identifier', name: 'prop' },
+      object: { type: 'Identifier', value: 'obj' },
+      property: { type: 'Identifier', value: 'prop' },
       computed: false,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -28,7 +28,7 @@ describe('MemberExpression', () => {
   it('should render bracket notation member access', () => {
     const node = fromJS({
       type: 'MemberExpression',
-      object: { type: 'Identifier', name: 'arr' },
+      object: { type: 'Identifier', value: 'arr' },
       property: { type: 'Literal', value: 0, raw: '0' },
       computed: true,
     }) as ImmutableNode;
@@ -47,7 +47,7 @@ describe('MemberExpression', () => {
   it('should render computed property with string', () => {
     const node = fromJS({
       type: 'MemberExpression',
-      object: { type: 'Identifier', name: 'obj' },
+      object: { type: 'Identifier', value: 'obj' },
       property: {
         type: 'Literal',
         value: 'key-with-dash',
@@ -65,8 +65,8 @@ describe('MemberExpression', () => {
   it('should render computed property with identifier', () => {
     const node = fromJS({
       type: 'MemberExpression',
-      object: { type: 'Identifier', name: 'obj' },
-      property: { type: 'Identifier', name: 'key' },
+      object: { type: 'Identifier', value: 'obj' },
+      property: { type: 'Identifier', value: 'key' },
       computed: true,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -81,11 +81,11 @@ describe('MemberExpression', () => {
       type: 'MemberExpression',
       object: {
         type: 'MemberExpression',
-        object: { type: 'Identifier', name: 'a' },
-        property: { type: 'Identifier', name: 'b' },
+        object: { type: 'Identifier', value: 'a' },
+        property: { type: 'Identifier', value: 'b' },
         computed: false,
       },
-      property: { type: 'Identifier', name: 'c' },
+      property: { type: 'Identifier', value: 'c' },
       computed: false,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -103,10 +103,10 @@ describe('MemberExpression', () => {
       type: 'MemberExpression',
       object: {
         type: 'CallExpression',
-        callee: { type: 'Identifier', name: 'getObject' },
+        callee: { type: 'Identifier', value: 'getObject' },
         arguments: [],
       },
-      property: { type: 'Identifier', name: 'prop' },
+      property: { type: 'Identifier', value: 'prop' },
       computed: false,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -120,7 +120,7 @@ describe('MemberExpression', () => {
     const node = fromJS({
       type: 'MemberExpression',
       object: { type: 'Literal', value: 'string', raw: '"string"' },
-      property: { type: 'Identifier', name: 'length' },
+      property: { type: 'Identifier', value: 'length' },
       computed: false,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -140,7 +140,7 @@ describe('MemberExpression', () => {
           { type: 'Literal', value: 2, raw: '2' },
         ],
       },
-      property: { type: 'Identifier', name: 'length' },
+      property: { type: 'Identifier', value: 'length' },
       computed: false,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -153,11 +153,11 @@ describe('MemberExpression', () => {
   it('should render computed property with expression', () => {
     const node = fromJS({
       type: 'MemberExpression',
-      object: { type: 'Identifier', name: 'arr' },
+      object: { type: 'Identifier', value: 'arr' },
       property: {
         type: 'BinaryExpression',
         operator: '+',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 1, raw: '1' },
       },
       computed: true,
@@ -174,11 +174,11 @@ describe('MemberExpression', () => {
       type: 'MemberExpression',
       object: {
         type: 'MemberExpression',
-        object: { type: 'Identifier', name: 'data' },
+        object: { type: 'Identifier', value: 'data' },
         property: { type: 'Literal', value: 'items', raw: '"items"' },
         computed: true,
       },
-      property: { type: 'Identifier', name: 'first' },
+      property: { type: 'Identifier', value: 'first' },
       computed: false,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);
@@ -191,8 +191,8 @@ describe('MemberExpression', () => {
   it('should render proper HTML structure', () => {
     const node = fromJS({
       type: 'MemberExpression',
-      object: { type: 'Identifier', name: 'obj' },
-      property: { type: 'Identifier', name: 'prop' },
+      object: { type: 'Identifier', value: 'obj' },
+      property: { type: 'Identifier', value: 'prop' },
       computed: false,
     }) as ImmutableNode;
     const path: ImmutablePath = List(['expression']);

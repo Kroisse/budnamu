@@ -13,7 +13,7 @@ describe('ForStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'i' },
+            id: { type: 'Identifier', value: 'i' },
             init: { type: 'Literal', value: 0 },
           },
         ],
@@ -22,21 +22,21 @@ describe('ForStatement', () => {
       test: {
         type: 'BinaryExpression',
         operator: '<',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 10 },
       },
       update: {
         type: 'UpdateExpression',
         operator: '++',
         prefix: false,
-        argument: { type: 'Identifier', name: 'i' },
+        argument: { type: 'Identifier', value: 'i' },
       },
       body: {
         type: 'BlockStatement',
         body: [
           {
             type: 'ExpressionStatement',
-            expression: { type: 'Identifier', name: 'i' },
+            expression: { type: 'Identifier', value: 'i' },
           },
         ],
       },
@@ -57,20 +57,20 @@ describe('ForStatement', () => {
       init: {
         type: 'AssignmentExpression',
         operator: '=',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 0 },
       },
       test: {
         type: 'BinaryExpression',
         operator: '<',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 5 },
       },
       update: {
         type: 'UpdateExpression',
         operator: '++',
         prefix: false,
-        argument: { type: 'Identifier', name: 'i' },
+        argument: { type: 'Identifier', value: 'i' },
       },
       body: { type: 'BlockStatement', body: [] },
     }) as ImmutableNode;
@@ -92,7 +92,7 @@ describe('ForStatement', () => {
       update: null,
       body: {
         type: 'BlockStatement',
-        body: [{ type: 'BreakStatement', label: null }],
+        stmts: [{ type: 'BreakStatement', label: null }],
       },
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -110,7 +110,7 @@ describe('ForStatement', () => {
     const node = fromJS({
       type: 'ForStatement',
       init: null,
-      test: { type: 'Identifier', name: 'condition' },
+      test: { type: 'Identifier', value: 'condition' },
       update: null,
       body: { type: 'BlockStatement', body: [] },
     }) as ImmutableNode;
@@ -130,12 +130,12 @@ describe('ForStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'i' },
+            id: { type: 'Identifier', value: 'i' },
             init: { type: 'Literal', value: 0 },
           },
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'j' },
+            id: { type: 'Identifier', value: 'j' },
             init: { type: 'Literal', value: 10 },
           },
         ],
@@ -144,8 +144,8 @@ describe('ForStatement', () => {
       test: {
         type: 'BinaryExpression',
         operator: '<',
-        left: { type: 'Identifier', name: 'i' },
-        right: { type: 'Identifier', name: 'j' },
+        left: { type: 'Identifier', value: 'i' },
+        right: { type: 'Identifier', value: 'j' },
       },
       update: {
         type: 'SequenceExpression',
@@ -154,13 +154,13 @@ describe('ForStatement', () => {
             type: 'UpdateExpression',
             operator: '++',
             prefix: false,
-            argument: { type: 'Identifier', name: 'i' },
+            argument: { type: 'Identifier', value: 'i' },
           },
           {
             type: 'UpdateExpression',
             operator: '--',
             prefix: false,
-            argument: { type: 'Identifier', name: 'j' },
+            argument: { type: 'Identifier', value: 'j' },
           },
         ],
       },
@@ -183,7 +183,7 @@ describe('ForStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'i' },
+            id: { type: 'Identifier', value: 'i' },
             init: { type: 'Literal', value: 0 },
           },
         ],
@@ -192,14 +192,14 @@ describe('ForStatement', () => {
       test: {
         type: 'BinaryExpression',
         operator: '<',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 5 },
       },
       update: {
         type: 'UpdateExpression',
         operator: '++',
         prefix: false,
-        argument: { type: 'Identifier', name: 'i' },
+        argument: { type: 'Identifier', value: 'i' },
       },
       body: {
         type: 'ExpressionStatement',
@@ -207,11 +207,11 @@ describe('ForStatement', () => {
           type: 'CallExpression',
           callee: {
             type: 'MemberExpression',
-            object: { type: 'Identifier', name: 'console' },
-            property: { type: 'Identifier', name: 'log' },
+            object: { type: 'Identifier', value: 'console' },
+            property: { type: 'Identifier', value: 'log' },
             computed: false,
           },
-          arguments: [{ type: 'Identifier', name: 'i' }],
+          arguments: [{ type: 'Identifier', value: 'i' }],
         },
       },
     }) as ImmutableNode;
@@ -232,7 +232,7 @@ describe('ForStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'i' },
+            id: { type: 'Identifier', value: 'i' },
             init: { type: 'Literal', value: 0 },
           },
         ],
@@ -241,14 +241,14 @@ describe('ForStatement', () => {
       test: {
         type: 'BinaryExpression',
         operator: '<',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 3 },
       },
       update: {
         type: 'UpdateExpression',
         operator: '++',
         prefix: false,
-        argument: { type: 'Identifier', name: 'i' },
+        argument: { type: 'Identifier', value: 'i' },
       },
       body: {
         type: 'BlockStatement',
@@ -260,7 +260,7 @@ describe('ForStatement', () => {
               declarations: [
                 {
                   type: 'VariableDeclarator',
-                  id: { type: 'Identifier', name: 'j' },
+                  id: { type: 'Identifier', value: 'j' },
                   init: { type: 'Literal', value: 0 },
                 },
               ],
@@ -269,14 +269,14 @@ describe('ForStatement', () => {
             test: {
               type: 'BinaryExpression',
               operator: '<',
-              left: { type: 'Identifier', name: 'j' },
+              left: { type: 'Identifier', value: 'j' },
               right: { type: 'Literal', value: 3 },
             },
             update: {
               type: 'UpdateExpression',
               operator: '++',
               prefix: false,
-              argument: { type: 'Identifier', name: 'j' },
+              argument: { type: 'Identifier', value: 'j' },
             },
             body: { type: 'BlockStatement', body: [] },
           },
@@ -321,7 +321,7 @@ describe('ForStatement', () => {
       update: {
         type: 'AssignmentExpression',
         operator: '+=',
-        left: { type: 'Identifier', name: 'i' },
+        left: { type: 'Identifier', value: 'i' },
         right: { type: 'Literal', value: 2 },
       },
       body: { type: 'BlockStatement', body: [] },
@@ -341,7 +341,7 @@ describe('ForStatement', () => {
         declarations: [
           {
             type: 'VariableDeclarator',
-            id: { type: 'Identifier', name: 'MAX' },
+            id: { type: 'Identifier', value: 'MAX' },
             init: { type: 'Literal', value: 100 },
           },
         ],

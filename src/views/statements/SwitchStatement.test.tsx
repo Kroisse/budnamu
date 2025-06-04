@@ -8,7 +8,7 @@ describe('SwitchStatement', () => {
   it('should render basic switch statement', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'value' },
+      discriminant: { type: 'Identifier', value: 'value' },
       cases: [
         {
           type: 'SwitchCase',
@@ -50,7 +50,7 @@ describe('SwitchStatement', () => {
   it('should render switch with default case', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'type' },
+      discriminant: { type: 'Identifier', value: 'type' },
       cases: [
         {
           type: 'SwitchCase',
@@ -89,7 +89,7 @@ describe('SwitchStatement', () => {
   it('should render switch with fall-through cases', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'day' },
+      discriminant: { type: 'Identifier', value: 'day' },
       cases: [
         {
           type: 'SwitchCase',
@@ -129,8 +129,8 @@ describe('SwitchStatement', () => {
       type: 'SwitchStatement',
       discriminant: {
         type: 'CallExpression',
-        callee: { type: 'Identifier', name: 'getType' },
-        arguments: [{ type: 'Identifier', name: 'obj' }],
+        callee: { type: 'Identifier', value: 'getType' },
+        arguments: [{ type: 'Identifier', value: 'obj' }],
       },
       cases: [
         {
@@ -152,7 +152,7 @@ describe('SwitchStatement', () => {
   it('should render switch with multiple statements per case', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'action' },
+      discriminant: { type: 'Identifier', value: 'action' },
       cases: [
         {
           type: 'SwitchCase',
@@ -162,7 +162,7 @@ describe('SwitchStatement', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'CallExpression',
-                callee: { type: 'Identifier', name: 'initialize' },
+                callee: { type: 'Identifier', value: 'initialize' },
                 arguments: [],
               },
             },
@@ -170,7 +170,7 @@ describe('SwitchStatement', () => {
               type: 'ExpressionStatement',
               expression: {
                 type: 'CallExpression',
-                callee: { type: 'Identifier', name: 'begin' },
+                callee: { type: 'Identifier', value: 'begin' },
                 arguments: [],
               },
             },
@@ -192,7 +192,7 @@ describe('SwitchStatement', () => {
   it('should render empty switch statement', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'x' },
+      discriminant: { type: 'Identifier', value: 'x' },
       cases: [],
     }) as ImmutableNode;
     const path: ImmutablePath = List(['statement']);
@@ -207,7 +207,7 @@ describe('SwitchStatement', () => {
   it('should render switch with expression test cases', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'x' },
+      discriminant: { type: 'Identifier', value: 'x' },
       cases: [
         {
           type: 'SwitchCase',
@@ -237,7 +237,7 @@ describe('SwitchStatement', () => {
   it('should render nested switch statements', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'outer' },
+      discriminant: { type: 'Identifier', value: 'outer' },
       cases: [
         {
           type: 'SwitchCase',
@@ -245,7 +245,7 @@ describe('SwitchStatement', () => {
           consequent: [
             {
               type: 'SwitchStatement',
-              discriminant: { type: 'Identifier', name: 'inner' },
+              discriminant: { type: 'Identifier', value: 'inner' },
               cases: [
                 {
                   type: 'SwitchCase',
@@ -272,7 +272,7 @@ describe('SwitchStatement', () => {
   it('should render proper HTML structure', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'x' },
+      discriminant: { type: 'Identifier', value: 'x' },
       cases: [
         {
           type: 'SwitchCase',
@@ -299,11 +299,11 @@ describe('SwitchStatement', () => {
   it('should render switch with identifier case values', () => {
     const node = fromJS({
       type: 'SwitchStatement',
-      discriminant: { type: 'Identifier', name: 'status' },
+      discriminant: { type: 'Identifier', value: 'status' },
       cases: [
         {
           type: 'SwitchCase',
-          test: { type: 'Identifier', name: 'STATUS_OK' },
+          test: { type: 'Identifier', value: 'STATUS_OK' },
           consequent: [
             {
               type: 'ReturnStatement',
@@ -313,7 +313,7 @@ describe('SwitchStatement', () => {
         },
         {
           type: 'SwitchCase',
-          test: { type: 'Identifier', name: 'STATUS_ERROR' },
+          test: { type: 'Identifier', value: 'STATUS_ERROR' },
           consequent: [
             {
               type: 'ReturnStatement',
