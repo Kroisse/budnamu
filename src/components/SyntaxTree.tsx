@@ -21,7 +21,6 @@ const SyntaxTree: React.FC = () => {
 
   useEffect(() => {
     // Parse default code when component mounts
-    console.log('SyntaxTree mounted, parsing default code...');
     void parseSyntaxTree(DEFAULT_CODE);
   }, [parseSyntaxTree]);
 
