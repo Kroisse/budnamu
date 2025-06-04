@@ -10,14 +10,12 @@ export const Parameter: React.FC<ExpressionProps> = (props) => {
   const pat = context.child('pat');
 
   if (!pat.isEmpty()) {
-    // Check if it's an SWC Identifier with 'value' instead of 'name'
+    // Check if it's an SWC Identifier
     const patNode = pat.node;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     if (patNode && (patNode as any).get('type') === 'Identifier') {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-      const name = ((patNode as any).get('name') ??
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        (patNode as any).get('value')) as string;
+      const name = (patNode as any).get('value') as string;
       if (name != null) {
         return (
           <span className="expression parameter">

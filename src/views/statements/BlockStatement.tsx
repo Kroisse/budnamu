@@ -8,7 +8,7 @@ export const BlockStatement: React.FC<StatementProps> = (props) => {
   return (
     <span className="statement block-statement">
       <OpenBrace />
-      {new Context(props).child('body').blockConstruct(dispatchStatement)}
+      {new Context(props).child('stmts').blockConstruct(dispatchStatement)}
       <CloseBrace />
     </span>
   );

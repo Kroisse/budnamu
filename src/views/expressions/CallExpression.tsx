@@ -11,7 +11,13 @@ export const CallExpression: React.FC<ExpressionProps> = (props) => {
     context
       .child('arguments')
       .elements()
-      .map((e) => e.render(dispatchExpression)),
+      .map((e) => {
+        // SWC wraps arguments in {spread: null, expression: {...}}
+        const expressionChild = e.child('expression');
+        return !expressionChild.isEmpty()
+          ? expressionChild.render(dispatchExpression)
+          : e.render(dispatchExpression);
+      }),
   );
   return (
     <span className="expression call-expression">

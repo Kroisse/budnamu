@@ -13,8 +13,8 @@ interface RenderFunctionProps {
 }
 
 export const RenderFunction: React.FC<RenderFunctionProps> = ({ context }) => {
-  // Get identifier using dispatcher
-  const id = context.child('id').render(dispatchExpression);
+  // Get identifier using dispatcher - SWC uses 'identifier' field
+  const id = context.child('identifier').render(dispatchExpression);
 
   const params = commaSeparated(
     context
