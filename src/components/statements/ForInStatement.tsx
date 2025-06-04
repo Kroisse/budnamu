@@ -1,0 +1,49 @@
+import React, { ReactNode } from 'react';
+import { Map } from 'immutable';
+import { StatementProps } from './types';
+import { Context } from '../constructs';
+import { dispatchExpression } from '../expressions/dispatchers';
+import { dispatchStatement } from './dispatchers';
+import { OpenParen, CloseParen } from '../utils';
+
+// Import VariableDeclaration for the helper function
+import { VariableDeclaration } from './VariableDeclaration';
+
+// Helper function for rendering for statement init
+function renderForStatementInit(context: Context): ReactNode {
+  if (context.isEmpty()) {
+    return null;
+  }
+  if (
+    Map.isMap(context.node) &&
+    context.node.get('type') === 'VariableDeclaration'
+  ) {
+    return (
+      <VariableDeclaration
+        key={context.key}
+        expression={true}
+        node={context.node}
+        path={context.path}
+      />
+    );
+  } else {
+    return context.render(dispatchExpression);
+  }
+}
+
+export const ForInStatement: React.FC<StatementProps> = (props) => {
+  const context = new Context(props);
+  const left = renderForStatementInit(context.child('left'));
+  const right = context.child('right').render(dispatchExpression);
+  const body = context.child('body').render(dispatchStatement);
+  return (
+    <div className="statement for-in-statement">
+      <span className="statement-header">
+        <span className="keyword">for</span> <OpenParen />
+        {left} <span className="keyword">in</span> {right}
+        <CloseParen />
+      </span>{' '}
+      {body}
+    </div>
+  );
+};
